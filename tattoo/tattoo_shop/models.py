@@ -7,14 +7,13 @@ from django.utils import timezone
 
 class TattooSketch(models.Model):
     """Эскизы татуировок"""
-    id = models.AutoField(primary_key=True)
-    title = models.CharField('Название эскиза', max_length=125)
-    description = models.TextField('Описание эскиза', max_length=255)
+    title = models.CharField('Название эскиза', max_length=125, blank=False)
+    description = models.TextField('Описание эскиза', max_length=255, blank=False)
     vacant = models.BooleanField('свободен ли эскиз', default=True)
 
 
 class Cart(models.Model):
-    """Модель карзины """
+    """Модель корзины """
     pass
 
 
@@ -28,23 +27,20 @@ class Product(models.Model):
 
 class Customer(models.Model):
     """Модель покупателя"""
-    id = models.AutoField(primary_key=True)
-    email = models.EmailField('email address')
-    phone_number = PhoneNumberField('Номер телефона', unique=True)
-    name = models.CharField('Имя пользователя', max_length=30)
-    surname = models.CharField('Фамилия пользователя', max_length=30)
+    email = models.EmailField('email address', blank=False)
+    phone_number = PhoneNumberField('Номер телефона', unique=True, blank=False)
+    name = models.CharField('Имя пользователя', max_length=30, blank=False)
+    surname = models.CharField('Фамилия пользователя', max_length=30, blank=False)
     patronymic = models.CharField('Отчество пользователя', max_length=30)
 
 
 class ProductPhoto(models.Model):
-    id = models.AutoField(primary_key=True)
-    url = models.CharField()
+    url = models.CharField(max_length=255)
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
 
 
 class TattooSketchPhoto(models.Model):
-    id = models.AutoField(primary_key=True)
-    url = models.CharField(255)
+    url = models.CharField(max_length=255)
     sketch_id = models.ForeignKey(TattooSketch, on_delete=models.CASCADE)
 
 
