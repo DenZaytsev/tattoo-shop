@@ -14,7 +14,7 @@ class TattooSketch(models.Model):
 
 
 class Cart(models.Model):
-    """Модель карзины """
+    """Модель корзины """
     pass
 
 
