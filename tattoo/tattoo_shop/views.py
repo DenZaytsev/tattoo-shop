@@ -2,13 +2,13 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
-
+from django.http import Http404
 from .models import TShirt, Sticker
 
 from .serializers import (
     TattooSketchDetailSerializer,
     CustomerDetailSerializer,
-    TattooSketchListSerializer,
+    SketchListSerializer,
     CategorySerializer,
     OrderDetailSerializer, StickerDetailSerializer, TShirtDetailSerializer
 
@@ -30,7 +30,7 @@ class Paginator(PageNumberPagination):
 
 class VacantTattooSketchListView(generics.ListAPIView):
     """Выдает список свободных эскизов"""
-    serializer_class = TattooSketchListSerializer
+    serializer_class = SketchListSerializer
     queryset = vacant_sketches()
     http_method_names = ['get']
     pagination_class = Paginator
@@ -83,7 +83,9 @@ class ProductsInCategoryListView(generics.ListAPIView):
     }
 
     def dispatch(self, request, *args, **kwargs):
-        self.model = self.CT_MODEL_MODEL_CLASS[kwargs['ct_model']]
+        self.model = self.CT_MODEL_MODEL_CLASS.get(kwargs['ct_model'])
+        if not self.model:
+            raise Http404("Category does not exist")
         self.queryset = self.model.objects.all()
         self.serializer_class = StickerDetailSerializer if self.model == Sticker else TShirtDetailSerializer
         return super().dispatch(request, *args, **kwargs)

@@ -14,7 +14,7 @@ class CustomerDetailSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class TattooSketchListSerializer(serializers.ModelSerializer):
+class SketchListSerializer(serializers.ModelSerializer):
     class Meta:
         model = TattooSketch
         fields = ('id', 'title', 'slug')
