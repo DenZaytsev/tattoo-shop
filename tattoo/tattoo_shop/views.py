@@ -1,9 +1,20 @@
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 
-from .serializers import TattooSketchDetailSerializer, CustomerDetailSerializer, TattooSketchListSerializer
-from .bussines_logic import vacant_sketches, get_sketch
+from .models import TShirt, Sticker
+
+from .serializers import (
+    TattooSketchDetailSerializer,
+    CustomerDetailSerializer,
+    TattooSketchListSerializer,
+    CategorySerializer,
+    OrderDetailSerializer, StickerDetailSerializer, TShirtDetailSerializer
+
+)
+
+from .bussines_logic import vacant_sketches, get_sketch, all_category
 
 
 class TattooSketchCreateView(generics.CreateAPIView):
@@ -11,21 +22,25 @@ class TattooSketchCreateView(generics.CreateAPIView):
     serializer_class = TattooSketchDetailSerializer
 
 
-class TattooSketchListView(APIView):
-    """Выдает список эскизов"""
+class Paginator(PageNumberPagination):
+    page_size = 10
+    page_query_param = 'page_size'
+    max_page_size = 10
 
-    def get(self, request):
-        """выдает список доступных эскизов"""
-        sketches = vacant_sketches()
-        serializer = TattooSketchListSerializer(sketches, many=True)
-        return Response(serializer.data)
+
+class VacantTattooSketchListView(generics.ListAPIView):
+    """Выдает список свободных эскизов"""
+    serializer_class = TattooSketchListSerializer
+    queryset = vacant_sketches()
+    http_method_names = ['get']
+    pagination_class = Paginator
 
 
 class TattooSketchDetailView(APIView):
     """выдает информацию о эскизе"""
 
-    def get(self, request, pk):
-        sketch = get_sketch(pk)
+    def get(self, request, slug):
+        sketch = get_sketch(slug)
         serializer = TattooSketchDetailSerializer(sketch)
         return Response(serializer.data)
 
@@ -33,3 +48,46 @@ class TattooSketchDetailView(APIView):
 class CustomerCreateView(generics.CreateAPIView):
     """Запись нового пользователя в базу данных"""
     serializer_class = CustomerDetailSerializer
+
+
+class CategoryListView(generics.ListAPIView):
+    serializer_class = CategorySerializer
+    queryset = all_category()
+    http_method_names = ['get']
+
+
+class CreateOrderView(generics.ListCreateAPIView):
+    serializer_class = OrderDetailSerializer
+
+
+class ProductDetailView(generics.RetrieveAPIView):
+    CT_MODEL_MODEL_CLASS = {
+        't-shirt': TShirt,
+        'sticker': Sticker
+    }
+
+    def dispatch(self, request, *args, **kwargs):
+        self.model = self.CT_MODEL_MODEL_CLASS[kwargs['ct_model']]
+        self.queryset = self.model._base_manager.all()
+        self.serializer_class = StickerDetailSerializer if self.model == Sticker else TShirtDetailSerializer
+        return super().dispatch(request, *args, **kwargs)
+
+    lookup_field = 'slug'
+
+
+class ProductsInCategoryListView(generics.ListAPIView):
+    """Выдает список продуктов заданной категории"""
+    CT_MODEL_MODEL_CLASS = {
+        't-shirt': TShirt,
+        'sticker': Sticker
+    }
+
+    def dispatch(self, request, *args, **kwargs):
+        self.model = self.CT_MODEL_MODEL_CLASS[kwargs['ct_model']]
+        self.queryset = self.model.objects.all()
+        self.serializer_class = StickerDetailSerializer if self.model == Sticker else TShirtDetailSerializer
+        return super().dispatch(request, *args, **kwargs)
+
+    lookup_field = 'ct_model'
+    http_method_names = ['get']
+    pagination_class = Paginator

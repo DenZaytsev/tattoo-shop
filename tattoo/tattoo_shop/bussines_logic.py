@@ -1,4 +1,4 @@
-from .models import TattooSketch
+from .models import TattooSketch, Category
 
 
 def vacant_sketches():
@@ -6,6 +6,11 @@ def vacant_sketches():
     return TattooSketch.objects.filter(vacant=True)
 
 
-def get_sketch(primary_key: int):
+def get_sketch(slug: str):
     """отдает эскиз по его id"""
-    return TattooSketch.objects.get(id=primary_key)
+    return TattooSketch.objects.get(slug=slug)
+
+
+def all_category():
+    """выдает все имеющиеся категории"""
+    return Category.objects.all()
