@@ -1,16 +1,19 @@
+
 from rest_framework import generics
+from rest_framework.generics import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from django.http import Http404
 from .models import TShirt, Sticker
+from .cart import Cart
 
 from .serializers import (
     TattooSketchDetailSerializer,
     CustomerDetailSerializer,
     SketchListSerializer,
     CategorySerializer,
-    OrderDetailSerializer, StickerDetailSerializer, TShirtDetailSerializer
+    OrderDetailSerializer, StickerDetailSerializer, TShirtDetailSerializer, CartAddProductSerializer
 
 )
 
@@ -77,6 +80,7 @@ class ProductDetailView(generics.RetrieveAPIView):
 
 class ProductsInCategoryListView(generics.ListAPIView):
     """Выдает список продуктов заданной категории"""
+
     CT_MODEL_MODEL_CLASS = {
         't-shirt': TShirt,
         'sticker': Sticker
@@ -93,3 +97,34 @@ class ProductsInCategoryListView(generics.ListAPIView):
     lookup_field = 'ct_model'
     http_method_names = ['get']
     pagination_class = Paginator
+
+
+class AddToCartView(APIView):
+    """Добавление товара в корзину.
+        Корзина хронится в сессии request.session['cart']
+    """
+    CT_MODEL_MODEL_CLASS = {
+        't-shirt': TShirt,
+        'sticker': Sticker
+    }
+
+    serializer_class = CartAddProductSerializer
+
+    def post(self, request, slug, **kwargs):
+        cart = Cart(request)
+        self.model = self.CT_MODEL_MODEL_CLASS.get(kwargs['ct_model'])
+
+        if not self.model:
+            raise Http404("Category does not exist")
+
+        self.product = get_object_or_404(self.model, slug=slug)
+
+        serializer = CartAddProductSerializer(data=request.POST)
+
+        if serializer.is_valid(raise_exception=True):
+            cd = serializer.data
+            cart.add_item(product=self.product,
+                          quantity=cd['quantity'],
+                          update_quantity=cd['update'])
+        print(request.session.get('cart'))
+        return Response({'status': 'ok'})

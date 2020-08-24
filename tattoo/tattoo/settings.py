@@ -26,7 +26,7 @@ SECRET_KEY = '53b73-9b+625&ff3v_3l+z8)7%yydk1wd)oxb-p!n4_ew=f62d'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+CART_SESSION_ID = 'cart'
 
 # Application definition
 

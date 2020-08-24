@@ -51,11 +51,13 @@ class Category(models.Model):
 
 class TattooSketch(models.Model):
     """Эскизы татуировок"""
+
     title = models.CharField('Название эскиза', max_length=125, blank=False)
     description = models.TextField('Описание эскиза', max_length=255, blank=False)
     vacant = models.BooleanField('свободен ли эскиз', default=True)
     image = models.ImageField(verbose_name='Изображение')
     slug = models.SlugField(unique=True)
+
 
 
 class Product(models.Model):
@@ -84,6 +86,8 @@ class Customer(models.Model):
     surname = models.CharField('Фамилия пользователя', max_length=30, blank=False)
     patronymic = models.CharField('Отчество пользователя', max_length=30)
     orders = models.ManyToManyField('Order', verbose_name='Заказы покупателя', related_name='related_order')
+
+
 
     def __str__(self):
         return f"{self.email}"

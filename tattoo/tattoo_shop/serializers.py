@@ -1,3 +1,5 @@
+from abc import ABC
+
 from .models import TattooSketch, Customer, Category, Order, TShirt, Sticker
 from rest_framework import serializers
 
@@ -48,3 +50,11 @@ class StickerDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sticker
         fields = '__all__'
+
+
+class CartAddProductSerializer(serializers.Serializer):
+
+    PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 21)]
+
+    quantity = serializers.ChoiceField(required=False, choices=PRODUCT_QUANTITY_CHOICES)
+    update = serializers.BooleanField(required=False, initial=False)
