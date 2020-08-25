@@ -1,4 +1,4 @@
-from .models import TattooSketch, Category
+from .models import TattooSketch, Category, TShirt, Sticker
 
 
 def vacant_sketches():
@@ -14,3 +14,9 @@ def get_sketch(slug: str):
 def all_category():
     """выдает все имеющиеся категории"""
     return Category.objects.all()
+
+
+CT_MODEL_MODEL_CLASS = {
+        't-shirts': TShirt,
+        'stickers': Sticker
+    }

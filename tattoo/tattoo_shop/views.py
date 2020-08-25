@@ -1,4 +1,4 @@
-
+from .bussines_logic import CT_MODEL_MODEL_CLASS, vacant_sketches, get_sketch, all_category
 from rest_framework import generics
 from rest_framework.generics import get_object_or_404
 from rest_framework.views import APIView
@@ -16,8 +16,6 @@ from .serializers import (
     OrderDetailSerializer, StickerDetailSerializer, TShirtDetailSerializer, CartAddProductSerializer
 
 )
-
-from .bussines_logic import vacant_sketches, get_sketch, all_category
 
 
 class TattooSketchCreateView(generics.CreateAPIView):
@@ -64,13 +62,9 @@ class CreateOrderView(generics.ListCreateAPIView):
 
 
 class ProductDetailView(generics.RetrieveAPIView):
-    CT_MODEL_MODEL_CLASS = {
-        't-shirt': TShirt,
-        'sticker': Sticker
-    }
 
     def dispatch(self, request, *args, **kwargs):
-        self.model = self.CT_MODEL_MODEL_CLASS[kwargs['ct_model']]
+        self.model = CT_MODEL_MODEL_CLASS[kwargs['ct_model']]
         self.queryset = self.model._base_manager.all()
         self.serializer_class = StickerDetailSerializer if self.model == Sticker else TShirtDetailSerializer
         return super().dispatch(request, *args, **kwargs)
@@ -81,13 +75,8 @@ class ProductDetailView(generics.RetrieveAPIView):
 class ProductsInCategoryListView(generics.ListAPIView):
     """Выдает список продуктов заданной категории"""
 
-    CT_MODEL_MODEL_CLASS = {
-        't-shirt': TShirt,
-        'sticker': Sticker
-    }
-
     def dispatch(self, request, *args, **kwargs):
-        self.model = self.CT_MODEL_MODEL_CLASS.get(kwargs['ct_model'])
+        self.model = CT_MODEL_MODEL_CLASS.get(kwargs['ct_model'])
         if not self.model:
             raise Http404("Category does not exist")
         self.queryset = self.model.objects.all()
@@ -103,16 +92,12 @@ class AddToCartView(APIView):
     """Добавление товара в корзину.
         Корзина хронится в сессии request.session['cart']
     """
-    CT_MODEL_MODEL_CLASS = {
-        't-shirt': TShirt,
-        'sticker': Sticker
-    }
 
     serializer_class = CartAddProductSerializer
 
     def post(self, request, slug, **kwargs):
         cart = Cart(request)
-        self.model = self.CT_MODEL_MODEL_CLASS.get(kwargs['ct_model'])
+        self.model = CT_MODEL_MODEL_CLASS.get(kwargs['ct_model'])
 
         if not self.model:
             raise Http404("Category does not exist")
@@ -122,9 +107,9 @@ class AddToCartView(APIView):
         serializer = CartAddProductSerializer(data=request.POST)
 
         if serializer.is_valid(raise_exception=True):
-            cd = serializer.data
+            clean_data = serializer.data
             cart.add_item(product=self.product,
-                          quantity=cd['quantity'],
-                          update_quantity=cd['update'])
-        print(request.session.get('cart'))
+                          quantity=clean_data['quantity'],
+                          update_quantity=clean_data['update'])
+
         return Response({'status': 'ok'})

@@ -3,6 +3,7 @@ from django.conf import settings
 from typing import Union
 from .models import TShirt, Sticker
 from django.contrib.contenttypes.models import ContentType
+from .bussines_logic import CT_MODEL_MODEL_CLASS
 
 
 class Cart:
@@ -10,7 +11,7 @@ class Cart:
 
     def __init__(self, request):
         """
-        Инициализируем корзину.
+        Инициализирует корзину.
         Если в сессии не задана корзина, мы создадим новую корзину и сохраним ее в session key корзины.
         """
         self.session = request.session
@@ -22,24 +23,24 @@ class Cart:
     def add_item(self, product: Union[TShirt, Sticker], quantity: int = 1, update_quantity=False) -> None:
         """
            Добавить продукт в корзину или обновить его количество.
-           """
-        category_id, product_id = str(product.category), str(product.id)
+        """
+        ct_model, product_id = str(product.category), str(product.id)
 
-        if category_id not in self.cart:
-            self.cart[category_id] = {
+        if ct_model not in self.cart:
+            self.cart[ct_model] = {
                 product_id: {
                     'quantity': 0,
                     'price': str(product.price)
                 }
             }
-        if product_id not in self.cart[category_id]:
-            self.cart[category_id][product_id] = {'quantity': 0,
-                                                  'price': str(product.price)
-                                                  }
+        if product_id not in self.cart[ct_model]:
+            self.cart[ct_model][product_id] = {'quantity': 0,
+                                               'price': str(product.price)
+                                               }
         if update_quantity:
-            self.cart[category_id][product_id]['quantity'] = quantity
+            self.cart[ct_model][product_id]['quantity'] = quantity
         else:
-            self.cart[category_id][product_id]['quantity'] += quantity
+            self.cart[ct_model][product_id]['quantity'] += quantity
         self.save()
 
     def save(self):
@@ -54,3 +55,33 @@ class Cart:
         if product_id in self.cart[category_id]:
             del self.cart[category_id][product_id]
             self.save()
+
+    def clear(self):
+        """удаление корзины из сессии"""
+        del self.session[settings.CART_SESSION_ID]
+        self.session.modified = True
+
+    def __iter__(self):
+        products_in_ct_model = self.cart.values()
+        for products in products_in_ct_model:
+            for product in products:
+                yield product
+
+    def get_products_by_ct_model(self, ct_model: str):
+        """возвращает из корзины кверисет с продуктами по заданной категории"""
+        try:
+            model: Union[TShirt, Sticker] = CT_MODEL_MODEL_CLASS[ct_model]
+            product_ids = self.cart[ct_model].keys()
+            products = model.objects.filter(id__in=product_ids)
+
+        except KeyError:
+            print('Такой категории нет в корзине')
+        return products
+
+    def get_all_product_in_cart(self):
+        """возвращает список содержащий кверисеты со всеми продуктами из корзины"""
+        ct_models = self.cart.key()
+        return [self.get_products_by_ct_model(ct_model) for ct_model in ct_models]
+
+    def get_total_price(self):
+        pass
