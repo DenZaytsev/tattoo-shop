@@ -52,16 +52,19 @@ class CustomerCreateView(generics.CreateAPIView):
 
 
 class CategoryListView(generics.ListAPIView):
+    """Возвращает список категорий товаров"""
     serializer_class = CategorySerializer
     queryset = all_category()
     http_method_names = ['get']
 
 
 class CreateOrderView(generics.ListCreateAPIView):
+    """Запись закава в базу данных"""
     serializer_class = OrderDetailSerializer
 
 
 class ProductDetailView(generics.RetrieveAPIView):
+    """Возвращает детальную информацию о товаре"""
 
     def dispatch(self, request, *args, **kwargs):
         self.model = CT_MODEL_MODEL_CLASS[kwargs['ct_model']]
@@ -113,3 +116,12 @@ class AddToCartView(APIView):
                           update_quantity=clean_data['update'])
 
         return Response({'status': 'ok'})
+
+
+class CartDetailView(APIView):
+    """
+        Показывает содержание корзины.
+    """
+    def get(self, request):
+        cart = Cart(request)
+        return Response(cart.cart)

@@ -35,7 +35,7 @@ class Cart:
             }
         if product_id not in self.cart[ct_model]:
             self.cart[ct_model][product_id] = {'quantity': 0,
-                                               'price': str(product.price)
+                                               'price': Decimal(product.price)
                                                }
         if update_quantity:
             self.cart[ct_model][product_id]['quantity'] = quantity
@@ -64,7 +64,7 @@ class Cart:
     def __iter__(self):
         products_in_ct_model = self.cart.values()
         for products in products_in_ct_model:
-            for product in products:
+            for product in products.values():
                 yield product
 
     def get_products_by_ct_model(self, ct_model: str):
@@ -84,4 +84,12 @@ class Cart:
         return [self.get_products_by_ct_model(ct_model) for ct_model in ct_models]
 
     def get_total_price(self):
-        pass
+        """Возвращает цену всех предметов в корзине"""
+        return sum(int(item['quantity']) * Decimal(item['price']) for item in self)
+
+    def __str__(self):
+        return self.cart
+
+    def __len__(self):
+        """Возвращает количество передметов в корзине"""
+        return sum(item['quantity'] for item in self)
