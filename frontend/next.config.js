@@ -1,10 +1,10 @@
 const withCSS = require('@zeit/next-css');
-const GoogleFontsPlugin = require('google-fonts-webpack-plugin');
+const GoogleFontsPlugin = require('@beyonk/google-fonts-webpack-plugin');
 
 module.exports = withCSS({
-  webpack(config, options) {
+  webpack(config) {
     config.module.rules.push({
-      test: /\.(js|jsx|ts|tsx)$/,
+      test: /\.tsx$/,
       use: [
         {
           loader: 'linaria/loader',
