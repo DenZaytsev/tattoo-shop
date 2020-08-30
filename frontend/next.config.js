@@ -1,4 +1,5 @@
 const withCSS = require('@zeit/next-css');
+const GoogleFontsPlugin = require('google-fonts-webpack-plugin');
 
 module.exports = withCSS({
   webpack(config, options) {
@@ -13,6 +14,12 @@ module.exports = withCSS({
         },
       ],
     });
+
+    config.plugins.push(
+      new GoogleFontsPlugin({
+        fonts: [{ family: 'Roboto', variants: ['300', '400', '700'] }],
+      }),
+    );
 
     return config;
   },
