@@ -26,7 +26,7 @@ SECRET_KEY = '53b73-9b+625&ff3v_3l+z8)7%yydk1wd)oxb-p!n4_ew=f62d'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+CART_SESSION_ID = 'cart'
 
 # Application definition
 
@@ -124,7 +124,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, STATIC_URL)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static_dev'),
+)
