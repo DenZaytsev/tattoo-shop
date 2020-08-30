@@ -4252,6 +4252,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"effector-react@npm:^21.0.4":
+  version: 21.0.4
+  resolution: "effector-react@npm:21.0.4"
+  peerDependencies:
+    effector: ^21.0.2
+    react: ^16.8.0
+  checksum: d2cc35b0749d34b6a77e2a2d2ba33f05765508cdc106a75dfb4d5d1171dc51786aebfce136484a0bd3b2893b279d7ee10b6521ed0595a7a569223bbe2d8db8cd
+  languageName: node
+  linkType: hard
+
+"effector@npm:^21.2.2":
+  version: 21.2.2
+  resolution: "effector@npm:21.2.2"
+  checksum: 29df829b8ed78113c12eb9b6e066d623784f7e9caa6a76df715a70867edb44c20ea22f93b61fddd39b025fd877047a907ad136fe62fed23cffa258c2ae3eecb0
+  languageName: node
+  linkType: hard
+
 "electron-to-chromium@npm:^1.3.488, electron-to-chromium@npm:^1.3.523":
   version: 1.3.555
   resolution: "electron-to-chromium@npm:1.3.555"
@@ -5214,6 +5231,8 @@ __metadata:
     commitizen: ^4.0.4
     css-loader: ^4.2.2
     cz-conventional-changelog: ^3.1.0
+    effector: ^21.2.2
+    effector-react: ^21.0.4
     eslint: ^6.8.0
     eslint-config-airbnb-base: ^14.1.0
     eslint-config-prettier: ^6.10.1
