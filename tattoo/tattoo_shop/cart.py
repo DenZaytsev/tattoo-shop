@@ -35,7 +35,7 @@ class Cart:
             }
         if product_id not in self.cart[ct_model]:
             self.cart[ct_model][product_id] = {'quantity': 0,
-                                               'price': Decimal(product.price)
+                                               'price': str(product.price)
                                                }
         if update_quantity:
             self.cart[ct_model][product_id]['quantity'] = quantity
