@@ -30,7 +30,7 @@ class CategoryManager(models.Manager):
         return super().get_queryset()
 
     def get_categories_for_left_sidebar(self):
-        models = get_models_for_count('tshort', 'sticker')
+        models = get_models_for_count('tshirt', 'sticker')
         qs = list(self.get_queryset().annotate(*models))
         data = [
             dict(name=c.name, url=c.get_absolute_url(), count=getattr(c, self.CATEGORY_NAME_COUNT_NAME[c.name]))

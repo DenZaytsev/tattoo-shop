@@ -13,7 +13,8 @@ from .serializers import (
     CustomerDetailSerializer,
     SketchListSerializer,
     CategorySerializer,
-    OrderDetailSerializer, StickerDetailSerializer, TShirtDetailSerializer, CartAddProductSerializer
+    OrderDetailSerializer, StickerDetailSerializer, TShirtDetailSerializer, CartAddProductDetailSerializer,
+    CartAddProductSerializer, CartRemoveSerializer
 
 )
 
@@ -91,12 +92,12 @@ class ProductsInCategoryListView(generics.ListAPIView):
     pagination_class = Paginator
 
 
-class AddToCartView(APIView):
-    """Добавление товара в корзину.
+class AddToCartDetailView(APIView):
+    """Добавление товара в корзину данные о котором содержатся в урле.
         Корзина хронится в сессии request.session['cart']
     """
 
-    serializer_class = CartAddProductSerializer
+    serializer_class = CartAddProductDetailSerializer
 
     def post(self, request, slug, **kwargs):
         cart = Cart(request)
@@ -107,7 +108,7 @@ class AddToCartView(APIView):
 
         self.product = get_object_or_404(self.model, slug=slug)
 
-        serializer = CartAddProductSerializer(data=request.POST)
+        serializer = CartAddProductDetailSerializer(data=request.POST)
 
         if serializer.is_valid(raise_exception=True):
             clean_data = serializer.data
@@ -125,3 +126,62 @@ class CartDetailView(APIView):
     def get(self, request):
         cart = Cart(request)
         return Response(cart.cart)
+
+
+class AddToCartView(APIView):
+    """Добавление товара в корзину информация о котором содержится в пост запросе.
+        Корзина хронится в сессии request.session['cart']
+    """
+
+    serializer_class = CartAddProductSerializer
+
+    def post(self, request):
+        cart = Cart(request)
+
+        serializer = CartAddProductSerializer(data=request.POST)
+
+        if serializer.is_valid(raise_exception=True):
+            clean_data = serializer.data
+            model = CT_MODEL_MODEL_CLASS.get(clean_data['ct_model'])
+            if not model:
+                raise Http404("Category does not exist")
+            product = get_object_or_404(model, slug=clean_data['slug'])
+            cart.add_item(product=product,
+                          quantity=clean_data['quantity'],
+                          update_quantity=clean_data['update'])
+            return Response({'status': 'ok', 'cart': cart.cart})
+
+        return Response({'status': 'ne_ok'})
+
+
+class RemoveCartView(APIView):
+    """Удфляет товар из корзины"""
+    serializer_class = CartRemoveSerializer
+
+    def post(self, request):
+        cart = Cart(request)
+
+        serializer = CartRemoveSerializer(data=request.POST)
+
+        if serializer.is_valid(raise_exception=True):
+            clean_data = serializer.data
+            model = CT_MODEL_MODEL_CLASS.get(clean_data['ct_model'])
+            if not model:
+                raise Http404("Category does not exist")
+            product = get_object_or_404(model, slug=clean_data['slug'])
+            cart.remove(product=product)
+            return Response({'status': 'ok', 'cart': cart.cart})
+
+        return Response({'status': 'ne_ok'})
+
+
+class ClearCartView(APIView):
+    """Очищает содержимое корзины"""
+
+    def post(self, request):
+        cart = Cart(request)
+
+        cart.clear()
+        return Response({'status': 'ok', 'cart': cart.cart})
+
+
