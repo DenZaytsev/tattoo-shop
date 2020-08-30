@@ -52,9 +52,23 @@ class StickerDetailSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class CartAddProductSerializer(serializers.Serializer):
+class CartAddProductDetailSerializer(serializers.Serializer):
 
-    PRODUCT_QUANTITY_CHOICES = [(int(i), str(i)) for i in range(1, 21)]
+    PRODUCT_QUANTITY_CHOICES = [(int(i), str(i)) for i in range(-10, 21)]
 
     quantity = serializers.ChoiceField(required=False, choices=PRODUCT_QUANTITY_CHOICES)
     update = serializers.BooleanField(required=False, initial=False)
+
+
+class CartAddProductSerializer(serializers.Serializer):
+    PRODUCT_QUANTITY_CHOICES = [(int(i), str(i)) for i in range(-10, 21)]
+
+    quantity = serializers.ChoiceField(required=False, choices=PRODUCT_QUANTITY_CHOICES)
+    update = serializers.BooleanField(required=False, initial=False)
+    ct_model = serializers.CharField(max_length=100, required=False)
+    slug = serializers.CharField(max_length=100, required=False)
+
+
+class CartRemoveSerializer(serializers.Serializer):
+    ct_model = serializers.CharField(max_length=100, required=False)
+    slug = serializers.CharField(max_length=100, required=False)
