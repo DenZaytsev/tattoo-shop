@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+[![Scripts sets up by @solid-soda/scripts v2.1.1](https://img.shields.io/static/v1?label=@solid-soda/scripts&message=2.1.1&color=75ddf4)](https://github.com/solid-soda/scripts)
+
 First, run the development server:
 
 ```bash
