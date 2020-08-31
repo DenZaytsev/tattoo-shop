@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from django.http import Http404
-from .models import TShirt, Sticker
+from .models import TShirt, Sticker, OrderItem, ContentType
 from .cart import Cart
 
 from .serializers import (
@@ -59,9 +59,28 @@ class CategoryListView(generics.ListAPIView):
     http_method_names = ['get']
 
 
-class CreateOrderView(generics.ListCreateAPIView):
+class CreateOrderView(APIView):
     """Запись закава в базу данных"""
     serializer_class = OrderDetailSerializer
+
+    def get(self, request):
+        cart = Cart(request)
+        return Response(cart.cart)
+
+    def post(self, request):
+        cart = Cart(request)
+        serializer = OrderDetailSerializer(data=request.POST)
+        if serializer.is_valid():
+            order = serializer.save()
+            for item in cart:
+                OrderItem.objects.create(order=order,
+                                         content_type=ContentType.objects.get(pk=item['ct_model_id']),
+                                         object_id=item['id'],
+                                         price=item['price'],
+                                         quantity=item['quantity'])
+
+            cart.clear()
+            return Response({'massage': 'Заказ создан'})
 
 
 class ProductDetailView(generics.RetrieveAPIView):
@@ -101,7 +120,7 @@ class AddToCartDetailView(APIView):
 
     def post(self, request, slug, **kwargs):
         cart = Cart(request)
-        self.model = CT_MODEL_MODEL_CLASS.get(kwargs['ct_model'])
+        self.model = CT_MODEL_MODEL_CLASS.get(kwargs['ct_model'])  # переделать
 
         if not self.model:
             raise Http404("Category does not exist")
@@ -123,6 +142,7 @@ class CartDetailView(APIView):
     """
         Показывает содержание корзины.
     """
+
     def get(self, request):
         cart = Cart(request)
         return Response(cart.cart)
@@ -165,7 +185,7 @@ class RemoveCartView(APIView):
 
         if serializer.is_valid(raise_exception=True):
             clean_data = serializer.data
-            model = CT_MODEL_MODEL_CLASS.get(clean_data['ct_model'])
+            model = CT_MODEL_MODEL_CLASS.get(clean_data['ct_model'])  # переделать с контенттайп
             if not model:
                 raise Http404("Category does not exist")
             product = get_object_or_404(model, slug=clean_data['slug'])
@@ -183,5 +203,3 @@ class ClearCartView(APIView):
 
         cart.clear()
         return Response({'status': 'ok', 'cart': cart.cart})
-
-
