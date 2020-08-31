@@ -13,8 +13,12 @@ from .serializers import (
     CustomerDetailSerializer,
     SketchListSerializer,
     CategorySerializer,
-    OrderDetailSerializer, StickerDetailSerializer, TShirtDetailSerializer, CartAddProductDetailSerializer,
-    CartAddProductSerializer, CartRemoveSerializer
+    OrderDetailSerializer,
+    StickerDetailSerializer,
+    TShirtDetailSerializer,
+    CartAddProductDetailSerializer,
+    CartAddProductSerializer,
+    CartRemoveSerializer
 
 )
 
@@ -145,7 +149,7 @@ class CartDetailView(APIView):
 
     def get(self, request):
         cart = Cart(request)
-        return Response(cart.cart)
+        return Response({'cart': cart.cart, 'total_price': cart.get_total_price()})
 
 
 class AddToCartView(APIView):
@@ -162,14 +166,14 @@ class AddToCartView(APIView):
 
         if serializer.is_valid(raise_exception=True):
             clean_data = serializer.data
-            model = CT_MODEL_MODEL_CLASS.get(clean_data['ct_model'])
+            model = CT_MODEL_MODEL_CLASS.get(clean_data['category'])
             if not model:
                 raise Http404("Category does not exist")
             product = get_object_or_404(model, slug=clean_data['slug'])
             cart.add_item(product=product,
                           quantity=clean_data['quantity'],
                           update_quantity=clean_data['update'])
-            return Response({'status': 'ok', 'cart': cart.cart})
+            return Response({'status': 'ok', 'cart': cart.cart, 'total_price': cart.get_total_price()})
 
         return Response({'status': 'ne_ok'})
 

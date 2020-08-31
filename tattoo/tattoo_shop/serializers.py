@@ -1,5 +1,3 @@
-from abc import ABC
-
 from .models import TattooSketch, Customer, Category, Order, TShirt, Sticker
 from rest_framework import serializers
 
@@ -65,7 +63,7 @@ class CartAddProductSerializer(serializers.Serializer):
 
     quantity = serializers.ChoiceField(required=False, choices=PRODUCT_QUANTITY_CHOICES)
     update = serializers.BooleanField(required=False, initial=False)
-    ct_model = serializers.CharField(max_length=100, required=False)
+    category = serializers.CharField(max_length=100, required=False)
     slug = serializers.CharField(max_length=100, required=False)
 
 
