@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { css } from 'linaria';
-import Button from '@material-ui/core/Button';
 
 const test = css`
   color: red !important;
@@ -17,7 +16,6 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Button className={test}>Тестовая кнопка</Button>
     </div>
   );
 }

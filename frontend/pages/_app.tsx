@@ -1,7 +1,9 @@
 import React from 'react';
 import { AppProps } from 'next/app';
-import { ThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { GeistProvider, CssBaseline } from '@geist-ui/react';
+
+import { Layout, ContentWrapper } from '../src/features/layout';
+import { Header } from '../src/features/header';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   React.useEffect(() => {
@@ -13,10 +15,15 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   }, []);
 
   return (
-    <ThemeProvider>
+    <GeistProvider>
       <CssBaseline />
-      <Component {...pageProps} />
-    </ThemeProvider>
+      <Layout>
+        <Header />
+        <ContentWrapper>
+          <Component {...pageProps} />
+        </ContentWrapper>
+      </Layout>
+    </GeistProvider>
   );
 };
 
