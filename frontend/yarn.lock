@@ -1630,6 +1630,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@csstools/normalize.css@npm:*":
+  version: 11.0.1
+  resolution: "@csstools/normalize.css@npm:11.0.1"
+  checksum: 0595b5ede221e231d4965b80dd238ff9d86a84a70d299f9be629217cfa7a3cfe453f3ea64f9a00ecc20fa793c7c69f9a29b88051a1dced214347917587e1a317
+  languageName: node
+  linkType: hard
+
 "@emotion/is-prop-valid@npm:^0.7.3":
   version: 0.7.3
   resolution: "@emotion/is-prop-valid@npm:0.7.3"
@@ -2837,7 +2844,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:^4.6.4":
+"browserslist@npm:^4.14.0, browserslist@npm:^4.6.4":
   version: 4.14.0
   resolution: "browserslist@npm:4.14.0"
   dependencies:
@@ -5280,6 +5287,7 @@ __metadata:
     "@typescript-eslint/parser": ^2.27.0
     "@zeit/next-css": ^1.0.1
     add: ^2.0.6
+    browserslist: ^4.14.0
     caniuse-lite: ^1.0.30001120
     commitizen: ^4.0.4
     css-loader: ^4.2.2
@@ -5304,6 +5312,7 @@ __metadata:
     next: 9.5.2
     postcss-flexbugs-fixes: ^4.2.1
     postcss-loader: ^3.0.0
+    postcss-normalize: ^9.0.0
     postcss-preset-env: ^6.7.0
     prettier: ^2.0.4
     react: 16.13.1
@@ -8341,6 +8350,17 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"postcss-browser-comments@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "postcss-browser-comments@npm:3.0.0"
+  dependencies:
+    postcss: ^7
+  peerDependencies:
+    browserslist: ^4
+  checksum: 5b15cad45c572ebd1a2abad087f8bd577749dc1edbab6c6f83cc7d8c3e95a8c113798258f4bde4713c304802cdf263a67d3e96a668f37854624650c1a3ec7f3a
+  languageName: node
+  linkType: hard
+
 "postcss-color-functional-notation@npm:^2.0.1":
   version: 2.0.1
   resolution: "postcss-color-functional-notation@npm:2.0.1"
@@ -8657,6 +8677,18 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"postcss-normalize@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "postcss-normalize@npm:9.0.0"
+  dependencies:
+    "@csstools/normalize.css": "*"
+    postcss: ^7.0.27
+    postcss-browser-comments: ^3.0.0
+    sanitize.css: "*"
+  checksum: ac0992a303773653ad5cd0e1dce3187265df5032c8e3bcabe587476884f86d252769c15b63b769eed76f79ab92d59b2764f607b124990d6b23cd8d58c0ef7c0e
+  languageName: node
+  linkType: hard
+
 "postcss-overflow-shorthand@npm:^2.0.0":
   version: 2.0.0
   resolution: "postcss-overflow-shorthand@npm:2.0.0"
@@ -8836,7 +8868,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"postcss@npm:7.0.32, postcss@npm:^7.0.0, postcss@npm:^7.0.14, postcss@npm:^7.0.17, postcss@npm:^7.0.2, postcss@npm:^7.0.26, postcss@npm:^7.0.27, postcss@npm:^7.0.32, postcss@npm:^7.0.5, postcss@npm:^7.0.6":
+"postcss@npm:7.0.32, postcss@npm:^7, postcss@npm:^7.0.0, postcss@npm:^7.0.14, postcss@npm:^7.0.17, postcss@npm:^7.0.2, postcss@npm:^7.0.26, postcss@npm:^7.0.27, postcss@npm:^7.0.32, postcss@npm:^7.0.5, postcss@npm:^7.0.6":
   version: 7.0.32
   resolution: "postcss@npm:7.0.32"
   dependencies:
@@ -9735,6 +9767,13 @@ fsevents@~2.1.2:
   version: 2.1.2
   resolution: "safer-buffer@npm:2.1.2"
   checksum: 549ba83f5b314b59898efe3422120ce1ca7987a6eae5925a5fa5db930dc414d4a9dde0a5594f89638cd6ea60b6840ea961872908933ac2428d1726489db46fa5
+  languageName: node
+  linkType: hard
+
+"sanitize.css@npm:*":
+  version: 12.0.1
+  resolution: "sanitize.css@npm:12.0.1"
+  checksum: cb6cf8a406b6190f418e9d734d30872668dfa22809038d3c0ff14a05b1543a8d90e6ae743f69bfdd454a2b1de11c9508ca5877aefd1816155a7ef50524ff4648
   languageName: node
   linkType: hard
 
