@@ -54,7 +54,7 @@ export const Header = () => {
       </div>
       <button
         type="button"
-        className={cx(iconButton, menuButton)}
+        className={cx(iconButton, cartButton)}
         aria-label="Корзина товаров"
         onClick={toggleCart}
       >
