@@ -24,23 +24,28 @@ class Cart:
         """
            Добавить продукт в корзину или обновить его количество.
         """
-        ct_model, product_id = str(product.category), str(product.id)
-
-        if ct_model not in self.cart:
-            self.cart[ct_model] = {
-                product_id: {
+        ct_model_id, category = ContentType.objects.get_for_model(product).id, str(product.category)
+        product_id, product_slug = str(product.id), str(product.slug)
+        if category not in self.cart:
+            self.cart[category] = {
+                product_slug: {
+                    'id': product_id,
                     'quantity': 0,
-                    'price': str(product.price)
+                    'price': str(product.price),
+                    'ct_model_id': ct_model_id,
                 }
             }
-        if product_id not in self.cart[ct_model]:
-            self.cart[ct_model][product_id] = {'quantity': 0,
-                                               'price': str(product.price)
-                                               }
+        if product_id not in self.cart[category]:
+            self.cart[category][product_slug] = {
+                'id': product_id,
+                'quantity': 0,
+                'price': str(product.price),
+                'ct_model_id': ct_model_id,
+            }
         if update_quantity:
-            self.cart[ct_model][product_id]['quantity'] = quantity
+            self.cart[category][product_slug]['quantity'] = quantity
         else:
-            self.cart[ct_model][product_id]['quantity'] += quantity
+            self.cart[category][product_slug]['quantity'] += quantity
         self.save()
 
     def save(self):
@@ -51,9 +56,9 @@ class Cart:
         """
         Удаление товара из корзины.
         """
-        category_id, product_id = str(product.category), str(product.id)
-        if product_id in self.cart[category_id]:
-            del self.cart[category_id][product_id]
+        category, product_slug = str(product.category), str(product.slug)
+        if product_slug in self.cart[category]:
+            del self.cart[category][product_slug]
             self.save()
 
     def clear(self):
@@ -67,11 +72,11 @@ class Cart:
             for product in products.values():
                 yield product
 
-    def get_products_by_ct_model(self, ct_model: str):
+    def get_products_by_category(self, category: str):
         """возвращает из корзины кверисет с продуктами по заданной категории"""
         try:
-            model: Union[TShirt, Sticker] = CT_MODEL_MODEL_CLASS[ct_model]
-            product_ids = self.cart[ct_model].keys()
+            model: Union[TShirt, Sticker] = CT_MODEL_MODEL_CLASS[category]
+            product_ids = self.cart[category].keys()
             products = model.objects.filter(id__in=product_ids)
 
         except KeyError:
@@ -80,8 +85,8 @@ class Cart:
 
     def get_all_product_in_cart(self):
         """возвращает список содержащий кверисеты со всеми продуктами из корзины"""
-        ct_models = self.cart.key()
-        return [self.get_products_by_ct_model(ct_model) for ct_model in ct_models]
+        categories = self.cart.key()
+        return [self.get_products_by_category(category) for category in categories]
 
     def get_total_price(self):
         """Возвращает цену всех предметов в корзине"""
