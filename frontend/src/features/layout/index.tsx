@@ -1,6 +1,8 @@
 import React from 'react';
 import { css } from 'linaria';
 
+import { desktopBp } from '../../theme/breakpoints';
+
 const layout = css`
   display: grid;
   min-height: 100vh;
@@ -12,10 +14,10 @@ const layout = css`
     'footer' minmax(64px, auto)
     / minmax(auto, 100vw);
 
-  @media (min-width: 1200px) {
+  @media (min-width: ${desktopBp}px) {
     grid-template:
-      'left header  right' minmax(64px, auto)
-      'left content right' 1fr
+      'menu header  cart' minmax(64px, auto)
+      'menu content cart' 1fr
       'footer footer footer' minmax(64px, auto)
       / 1fr minmax(auto, 600px) 1fr;
   }

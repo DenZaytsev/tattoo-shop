@@ -1,16 +1,25 @@
 import React from 'react';
-import { css } from 'linaria';
-import { Button } from 'reakit/Button';
+import { css, cx } from 'linaria';
 import Menu from '@geist-ui/react-icons/menu';
 import { ShoppingCart } from '@geist-ui/react-icons';
 import { Text } from '@geist-ui/react';
 
-const menuButton = css`
+import { toggleMenu } from '../../domain/menu';
+import { toggleCart } from '../../domain/cart';
+
+const iconButton = css`
   background: none;
   border: none;
   cursor: pointer;
-  justify-self: flex-start;
   padding: 0;
+`;
+
+const menuButton = css`
+  justify-self: flex-start;
+`;
+
+const cartButton = css`
+  justify-self: flex-end;
 `;
 
 const logoText = css`
@@ -22,7 +31,7 @@ const appHeader = css`
   background-color: white !important;
   color: black;
   padding: 16px;
-  width: 100%;
+
   display: grid;
   grid-template-columns: 15% 70% 15%;
 `;
@@ -30,17 +39,27 @@ const appHeader = css`
 export const Header = () => {
   return (
     <header className={appHeader}>
-      <Button className={menuButton} aria-label="Меню и категории">
+      <button
+        type="button"
+        className={cx(iconButton, menuButton)}
+        aria-label="Меню и категории"
+        onClick={toggleMenu}
+      >
         <Menu />
-      </Button>
+      </button>
       <div className={logoText}>
         <Text h1 size="2rem">
           Тату шоп
         </Text>
       </div>
-      <Button className={menuButton} aria-label="Корзина товаров">
+      <button
+        type="button"
+        className={cx(iconButton, menuButton)}
+        aria-label="Корзина товаров"
+        onClick={toggleCart}
+      >
         <ShoppingCart />
-      </Button>
+      </button>
     </header>
   );
 };

@@ -3,9 +3,13 @@ import { AppProps } from 'next/app';
 import { css } from 'linaria';
 import { GeistProvider, CssBaseline } from '@geist-ui/react';
 
+import { customTheme } from '../src/theme';
+
 import { Layout, ContentWrapper } from '../src/features/layout';
 import { Header } from '../src/features/header';
 import { Footer } from '../src/features/footer';
+import { MenuBlock } from '../src/features/menu';
+import { CartBlock } from '../src/features/cart';
 
 export const globals = css`
   @import-normalize :global() {
@@ -18,7 +22,7 @@ export const globals = css`
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
-    <GeistProvider>
+    <GeistProvider theme={customTheme}>
       <CssBaseline />
       <Layout>
         <Header />
@@ -26,6 +30,8 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
           <Component {...pageProps} />
         </ContentWrapper>
         <Footer />
+        <MenuBlock />
+        <CartBlock />
       </Layout>
     </GeistProvider>
   );
