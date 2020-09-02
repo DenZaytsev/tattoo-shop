@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { css } from 'linaria';
+import { Text } from '@geist-ui/react';
 
 const test = css`
   color: red !important;
@@ -16,6 +17,10 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Text p>Тестовый контент для интернет магаза</Text>
+      <Text p b>
+        Тестовый текст тестовый тестами погоняет бла бла бла
+      </Text>
     </div>
   );
 }

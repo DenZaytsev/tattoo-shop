@@ -2,6 +2,7 @@ import React from 'react';
 import { css } from 'linaria';
 import { Button } from 'reakit/Button';
 import Menu from '@geist-ui/react-icons/menu';
+import { ShoppingCart } from '@geist-ui/react-icons';
 import { Text } from '@geist-ui/react';
 
 const menuButton = css`
@@ -9,6 +10,7 @@ const menuButton = css`
   border: none;
   cursor: pointer;
   justify-self: flex-start;
+  padding: 0;
 `;
 
 const logoText = css`
@@ -28,7 +30,7 @@ const appHeader = css`
 export const Header = () => {
   return (
     <header className={appHeader}>
-      <Button className={menuButton} aria-label="Меню">
+      <Button className={menuButton} aria-label="Меню и категории">
         <Menu />
       </Button>
       <div className={logoText}>
@@ -36,6 +38,9 @@ export const Header = () => {
           Тату шоп
         </Text>
       </div>
+      <Button className={menuButton} aria-label="Корзина товаров">
+        <ShoppingCart />
+      </Button>
     </header>
   );
 };
