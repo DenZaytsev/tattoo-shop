@@ -12,6 +12,13 @@ const iconButton = css`
   border: none;
   cursor: pointer;
   padding: 0;
+  transition: 0.5s ease;
+  transition-property: color, transform;
+
+  &:hover {
+    color: rgb(121, 40, 202);
+    transform: scale(1.5);
+  }
 `;
 
 const menuButton = css`
