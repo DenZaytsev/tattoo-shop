@@ -16,12 +16,16 @@ const SideContainerContent: React.FC<WrapperProps> = styled.div`
   display: flex;
   flex-flow: column;
   width: 100%;
-  transition: 0.55s ease-in;
-  transition-property: transform, opacity;
 
   & > * {
+    transition: transform 0.6s ease-in, opacity 0.4s ease;
     align-self: ${({ side }) => (side === 'left' ? 'flex-start' : 'flex-end')};
     opacity: ${({ open }) => (open ? '1' : '0')};
+    transform: ${({ open, side }) => {
+      if (open) return 'translateX(0)';
+
+      return side === 'left' ? 'translateX(300px)' : 'translateX(-300px)';
+    }};
   }
 `;
 
