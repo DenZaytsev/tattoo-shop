@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal } from '@geist-ui/react';
 import { css } from 'linaria';
 import { useMedia } from 'use-media';
+import Link from 'next/link';
 
 import { useStore } from 'effector-react';
 import { $menuVisible, closeMenu } from '../../domain/menu';
@@ -18,7 +19,12 @@ const Menu: React.FC = () => {
   return (
     <div>
       <ul>
-        <li>Тату</li>
+        <li>
+          Тату
+          <Link href="/about" passHref>
+            <a>bla</a>
+          </Link>
+        </li>
         <li>Шоп</li>
       </ul>
     </div>
