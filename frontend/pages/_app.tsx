@@ -10,9 +10,12 @@ import { Header } from '../src/features/header';
 import { Footer } from '../src/features/footer';
 import { MenuBlock } from '../src/features/menu';
 import { CartBlock } from '../src/features/cart';
+import { NotificationsProvider } from '../src/features/notifications';
 
 export const globals = css`
-  @import-normalize :global() {
+  :global() {
+    @import-normalize;
+
     *:focus,
     *:focus-within {
       outline: 1px solid rgb(121, 40, 202);
@@ -33,6 +36,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         <MenuBlock />
         <CartBlock />
       </Layout>
+      <NotificationsProvider />
     </GeistProvider>
   );
 };
