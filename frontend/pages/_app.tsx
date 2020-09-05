@@ -1,22 +1,43 @@
 import React from 'react';
 import { AppProps } from 'next/app';
-import { ThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { css } from 'linaria';
+import { GeistProvider, CssBaseline } from '@geist-ui/react';
+
+import { customTheme } from '../src/theme';
+
+import { Layout, ContentWrapper } from '../src/features/layout';
+import { Header } from '../src/features/header';
+import { Footer } from '../src/features/footer';
+import { MenuBlock } from '../src/features/menu';
+import { CartBlock } from '../src/features/cart';
+import { NotificationsProvider } from '../src/features/notifications';
+
+export const globals = css`
+  :global() {
+    @import-normalize;
+
+    *:focus,
+    *:focus-within {
+      outline: 1px solid rgb(121, 40, 202);
+    }
+  }
+`;
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
-  React.useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side');
-    if (jssStyles) {
-      jssStyles.parentElement.removeChild(jssStyles);
-    }
-  }, []);
-
   return (
-    <ThemeProvider>
+    <GeistProvider theme={customTheme}>
       <CssBaseline />
-      <Component {...pageProps} />
-    </ThemeProvider>
+      <Layout>
+        <Header />
+        <ContentWrapper>
+          <Component {...pageProps} />
+        </ContentWrapper>
+        <Footer />
+        <MenuBlock />
+        <CartBlock />
+      </Layout>
+      <NotificationsProvider />
+    </GeistProvider>
   );
 };
 

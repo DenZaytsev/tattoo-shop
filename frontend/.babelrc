@@ -1,4 +1,4 @@
 {
   "presets": ["next/babel", "linaria/babel"],
-  "plugins": []
+  "plugins": ["effector/babel-plugin"]
 }

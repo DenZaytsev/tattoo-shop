@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { css } from 'linaria';
-import Button from '@material-ui/core/Button';
+import { Text } from '@geist-ui/react';
 
 const test = css`
   color: red !important;
@@ -17,7 +17,10 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Button className={test}>Тестовая кнопка</Button>
+      <Text p>Тестовый контент для интернет магаза</Text>
+      <Text p b>
+        Тестовый текст тестовый тестами погоняет бла бла бла
+      </Text>
     </div>
   );
 }
