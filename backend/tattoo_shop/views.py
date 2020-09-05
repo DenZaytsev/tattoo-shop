@@ -7,7 +7,7 @@ from rest_framework.pagination import PageNumberPagination
 from django.http import Http404
 from .models import TShirt, Sticker, OrderItem, ContentType
 from .cart import Cart
-
+from .tasks import order_created
 from .serializers import (
     TattooSketchDetailSerializer,
     CustomerDetailSerializer,
@@ -84,6 +84,7 @@ class CreateOrderView(APIView):
                                          quantity=item['quantity'])
 
             cart.clear()
+            order_created.delay(order.id)
             return Response({'massage': 'Заказ создан'})
 
 

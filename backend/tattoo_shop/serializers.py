@@ -34,7 +34,7 @@ class OrderDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('first_name', 'last_name', 'phone', 'address', 'buying_type', 'comment')
+        fields = ('first_name', 'last_name', 'phone', 'address', 'buying_type', 'comment', 'email')
 
 
 class TShirtDetailSerializer(serializers.ModelSerializer):

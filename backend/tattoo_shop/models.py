@@ -59,7 +59,6 @@ class TattooSketch(models.Model):
     slug = models.SlugField(unique=True)
 
 
-
 class Product(models.Model):
 
     class Meta:
@@ -71,7 +70,7 @@ class Product(models.Model):
     quantity = models.PositiveSmallIntegerField(default=0)
     category = models.ForeignKey(Category, verbose_name="категория", on_delete=models.CASCADE)
     slug = models.SlugField(unique=True)
-    image = models.ImageField(verbose_name='Изображение', blank=False)
+    image = models.ImageField(verbose_name='Изображение', blank=True)
 
     def __str__(self):
         return self.title
@@ -86,8 +85,6 @@ class Customer(models.Model):
     surname = models.CharField('Фамилия пользователя', max_length=30, blank=False)
     patronymic = models.CharField('Отчество пользователя', max_length=30)
     orders = models.ManyToManyField('Order', verbose_name='Заказы покупателя', related_name='related_order')
-
-
 
     def __str__(self):
         return f"{self.email}"
@@ -159,6 +156,7 @@ class Order(models.Model):
     last_name = models.CharField(max_length=255, verbose_name='Фамилия', blank=True)
     phone = PhoneNumberField(max_length=20, verbose_name='Телефон', blank=True)
     address = models.CharField(max_length=1024, verbose_name='Адрес', null=True, blank=True)
+    email = models.EmailField('email address', blank=False)
 
     status = models.CharField(
         max_length=100,
@@ -185,7 +183,7 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     """"""
-    order = models.ForeignKey('Order', related_name='items', on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
