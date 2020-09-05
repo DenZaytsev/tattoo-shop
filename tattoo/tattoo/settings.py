@@ -20,14 +20,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '53b73-9b+625&ff3v_3l+z8)7%yydk1wd)oxb-p!n4_ew=f62d'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get("DEBUG", default=0))
 
-ngroc = '1fb5086134d5.ngrok.io'
 
-ALLOWED_HOSTS = [ngroc, '127.0.0', 'localhost']
+
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ") 
 CART_SESSION_ID = 'cart'
 
 # Application definition
