@@ -1,6 +1,6 @@
 import { root } from './root';
 import { notify } from './notifications';
-import { routeChangeStarted } from './router';
+import { routeChangeStart } from './router';
 
 export const toggleMenu = root.createEvent();
 export const openMenu = root.createEvent();
@@ -12,7 +12,7 @@ $menuVisible
   .on(toggleMenu, (s) => !s)
   .on(openMenu, () => true)
   .on(closeMenu, () => false)
-  .on(routeChangeStarted, (s) => !s);
+  .on(routeChangeStart, (s) => !s);
 
 $menuVisible.watch((s) =>
   notify({
