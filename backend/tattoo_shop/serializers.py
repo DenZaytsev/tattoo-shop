@@ -50,14 +50,6 @@ class StickerDetailSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class CartAddProductDetailSerializer(serializers.Serializer):
-
-    PRODUCT_QUANTITY_CHOICES = [(int(i), str(i)) for i in range(-10, 21)]
-
-    quantity = serializers.ChoiceField(required=False, choices=PRODUCT_QUANTITY_CHOICES)
-    update = serializers.BooleanField(required=False, initial=False)
-
-
 class CartAddProductSerializer(serializers.Serializer):
     PRODUCT_QUANTITY_CHOICES = [(int(i), str(i)) for i in range(-10, 21)]
 

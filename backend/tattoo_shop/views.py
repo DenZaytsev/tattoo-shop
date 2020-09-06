@@ -16,7 +16,6 @@ from .serializers import (
     OrderDetailSerializer,
     StickerDetailSerializer,
     TShirtDetailSerializer,
-    CartAddProductDetailSerializer,
     CartAddProductSerializer,
     CartRemoveSerializer
 
@@ -114,33 +113,6 @@ class ProductsInCategoryListView(generics.ListAPIView):
     lookup_field = 'ct_model'
     http_method_names = ['get']
     pagination_class = Paginator
-
-
-class AddToCartDetailView(APIView):
-    """Добавление товара в корзину данные о котором содержатся в урле.
-        Корзина хронится в сессии request.session['cart']
-    """
-
-    serializer_class = CartAddProductDetailSerializer
-
-    def post(self, request, slug, **kwargs):
-        cart = Cart(request)
-        self.model = CT_MODEL_MODEL_CLASS.get(kwargs['ct_model'])  # переделать
-
-        if not self.model:
-            raise Http404("Category does not exist")
-
-        self.product = get_object_or_404(self.model, slug=slug)
-
-        serializer = CartAddProductDetailSerializer(data=request.POST)
-
-        if serializer.is_valid(raise_exception=True):
-            clean_data = serializer.data
-            cart.add_item(product=self.product,
-                          quantity=clean_data['quantity'],
-                          update_quantity=clean_data['update'])
-
-        return Response({'status': 'ok'})
 
 
 class CartDetailView(APIView):
