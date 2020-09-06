@@ -1,1 +1,11 @@
-Для запуска   Django девелопер сервер: sudo docker-compose up -d
+
+Собираем образ командой:
+$ sudo docker-compose build
+
+
+Как только образ будет собран, запускаем контейнер:
+$ docker-compose up -d
+
+
+Проверьте наличие ошибок в журналах, если это не работает, через команду:
+docker-compose logs -f
