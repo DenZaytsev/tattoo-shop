@@ -1,25 +1,24 @@
 Мы не можем запустить Docker-контейнер, пока у нас не будет созданного образа, поэтому давайте сделаем это, создав его.
 ---
-$ docker build .
+```bash
+docker build .
+```
 
 Собираем образ командой:
 ---
-
-
-$ sudo docker-compose build
-
+```bash
+sudo docker-compose build
+```
 
 Как только образ будет собран, запускаем контейнер:
 ---
-
-
-$ docker-compose up -d
-
+```bash
+docker-compose up -d
+```
 
 
 Проверьте наличие ошибок в журналах, если это не работает, через команду:
 ---
-
-
+```bash
 docker-compose logs -f
-
+```
