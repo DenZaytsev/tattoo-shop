@@ -4467,20 +4467,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"effector-react@npm:^21.0.4":
-  version: 21.0.4
-  resolution: "effector-react@npm:21.0.4"
+"effector-react@npm:latest":
+  version: 21.0.5
+  resolution: "effector-react@npm:21.0.5"
   peerDependencies:
     effector: ^21.0.2
     react: ^16.8.0
-  checksum: d2cc35b0749d34b6a77e2a2d2ba33f05765508cdc106a75dfb4d5d1171dc51786aebfce136484a0bd3b2893b279d7ee10b6521ed0595a7a569223bbe2d8db8cd
+  checksum: 04394ad8729b98c1b438636d610227c8ab30dd435843bbb317bffed7dd002d7f4439cb2bf3c11054ff9547a08b4385fbac359e741a000c68a74954ae2539849d
   languageName: node
   linkType: hard
 
-"effector@npm:^21.2.2":
-  version: 21.2.2
-  resolution: "effector@npm:21.2.2"
-  checksum: 29df829b8ed78113c12eb9b6e066d623784f7e9caa6a76df715a70867edb44c20ea22f93b61fddd39b025fd877047a907ad136fe62fed23cffa258c2ae3eecb0
+"effector@npm:latest":
+  version: 21.3.0
+  resolution: "effector@npm:21.3.0"
+  checksum: d4cf472298af20267b3743948a371bf7d57113f01ce94a02c9689e62b4c7fcf159c7caa14a01e131da941739520b043cacd1d314cb3e62ea5db578d9b3a2bd01
   languageName: node
   linkType: hard
 
@@ -5497,8 +5497,8 @@ __metadata:
     commitizen: ^4.0.4
     css-loader: ^4.2.2
     cz-conventional-changelog: ^3.1.0
-    effector: ^21.2.2
-    effector-react: ^21.0.4
+    effector: latest
+    effector-react: latest
     eslint: ^6.8.0
     eslint-config-airbnb-base: ^14.1.0
     eslint-config-prettier: ^6.10.1
