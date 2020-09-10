@@ -33,5 +33,5 @@ const appContent = css`
 `;
 
 export const ContentWrapper: React.FC = ({ children }) => {
-  return <div className={appContent}>{children}</div>;
+  return <main className={appContent}>{children}</main>;
 };
