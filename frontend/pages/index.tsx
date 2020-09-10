@@ -1,10 +1,158 @@
 import Head from 'next/head';
-import { css } from 'linaria';
 import { Text } from '@geist-ui/react';
 
-const test = css`
-  color: red !important;
-`;
+import { ProductList } from '../src/features/product-list';
+
+const testProds = [
+  {
+    title: 'Test',
+    description: 'Test description for content',
+    vacant: true,
+    image: 'https://placekitten.com/500/500',
+    slug: `1`,
+  },
+  {
+    title: 'Test2 ывпыып',
+    description:
+      'Test description for content another sdgsgsdппыпыпыапап вавпвапв',
+    vacant: false,
+    image: 'https://placekitten.com/500/500',
+    slug: `2`,
+  },
+  {
+    title: 'Test3',
+    description: 'Test description for content third',
+    vacant: true,
+    image: 'https://placekitten.com/500/500',
+    slug: `3`,
+  },
+  {
+    title: 'Test',
+    description:
+      'Test description for content ывпывпыв ыпыпып ыпып ывпыпвывпы ывпы ',
+    vacant: true,
+    image: 'https://placekitten.com/500/500',
+    slug: `1`,
+  },
+  {
+    title: 'Test2',
+    description: '',
+    vacant: false,
+    image: 'https://placekitten.com/500/500',
+    slug: `2`,
+  },
+  {
+    title: 'Test3',
+    description: 'Test description for content third',
+    vacant: true,
+    image: 'https://placekitten.com/500/500',
+    slug: `3`,
+  },
+  {
+    title: 'Test',
+    description: 'Test description for content',
+    vacant: true,
+    image: 'https://placekitten.com/500/500',
+    slug: `1`,
+  },
+  {
+    title: 'Test2 ывпыып',
+    description:
+      'Test description for content another sdgsgsdппыпыпыапап вавпвапв',
+    vacant: false,
+    image: 'https://placekitten.com/500/500',
+    slug: `2`,
+  },
+  {
+    title: 'Test3',
+    description: 'Test description for content third',
+    vacant: true,
+    image: 'https://placekitten.com/500/500',
+    slug: `3`,
+  },
+  {
+    title: 'Test',
+    description:
+      'Test description for content ывпывпыв ыпыпып ыпып ывпыпвывпы ывпы ',
+    vacant: true,
+    image: 'https://placekitten.com/500/500',
+    slug: `1`,
+  },
+  {
+    title: 'Test2',
+    description: '',
+    vacant: false,
+    image: 'https://placekitten.com/500/500',
+    slug: `2`,
+  },
+  {
+    title: 'Test3',
+    description: 'Test description for content third',
+    vacant: true,
+    image: 'https://placekitten.com/500/500',
+    slug: `3`,
+  },
+  {
+    title: 'Test',
+    description: 'Test description for content',
+    vacant: true,
+    image: 'https://placekitten.com/500/500',
+    slug: `1`,
+  },
+  {
+    title: 'Test2 ывпыып',
+    description:
+      'Test description for content another sdgsgsdппыпыпыапап вавпвапв',
+    vacant: false,
+    image: 'https://placekitten.com/500/500',
+    slug: `2`,
+  },
+  {
+    title: 'Test3',
+    description: 'Test description for content third',
+    vacant: true,
+    image: 'https://placekitten.com/500/500',
+    slug: `3`,
+  },
+  {
+    title: 'Test',
+    description:
+      'Test description for content ывпывпыв ыпыпып ыпып ывпыпвывпы ывпы ',
+    vacant: true,
+    image: 'https://placekitten.com/500/500',
+    slug: `1`,
+  },
+  {
+    title: 'Test2',
+    description: '',
+    vacant: false,
+    image: 'https://placekitten.com/500/500',
+    slug: `2`,
+  },
+  {
+    title: 'Test3',
+    description: 'Test description for content third',
+    vacant: true,
+    image: 'https://placekitten.com/500/500',
+    slug: `3`,
+  },
+  {
+    title: 'Test',
+    description:
+      'Test description for content ывпывпыв ыпыпып ыпып ывпыпвывпы ывпы ',
+    vacant: true,
+    image: 'https://placekitten.com/500/500',
+    slug: `1`,
+  },
+  {
+    title: 'Test',
+    description:
+      'Test description for content ывпывпыв ыпыпып ыпып ывпыпвывпы ывпы ',
+    vacant: true,
+    image: 'https://placekitten.com/500/500',
+    slug: `1`,
+  },
+];
 
 export default function Home() {
   return (
@@ -21,6 +169,7 @@ export default function Home() {
       <Text p b>
         Тестовый текст тестовый тестами погоняет бла бла бла
       </Text>
+      <ProductList products={testProds} />
     </div>
   );
 }
