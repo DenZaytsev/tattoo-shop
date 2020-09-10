@@ -37,3 +37,5 @@ export type TShirt = Product & {
   size: Size;
   color: Colour;
 };
+
+export type AnyProduct = TattooSketch | Product | TShirt;
