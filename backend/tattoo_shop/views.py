@@ -1,6 +1,6 @@
-from .bussines_logic import CT_MODEL_MODEL_CLASS, vacant_sketches, get_sketch, all_category
-from rest_framework import generics
-from rest_framework.generics import get_object_or_404
+from .bussines_logic import CT_MODEL_MODEL_CLASS, vacant_sketches, get_sketch, all_category, all_product_dict
+
+from rest_framework.generics import get_object_or_404, ListAPIView, CreateAPIView, RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
@@ -22,7 +22,11 @@ from .serializers import (
 )
 
 
-class TattooSketchCreateView(generics.CreateAPIView):
+class BaseView(APIView):
+    pass
+
+
+class TattooSketchCreateView(CreateAPIView):
     """Запись нового эскиза в базу данных"""
     serializer_class = TattooSketchDetailSerializer
 
@@ -33,7 +37,7 @@ class Paginator(PageNumberPagination):
     max_page_size = 10
 
 
-class VacantTattooSketchListView(generics.ListAPIView):
+class VacantTattooSketchListView(ListAPIView):
     """Выдает список свободных эскизов"""
     serializer_class = SketchListSerializer
     queryset = vacant_sketches()
@@ -50,12 +54,12 @@ class TattooSketchDetailView(APIView):
         return Response(serializer.data)
 
 
-class CustomerCreateView(generics.CreateAPIView):
+class CustomerCreateView(CreateAPIView):
     """Запись нового пользователя в базу данных"""
     serializer_class = CustomerDetailSerializer
 
 
-class CategoryListView(generics.ListAPIView):
+class CategoryListView(ListAPIView):
     """Возвращает список категорий товаров"""
     serializer_class = CategorySerializer
     queryset = all_category()
@@ -87,7 +91,7 @@ class CreateOrderView(APIView):
             return Response({'massage': 'Заказ создан'})
 
 
-class ProductDetailView(generics.RetrieveAPIView):
+class ProductDetailView(RetrieveAPIView):
     """Возвращает детальную информацию о товаре"""
 
     def dispatch(self, request, *args, **kwargs):
@@ -99,7 +103,7 @@ class ProductDetailView(generics.RetrieveAPIView):
     lookup_field = 'slug'
 
 
-class ProductsInCategoryListView(generics.ListAPIView):
+class ProductsInCategoryListView(ListAPIView):
     """Выдает список продуктов заданной категории"""
 
     def dispatch(self, request, *args, **kwargs):
@@ -177,6 +181,12 @@ class ClearCartView(APIView):
 
     def post(self, request):
         cart = Cart(request)
-
         cart.clear()
         return Response({'status': 'ok', 'cart': cart.cart})
+
+
+class ProductListView(APIView):
+    def get(self, request):
+        products = all_product_dict()
+        return Response(products)
+

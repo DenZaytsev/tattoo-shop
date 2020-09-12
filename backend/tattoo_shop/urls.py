@@ -13,10 +13,12 @@ from .views import (
     AddToCartView,
     RemoveCartView,
     ClearCartView,
+    ProductListView
 )
 
 urlpatterns = [
     path('sketch/create/', TattooSketchCreateView.as_view()),
+    path('products/', ProductListView.as_view()),
     path('customer/create/', CustomerCreateView.as_view()),
     path('sketch/vacant/', VacantTattooSketchListView.as_view()),
     path('sketch/<str:slug>/', TattooSketchDetailView.as_view()),
