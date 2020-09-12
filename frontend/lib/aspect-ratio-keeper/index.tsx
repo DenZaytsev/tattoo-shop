@@ -11,8 +11,13 @@ const wrapperAspectRatio = css`
   display: block;
   position: relative;
   width: 100%;
-  height: 0;
-  padding-top: var(--aspect-ratio);
+
+  &::before {
+    content: ' ';
+    display: block;
+    width: 100%;
+    padding-top: var(--aspect-ratio);
+  }
 `;
 
 const innerAspectRatio = css`
