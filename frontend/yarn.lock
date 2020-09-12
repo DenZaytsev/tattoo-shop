@@ -5422,6 +5422,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"flex-gap-polyfill@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "flex-gap-polyfill@npm:1.0.3"
+  dependencies:
+    postcss: 7.0.32
+  checksum: 148a31f24d1013fd3dfa21062796bc6d26dfc8c7d54eca39e339070bee7ce37ffb0a29a5a55154c609ebcb4aa9634d42f62205b1ae9f27d6387244f85314d75e
+  languageName: node
+  linkType: hard
+
 "flush-write-stream@npm:^1.0.0":
   version: 1.1.1
   resolution: "flush-write-stream@npm:1.1.1"
@@ -5509,6 +5518,7 @@ __metadata:
     eslint-plugin-react-hooks: ^3.0.0
     eslint-plugin-unicorn: ^18.0.1
     extracted-loader: ^1.0.7
+    flex-gap-polyfill: ^1.0.3
     husky: ^4.2.5
     ignore-loader: ^0.1.2
     linaria: ^1.3.3
@@ -5519,6 +5529,7 @@ __metadata:
     postcss-loader: ^3.0.0
     postcss-normalize: ^9.0.0
     postcss-preset-env: ^6.7.0
+    postcss-value-parser: ^4.1.0
     prettier: ^2.0.4
     react: 16.13.1
     react-dom: 16.13.1

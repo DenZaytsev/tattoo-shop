@@ -1,6 +1,7 @@
 module.exports = {
   plugins: {
     'postcss-normalize': {},
+    'flex-gap-polyfill': {},
     'postcss-flexbugs-fixes': {},
     'postcss-preset-env': {
       autoprefixer: {
