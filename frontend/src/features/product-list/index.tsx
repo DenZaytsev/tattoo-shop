@@ -1,9 +1,9 @@
 import React from 'react';
-import { ProductCard } from '../product-card';
+import { Text } from '@geist-ui/react';
 import { css } from 'linaria';
-import type { AnyProduct } from '../../domain/products/types';
 
-import { useMasonry } from '../../../lib/use-masonry';
+import { ProductCard } from '../product-card';
+import type { AnyProduct } from '../../domain/products/types';
 
 interface ProductListProps {
   products: AnyProduct[];
@@ -13,7 +13,7 @@ const productsList = css`
   margin: 0;
   display: grid;
   grid-template-rows: auto;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-gap: 16px;
 
   & > li:before {
@@ -22,18 +22,17 @@ const productsList = css`
 `;
 
 export const ProductList: React.FC<ProductListProps> = ({ products }) => {
-  const gridRef = React.useRef(null);
-
-  useMasonry(gridRef);
-
   return (
-    <ul ref={gridRef} className={productsList}>
-      {products &&
-        products.map((product) => (
-          <li>
-            <ProductCard {...product} />
-          </li>
-        ))}
-    </ul>
+    <div>
+      <Text h2>Заголовок</Text>
+      <ul className={productsList}>
+        {products &&
+          products.map((product) => (
+            <li key={product.slug}>
+              <ProductCard {...product} />
+            </li>
+          ))}
+      </ul>
+    </div>
   );
 };
