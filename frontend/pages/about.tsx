@@ -1,14 +1,20 @@
 import React from 'react';
 import Head from 'next/head';
 import { css } from 'linaria';
-import { Text } from '@geist-ui/react';
+import { Text, Collapse } from '@geist-ui/react';
 import Link from 'next/link';
 
-const test = css`
-  color: red !important;
+const aboutLayout = css`
+  display: flex;
+  flex-flow: column nowrap;
+  margin-bottom: 32px;
+
+  & > *:last-child {
+    border-bottom: none;
+  }
 `;
 
-export default function Home() {
+export default function About() {
   return (
     <div>
       <Head>
@@ -19,13 +25,44 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Text p>О тату-шопе</Text>
-      <Text p b>
-        бла бла бла{' '}
+      <div className={aboutLayout}>
+        <Text h2>О тату-шопе</Text>
         <Link href="/" passHref>
-          <a>Назад</a>
+          <a>К товарам и тату-эскизам</a>
         </Link>
-      </Text>
+        <Collapse
+          title="Почему тату-шоп?"
+          subtitle="О том, почему мы такие классные"
+        >
+          <Text>Бла бла</Text>
+        </Collapse>
+        <Collapse title="О татухах" subtitle="Что нибудь о татухах">
+          <Text>Бла бла</Text>
+        </Collapse>
+        <Collapse
+          title="Доставка и оплата заказов"
+          subtitle="О том, как вам всё привезти"
+        >
+          <Text>Бла бла</Text>
+        </Collapse>
+        <Collapse
+          title="Сделать тату"
+          subtitle="О том, как нам с вами встретиться и запилить тату"
+        >
+          <Text>Бла бла</Text>
+        </Collapse>
+        <Collapse
+          title="А где всё это можно посмотреть?"
+          subtitle="Укажем, где же посмотреть доступные тату-эскизы и другие товары"
+        >
+          <Text>
+            {'Выбрать товары и забронировать тату эскизы можно вот '}
+            <Link href="/" passHref>
+              <a>тут</a>
+            </Link>
+          </Text>
+        </Collapse>
+      </div>
     </div>
   );
 }
