@@ -6,13 +6,10 @@ type Side = 'left' | 'right';
 interface SideContainerProps {
   open: boolean;
   side: Side;
+  className?: string;
 }
 
-interface WrapperProps {
-  side: Side;
-}
-
-const SideContainerContent: React.FC<WrapperProps> = styled.div`
+const SideContainerContent: React.FC<SideContainerProps> = styled.div`
   display: flex;
   flex-flow: column;
   width: 100%;
@@ -38,3 +35,5 @@ export const SideContainer: React.FC<SideContainerProps> = React.memo(
     );
   },
 );
+
+SideContainer.displayName = 'SideContainer';

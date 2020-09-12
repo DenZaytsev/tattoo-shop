@@ -5,11 +5,19 @@ const setChildrenPositions = (children, { gap, columns }) => {
     const prevFin = children[i].getBoundingClientRect().bottom; // bottom edge of item above
     const currIni = c.getBoundingClientRect().top; // top edge of current item
 
+    // eslint-disable-next-line no-param-reassign
     c.style.marginTop = `${prevFin + gap - currIni}px`;
   });
 };
 
-export const layoutMasonry = (grid) => {
+export const layoutMasonry = (grid): undefined => {
+  if (!grid) {
+    // eslint-disable-next-line no-console
+    console.error('no grid node provided');
+    return undefined;
+  }
+
+  // eslint-disable-next-line no-param-reassign
   grid.style.alignItems = 'start';
 
   const gap = parseFloat(getComputedStyle(grid).gridRowGap);
@@ -21,20 +29,24 @@ export const layoutMasonry = (grid) => {
   const columns = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
   const rows = getComputedStyle(grid).gridTemplateRows.split(' ').length;
 
-  if (!(rows > 1)) return () => {}; // makes no sense to masonry-layout one or less rows
+  if (!(rows > 1)) return undefined; // makes no sense to masonry-layout one or less rows
 
   // if we have more than one column
   if (columns > 1) {
     children.forEach((c) => c.style.removeProperty('margin-top'));
     setChildrenPositions(children, { gap, columns });
   }
+
+  return undefined;
 };
+
+const NOOP = () => undefined;
 
 /**
  * @param gridRef - React ref to dom-node with display: grid;
  */
 export const useMasonry = (gridRef) => {
-  const resizeCallbackRef = useRef();
+  const resizeCallbackRef = useRef(NOOP);
 
   useEffect(() => {
     if (
@@ -52,5 +64,7 @@ export const useMasonry = (gridRef) => {
         window.removeEventListener('resize', resizeCallbackRef.current);
       };
     }
+
+    return undefined;
   }, [gridRef.current]);
 };

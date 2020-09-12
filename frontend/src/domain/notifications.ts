@@ -1,4 +1,5 @@
 import { Toast } from '@geist-ui/react';
+
 import { root } from './root';
 
 export const notify = root.createEvent('notification');

@@ -4,16 +4,22 @@ import { root } from './root';
 
 export const routerDomain = root.createDomain('router');
 
-export const routeChangeStart = routerDomain.createEvent('routeChangeStarted');
-export const routeChangeComplete = routerDomain.createEvent();
-export const routeChangeError = routerDomain.createEvent();
-export const beforeHistoryChange = routerDomain.createEvent();
-export const hashChangeStart = routerDomain.createEvent();
-export const hashChangeComplete = routerDomain.createEvent();
+type NextRouterEventWithError = [any, string];
 
-const connectRouterToEffector = (singletonRouter) => {
-  singletonRouter.ready(() => {
-    const router = singletonRouter.router;
+export const routeChangeStart = routerDomain.createEvent<string>(
+  'routeChangeStarted',
+);
+export const routeChangeComplete = routerDomain.createEvent<string>();
+export const routeChangeError = routerDomain.createEvent<
+  NextRouterEventWithError
+>();
+export const beforeHistoryChange = routerDomain.createEvent<string>();
+export const hashChangeStart = routerDomain.createEvent<string>();
+export const hashChangeComplete = routerDomain.createEvent<string>();
+
+const connectRouterToEffector = (nextRouter) => {
+  nextRouter.ready(() => {
+    const { router } = nextRouter;
 
     // forward next.js router events to effector events
     router.events.on('routeChangeStart', routeChangeStart);

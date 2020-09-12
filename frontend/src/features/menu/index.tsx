@@ -3,12 +3,10 @@ import { Modal } from '@geist-ui/react';
 import { css } from 'linaria';
 import { useMedia } from 'use-media';
 import Link from 'next/link';
-
 import { useStore } from 'effector-react';
+
 import { $menuVisible, closeMenu } from '../../domain/menu';
-
 import { SideContainer } from '../side-container';
-
 import { desktopBpPx } from '../../theme/breakpoints';
 
 const menuBlock = css`
