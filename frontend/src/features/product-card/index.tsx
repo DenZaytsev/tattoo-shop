@@ -10,7 +10,7 @@ type ProductCardProps = AnyProduct;
 
 const productCard = css`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+  grid-template-columns: repeat(auto-fit, minmax(150px, auto));
   grid-auto-rows: auto;
   grid-gap: 16px;
 
