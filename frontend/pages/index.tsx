@@ -1,3 +1,4 @@
+import React from 'react';
 import Head from 'next/head';
 import { Text } from '@geist-ui/react';
 

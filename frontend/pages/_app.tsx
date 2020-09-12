@@ -4,7 +4,6 @@ import { css } from 'linaria';
 import { GeistProvider, CssBaseline } from '@geist-ui/react';
 
 import { customTheme } from '../src/theme';
-
 import { Layout, ContentWrapper } from '../src/features/layout';
 import { Header } from '../src/features/header';
 import { Footer } from '../src/features/footer';

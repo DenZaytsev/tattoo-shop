@@ -9,6 +9,7 @@
     "pretty": "prettier --write .",
     "commit": "git-cz",
     "lint:code": "eslint \"./**/*.{ts,tsx}\"",
+    "lint:code:fix": "eslint \"./**/*.{ts,tsx}\" --fix",
     "lint:styles": "stylelint \"./**/*.css\""
   },
   "dependencies": {

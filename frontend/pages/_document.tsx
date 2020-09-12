@@ -1,3 +1,4 @@
+import React from 'react';
 import Document from 'next/document';
 import { CssBaseline } from '@geist-ui/react';
 
