@@ -5,7 +5,7 @@ type Side = 'left' | 'right';
 
 interface SideContainerProps {
   open: boolean;
-  side: Side;
+  side?: Side;
   className?: string;
 }
 

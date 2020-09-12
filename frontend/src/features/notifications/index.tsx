@@ -9,8 +9,10 @@ export const NotificationsProvider = () => {
   const [, setToast] = useToasts();
 
   React.useEffect(() => {
-    setToast(notification);
-  }, [notification.text, notification.type, notification.actions]);
+    if (notification) {
+      setToast(notification);
+    }
+  }, [notification?.text, notification?.type, notification?.actions]);
 
   return <></>;
 };

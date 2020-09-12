@@ -3,6 +3,7 @@ import { Modal } from '@geist-ui/react';
 import { css } from 'linaria';
 import { useMedia } from 'use-media';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useStore } from 'effector-react';
 
 import { $menuVisible, closeMenu } from '../../domain/menu';
@@ -13,19 +14,34 @@ const menuBlock = css`
   grid-area: menu;
 `;
 
+const menuList = css`
+  display: flex;
+  flex-flow: column nowrap;
+  max-width: 250px;
+
+  @media (min-width: ${desktopBpPx}) {
+    padding-top: 90px;
+  }
+`;
+
 const Menu: React.FC = () => {
+  const { pathname } = useRouter();
+
   return (
-    <div>
+    <nav className={menuList}>
       <ul>
         <li>
-          Тату
-          <Link href="/about" passHref>
-            <a>bla</a>
+          <Link href="/" passHref>
+            <a>Главная</a>
           </Link>
         </li>
-        <li>Шоп</li>
+        <li>
+          <Link href="/about" passHref>
+            <a>О нас, о доставке и обо всём на свете</a>
+          </Link>
+        </li>
       </ul>
-    </div>
+    </nav>
   );
 };
 
