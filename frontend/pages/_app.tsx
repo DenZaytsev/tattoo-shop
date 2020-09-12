@@ -14,11 +14,6 @@ import { NotificationsProvider } from '../src/features/notifications';
 export const globals = css`
   :global() {
     @import-normalize;
-
-    *:focus,
-    *:focus-within {
-      outline: 1px solid rgb(121, 40, 202);
-    }
   }
 `;
 
