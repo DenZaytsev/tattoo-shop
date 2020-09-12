@@ -4,6 +4,7 @@ import { css, cx } from 'linaria';
 interface AspectRatioKeeperProps {
   aspectRatio?: number;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 const wrapperAspectRatio = css`
@@ -27,6 +28,7 @@ const toPaddingTopHack = (ar: number): string => `${ar * 100}%`;
 export const AspectRatioKeeper: React.FC<AspectRatioKeeperProps> = ({
   aspectRatio = 1,
   className,
+  style,
   children,
 }) => {
   return (
@@ -34,6 +36,7 @@ export const AspectRatioKeeper: React.FC<AspectRatioKeeperProps> = ({
       className={cx(wrapperAspectRatio, className)}
       style={{
         ['--aspect-ratio' as any]: toPaddingTopHack(aspectRatio),
+        ...style,
       }}
     >
       <div className={innerAspectRatio}>{children}</div>
