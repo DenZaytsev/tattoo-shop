@@ -1,5 +1,4 @@
 import { root } from './root';
-import { routeChangeStart } from './router';
 
 export const toggleMenu = root.createEvent();
 export const openMenu = root.createEvent();
