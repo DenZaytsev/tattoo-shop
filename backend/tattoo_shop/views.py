@@ -1,10 +1,10 @@
-from .bussines_logic import CT_MODEL_MODEL_CLASS, vacant_sketches, get_sketch, all_category, all_product_dict
-
+from .bussines_logic import CT_MODEL_MODEL_CLASS, vacant_sketches, get_sketch, all_category, all_product_dict, \
+    MODEL_CLASS_SERIALIZER
 from rest_framework.generics import get_object_or_404, ListAPIView, CreateAPIView, RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from .models import TShirt, Sticker, OrderItem, ContentType
 from .cart import Cart
 from .tasks import order_created
@@ -14,8 +14,6 @@ from .serializers import (
     SketchListSerializer,
     CategorySerializer,
     OrderDetailSerializer,
-    StickerDetailSerializer,
-    TShirtDetailSerializer,
     CartAddProductSerializer,
     CartRemoveSerializer
 
@@ -23,10 +21,26 @@ from .serializers import (
 
 
 class BaseView(APIView):
-    pass
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            response = super().dispatch(request, *args, **kwargs)
+        except Exception as e:
+            return self._response({'errorMassege': str(e)}, status=400)
+
+        if isinstance(response, (dict, list)):
+            return self._response(response)
+        else:
+            return response
+
+    @staticmethod
+    def _response(data, *, status=200):
+        return JsonResponse(
+            data=data,
+            status=status,
+        )
 
 
-class TattooSketchCreateView(CreateAPIView):
+class TattooSketchCreateView(BaseView, CreateAPIView):
     """Запись нового эскиза в базу данных"""
     serializer_class = TattooSketchDetailSerializer
 
@@ -37,7 +51,7 @@ class Paginator(PageNumberPagination):
     max_page_size = 10
 
 
-class VacantTattooSketchListView(ListAPIView):
+class VacantTattooSketchListView(BaseView, ListAPIView):
     """Выдает список свободных эскизов"""
     serializer_class = SketchListSerializer
     queryset = vacant_sketches()
@@ -45,7 +59,7 @@ class VacantTattooSketchListView(ListAPIView):
     pagination_class = Paginator
 
 
-class TattooSketchDetailView(APIView):
+class TattooSketchDetailView(BaseView):
     """выдает информацию о эскизе"""
 
     def get(self, request, slug):
@@ -54,19 +68,19 @@ class TattooSketchDetailView(APIView):
         return Response(serializer.data)
 
 
-class CustomerCreateView(CreateAPIView):
+class CustomerCreateView(BaseView, CreateAPIView):
     """Запись нового пользователя в базу данных"""
     serializer_class = CustomerDetailSerializer
 
 
-class CategoryListView(ListAPIView):
+class CategoryListView(BaseView, ListAPIView):
     """Возвращает список категорий товаров"""
     serializer_class = CategorySerializer
     queryset = all_category()
     http_method_names = ['get']
 
 
-class CreateOrderView(APIView):
+class CreateOrderView(BaseView):
     """Запись закава в базу данных"""
     serializer_class = OrderDetailSerializer
 
@@ -85,51 +99,45 @@ class CreateOrderView(APIView):
                                          object_id=item['id'],
                                          price=item['price'],
                                          quantity=item['quantity'])
-
             cart.clear()
             order_created.delay(order.id)
-            return Response({'massage': 'Заказ создан'})
+            return Response(data='Заказ создан', status=200)
 
 
-class ProductDetailView(RetrieveAPIView):
+class ProductDetailView(BaseView):
     """Возвращает детальную информацию о товаре"""
 
-    def dispatch(self, request, *args, **kwargs):
-        self.model = CT_MODEL_MODEL_CLASS[kwargs['ct_model']]
-        self.queryset = self.model._base_manager.all()
-        self.serializer_class = StickerDetailSerializer if self.model == Sticker else TShirtDetailSerializer
-        return super().dispatch(request, *args, **kwargs)
-
-    lookup_field = 'slug'
+    def get(self, request, *args, **kwargs):
+        model = CT_MODEL_MODEL_CLASS.get(kwargs['ct_model'])
+        queryset = get_object_or_404(model, slug=kwargs['slug'])
+        serializer = MODEL_CLASS_SERIALIZER[model.__name__]
+        return Response(data=serializer(queryset).data, status=200)
 
 
-class ProductsInCategoryListView(ListAPIView):
+class ProductsInCategoryListView(BaseView):
     """Выдает список продуктов заданной категории"""
-
-    def dispatch(self, request, *args, **kwargs):
-        self.model = CT_MODEL_MODEL_CLASS.get(kwargs['ct_model'])
-        if not self.model:
-            raise Http404("Category does not exist")
-        self.queryset = self.model.objects.all()
-        self.serializer_class = StickerDetailSerializer if self.model == Sticker else TShirtDetailSerializer
-        return super().dispatch(request, *args, **kwargs)
-
-    lookup_field = 'ct_model'
     http_method_names = ['get']
-    pagination_class = Paginator
+
+    def get(self, request, *args, **kwargs):
+        model = CT_MODEL_MODEL_CLASS.get(kwargs['ct_model'])
+        queryset = model.objects.all()
+        serializer = MODEL_CLASS_SERIALIZER[model.__name__]
+        return Response(data=serializer(queryset, many=True).data, status=200)
 
 
-class CartDetailView(APIView):
-    """
-        Показывает содержание корзины.
-    """
+class CartDetailView(BaseView):
+    """Показывает содержимое корзины."""
 
     def get(self, request):
         cart = Cart(request)
-        return Response({'cart': cart.cart, 'total_price': cart.get_total_price()})
+        data = {
+            'cart_contents': cart.cart,
+            'total_price': cart.get_total_price()
+        }
+        return Response(data=data)
 
 
-class AddToCartView(APIView):
+class AddToCartView(BaseView):
     """Добавление товара в корзину информация о котором содержится в пост запросе.
         Корзина хронится в сессии request.session['cart']
     """
@@ -150,12 +158,17 @@ class AddToCartView(APIView):
             cart.add_item(product=product,
                           quantity=clean_data['quantity'],
                           update_quantity=clean_data['update'])
-            return Response({'status': 'ok', 'cart': cart.cart, 'total_price': cart.get_total_price()})
+            data = {
+                'cart_contents': cart.cart,
+                'total_price': cart.get_total_price()
+            }
+            return Response(data=data, status=200)
 
-        return Response({'status': 'ne_ok'})
+        return Response(status=404)
 
 
-class RemoveCartView(APIView):
+# переделать с контенттайп
+class RemoveCartView(BaseView):
     """Удфляет товар из корзины"""
     serializer_class = CartRemoveSerializer
 
@@ -171,22 +184,23 @@ class RemoveCartView(APIView):
                 raise Http404("Category does not exist")
             product = get_object_or_404(model, slug=clean_data['slug'])
             cart.remove(product=product)
+
             return Response({'status': 'ok', 'cart': cart.cart})
 
         return Response({'status': 'ne_ok'})
 
 
-class ClearCartView(APIView):
+class ClearCartView(BaseView):
     """Очищает содержимое корзины"""
 
     def post(self, request):
         cart = Cart(request)
         cart.clear()
-        return Response({'status': 'ok', 'cart': cart.cart})
+
+        return Response(status=200, data='Корзина очищена')
 
 
-class ProductListView(APIView):
+class ProductListView(BaseView):
     def get(self, request):
         products = all_product_dict()
-        return Response(products)
-
+        return Response(data=products, status=200)
