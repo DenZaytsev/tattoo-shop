@@ -1,8 +1,7 @@
 import singletonRouter from 'next/router';
+import { createDomain } from 'effector';
 
-import { root } from './root';
-
-export const routerDomain = root.createDomain('router');
+export const routerDomain = createDomain('router');
 
 type NextRouterEventWithError = [any, string];
 
