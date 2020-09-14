@@ -6,15 +6,15 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useStore } from 'effector-react';
 
-import { $menuVisible, closeMenu } from '../../domain/menu';
+import { $navVisible, closeNav } from '../../domain/navigation';
 import { SideContainer } from '../side-container';
 import { desktopBpPx } from '../../theme/breakpoints';
 
-const menuBlock = css`
+const navContainer = css`
   grid-area: menu;
 `;
 
-const menuList = css`
+const navList = css`
   display: flex;
   flex-flow: column nowrap;
   max-width: 250px;
@@ -24,11 +24,11 @@ const menuList = css`
   }
 `;
 
-const Menu: React.FC = () => {
+const Navigation: React.FC = () => {
   const { pathname } = useRouter();
 
   return (
-    <nav className={menuList}>
+    <nav className={navList}>
       <ul>
         <li>
           <Link href="/" passHref>
@@ -45,22 +45,22 @@ const Menu: React.FC = () => {
   );
 };
 
-export const MenuBlock: React.FC = () => {
+export const NavBlock: React.FC = () => {
   const isMobile = !useMedia({ minWidth: desktopBpPx });
 
-  const isMenuOpen = useStore($menuVisible);
+  const isNavOpen = useStore($navVisible);
 
   if (isMobile) {
     return (
-      <Modal open={isMenuOpen} onClose={closeMenu}>
-        <Menu />
+      <Modal open={isNavOpen} onClose={closeNav}>
+        <Navigation />
       </Modal>
     );
   }
 
   return (
-    <SideContainer className={menuBlock} open={isMenuOpen}>
-      <Menu />
+    <SideContainer className={navContainer} open={true}>
+      <Navigation />
     </SideContainer>
   );
 };

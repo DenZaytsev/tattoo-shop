@@ -4,7 +4,7 @@ import Menu from '@geist-ui/react-icons/menu';
 import { ShoppingCart } from '@geist-ui/react-icons';
 import { Text } from '@geist-ui/react';
 
-import { toggleMenu } from '../../domain/menu';
+import { toggleNav } from '../../domain/navigation';
 import { toggleCart } from '../../domain/cart';
 
 const iconButton = css`
@@ -50,7 +50,7 @@ export const Header = () => {
         type="button"
         className={cx(iconButton, menuButton)}
         aria-label="Меню и категории"
-        onClick={toggleMenu}
+        onClick={toggleNav}
       >
         <Menu />
       </button>

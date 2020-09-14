@@ -7,7 +7,7 @@ import { customTheme } from '../src/theme';
 import { Layout, ContentWrapper } from '../src/features/layout';
 import { Header } from '../src/features/header';
 import { Footer } from '../src/features/footer';
-import { MenuBlock } from '../src/features/nav';
+import { NavBlock } from '../src/features/nav';
 import { CartBlock } from '../src/features/cart';
 import { NotificationsProvider } from '../src/features/notifications';
 import { useLozad } from '../lib/lazy-image';
@@ -36,7 +36,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
           <Component {...pageProps} />
         </ContentWrapper>
         <Footer />
-        <MenuBlock />
+        <NavBlock />
         <CartBlock />
       </Layout>
       <NotificationsProvider />
