@@ -5,7 +5,7 @@ from rest_framework import serializers
 class TattooSketchDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = TattooSketch
-        fields = ('title', 'description', 'vacant')
+        fields = ('title', 'description', 'vacant', 'image')
 
 
 class CustomerDetailSerializer(serializers.ModelSerializer):
@@ -17,7 +17,7 @@ class CustomerDetailSerializer(serializers.ModelSerializer):
 class SketchListSerializer(serializers.ModelSerializer):
     class Meta:
         model = TattooSketch
-        fields = ('id', 'title', 'slug')
+        fields = ('id', 'title', 'slug', 'image')
 
 
 class CategorySerializer(serializers.ModelSerializer):
