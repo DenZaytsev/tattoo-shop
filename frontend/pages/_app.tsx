@@ -7,10 +7,10 @@ import { customTheme } from '../src/theme';
 import { Layout, ContentWrapper } from '../src/features/layout';
 import { Header } from '../src/features/header';
 import { Footer } from '../src/features/footer';
-import { MenuBlock } from '../src/features/menu';
+import { MenuBlock } from '../src/features/nav';
 import { CartBlock } from '../src/features/cart';
 import { NotificationsProvider } from '../src/features/notifications';
-import { LozadProvider } from '../lib/lazy-image';
+import { useLozad } from '../lib/lazy-image';
 
 export const globals = css`
   :global() {
@@ -19,10 +19,11 @@ export const globals = css`
 `;
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+  useLozad();
+
   return (
     <GeistProvider theme={customTheme}>
       <CssBaseline />
-      <LozadProvider />
       <Layout>
         <Header />
         <ContentWrapper>
