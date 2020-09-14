@@ -20,13 +20,11 @@ const productCard = css`
 `;
 
 const productImage = css`
-  & img {
-    object-fit: cover;
-    object-position: center;
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-  }
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
 `;
 
 const productContent = css`
@@ -62,8 +60,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <Card shadow>
       <Card.Content className={productCard}>
-        <AspectRatioKeeper className={productImage} aspectRatio={3 / 4}>
-          <LazyImage src={image} placeholder={cardPlaceHolder} />
+        <AspectRatioKeeper aspectRatio={3 / 4}>
+          <LazyImage
+            src={image}
+            placeholder={cardPlaceHolder}
+            className={productImage}
+          />
         </AspectRatioKeeper>
         <div className={productContent}>
           <Text h3>
