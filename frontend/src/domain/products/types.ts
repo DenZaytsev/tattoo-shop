@@ -1,21 +1,3 @@
-export type TattooSketch = {
-  title: string;
-  description?: string;
-  vacant?: boolean;
-  image?: string;
-  slug: string;
-};
-
-export type Product = {
-  title: string;
-  description?: string;
-  price?: number;
-  quantity: number;
-  category: string;
-  image?: string;
-  slug: string;
-};
-
 export const Sizes = {
   S: 'SMALL',
   M: 'MEDIUM',
@@ -28,14 +10,55 @@ export const Colours = {
   W: 'WHITE',
 } as const;
 
+export const ProductCategories = {
+  TattooSketch: 'TattooSketch',
+  Sticker: 'Sticker',
+  TShirt: 'TShirt',
+} as const;
+
+export type TattooSketchProduct = {
+  id: number;
+  title: string;
+  description?: string;
+  vacant?: boolean;
+  image?: string;
+  slug: string;
+};
+
+export type BaseProduct = {
+  id: number;
+  title: string;
+  description?: string;
+  price?: number;
+  quantity: number;
+  category: string;
+  image?: string;
+  slug: string;
+};
+
 type ValueOf<T> = T[keyof T];
+type Entries<T> = {
+  [K in keyof T]: [K, T[K]];
+}[keyof T][];
 
 export type Size = ValueOf<typeof Sizes>;
 export type Colour = ValueOf<typeof Colours>;
 
-export type TShirt = Product & {
+export type TShirtProduct = Partial<BaseProduct> & {
   size: Size;
-  color: Colour;
+  colour: Colour;
 };
 
-export type AnyProduct = TattooSketch | Product | TShirt;
+export type StickerProduct = Partial<BaseProduct>;
+
+export type AnyProduct = TattooSketchProduct | BaseProduct | TShirtProduct;
+
+export type CategoryToProduct = {
+  [ProductCategories.TShirt]: TShirtProduct;
+  [ProductCategories.Sticker]: StickerProduct;
+  [ProductCategories.TattooSketch]: TattooSketchProduct;
+};
+
+export type AllProducts = {
+  [key in keyof CategoryToProduct]?: Array<Pick<CategoryToProduct, key>>;
+};
