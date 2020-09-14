@@ -10,6 +10,7 @@ import { Footer } from '../src/features/footer';
 import { MenuBlock } from '../src/features/menu';
 import { CartBlock } from '../src/features/cart';
 import { NotificationsProvider } from '../src/features/notifications';
+import { LozadProvider } from '../lib/lazy-image';
 
 export const globals = css`
   :global() {
@@ -21,6 +22,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <GeistProvider theme={customTheme}>
       <CssBaseline />
+      <LozadProvider />
       <Layout>
         <Header />
         <ContentWrapper>

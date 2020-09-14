@@ -4,6 +4,7 @@ import { Card, Text } from '@geist-ui/react';
 import { css } from 'linaria';
 
 import { AspectRatioKeeper } from '../../../lib/aspect-ratio-keeper';
+import { LazyImage } from '../../../lib/lazy-image';
 import type { AnyProduct } from '../../domain/products/types';
 
 type ProductCardProps = AnyProduct;
@@ -49,6 +50,9 @@ const productLink = css`
   }
 `;
 
+const cardPlaceHolder =
+  'rgba(0, 0, 0, 0) linear-gradient(to right, rgb(201, 214, 255), rgb(226, 226, 226)) repeat scroll 0% 0%';
+
 export const ProductCard: React.FC<ProductCardProps> = ({
   title,
   description,
@@ -59,7 +63,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     <Card shadow>
       <Card.Content className={productCard}>
         <AspectRatioKeeper className={productImage} aspectRatio={3 / 4}>
-          <img src={image} alt="" />
+          <LazyImage src={image} placeholder={cardPlaceHolder} />
         </AspectRatioKeeper>
         <div className={productContent}>
           <Text h3>
