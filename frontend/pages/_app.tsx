@@ -15,6 +15,12 @@ import { useLozad } from '../lib/lazy-image';
 export const globals = css`
   :global() {
     @import-normalize;
+
+    *,
+    *:before,
+    *:after {
+      box-sizing: border-box;
+    }
   }
 `;
 
