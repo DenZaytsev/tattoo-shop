@@ -26,7 +26,7 @@ export const LazyImage: React.FC<LazyImageProps> = ({
 }) => (
   <img
     className="lozad"
-    src="empty" // added to hide ugly border for img
+    src="empty" // added to hide ugly border in img with empty src attribute
     data-src={src}
     data-placeholder-background={placeholder}
     alt={alt}
