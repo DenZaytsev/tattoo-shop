@@ -5523,6 +5523,7 @@ __metadata:
     ignore-loader: ^0.1.2
     linaria: ^1.3.3
     lint-staged: ^10.1.3
+    lozad: ^1.16.0
     mini-css-extract-plugin: ^0.11.0
     next: 9.5.2
     postcss-flexbugs-fixes: ^4.2.1
@@ -7359,6 +7360,13 @@ fsevents@~2.1.2:
     currently-unhandled: ^0.4.1
     signal-exit: ^3.0.0
   checksum: 9d57f7bc81da9a167dca46f9cc986dd18b0ae822811c69c2374f4945418234bb1ee102ca3a34bacf74e3bee122b27eed15604e57d5e1974f6fef8984861ed9ca
+  languageName: node
+  linkType: hard
+
+"lozad@npm:^1.16.0":
+  version: 1.16.0
+  resolution: "lozad@npm:1.16.0"
+  checksum: 204f59f615d479f880a602298bbbc2d9747bd4a90e237d53ce267946154ac85827899f7bf118245bebcf79fc7b597ff667aff4c5eaa7dec8c993be39b9bf8e2e
   languageName: node
   linkType: hard
 
