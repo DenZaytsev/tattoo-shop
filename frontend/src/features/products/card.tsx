@@ -37,6 +37,10 @@ const productDescription = css`
 `;
 
 const productLink = css`
+  &:hover {
+    color: var(--alert);
+  }
+
   &::before {
     content: ' ';
     display: block;

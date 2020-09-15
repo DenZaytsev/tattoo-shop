@@ -3,6 +3,7 @@ import { css, cx } from 'linaria';
 import Menu from '@geist-ui/react-icons/menu';
 import { ShoppingBag } from '@geist-ui/react-icons';
 import { Text, Toggle } from '@geist-ui/react';
+import Link from 'next/link';
 
 import { toggleThemeMode } from '../../theme';
 import { toggleNav } from '../../domain/navigation';
@@ -17,7 +18,7 @@ const iconButton = css`
   transition-property: color, transform;
 
   &:hover {
-    color: rgb(121, 40, 202);
+    color: var(--violet);
     transform: scale(1.5);
   }
 `;
@@ -32,6 +33,11 @@ const cartButton = css`
 
 const logoText = css`
   justify-self: center;
+`;
+
+const logoLink = css`
+  color: inherit;
+  margin-right: 8px;
 `;
 
 const appHeader = css`
@@ -55,7 +61,10 @@ export const Header = () => {
       </button>
       <div className={logoText}>
         <Text h1 size="2rem">
-          Тату шоп <Toggle size="large" onChange={toggleThemeMode} />
+          <Link href="/" passHref>
+            <a className={logoLink}>Тату шоп</a>
+          </Link>
+          <Toggle size="large" onChange={toggleThemeMode} />
         </Text>
       </div>
       <button

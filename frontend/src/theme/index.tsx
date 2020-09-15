@@ -1,7 +1,12 @@
 import React from 'react';
 import { createStore, createEvent } from 'effector';
 import { useStore } from 'effector-react';
-import { GeistProvider, GeistUIThemes } from '@geist-ui/react';
+import {
+  GeistProvider,
+  useTheme,
+  GeistUIThemes,
+  GeistUIThemesPalette,
+} from '@geist-ui/react';
 
 import { customBreakpoints } from './breakpoints';
 
@@ -19,6 +24,21 @@ $currentThemeMode.on(toggleThemeMode, (mode) => {
   return 'light';
 });
 
+const toCssCustomProp = (prop: string) => `--${prop}`;
+const themeToCustomProps = (
+  themeObj: Partial<GeistUIThemes> | Partial<GeistUIThemesPalette>,
+): React.CSSProperties => {
+  const CustomProps = {};
+
+  for (const prop in themeObj) {
+    if (Object.prototype.hasOwnProperty.call(themeObj, prop)) {
+      CustomProps[toCssCustomProp(prop)] = themeObj[prop];
+    }
+  }
+
+  return CustomProps;
+};
+
 export const GeistProviderWithSwitch: React.FC = ({ children }) => {
   const currentMode = useStore($currentThemeMode);
 
@@ -27,7 +47,14 @@ export const GeistProviderWithSwitch: React.FC = ({ children }) => {
     ...customTheme,
   };
 
+  const { palette } = useTheme();
+  const styleWithProps = React.useMemo(() => themeToCustomProps(palette), [
+    currentMode,
+  ]);
+
   return (
-    <GeistProvider theme={currentThemeOverrides}>{children}</GeistProvider>
+    <GeistProvider theme={currentThemeOverrides}>
+      <div style={styleWithProps}>{children}</div>
+    </GeistProvider>
   );
 };
