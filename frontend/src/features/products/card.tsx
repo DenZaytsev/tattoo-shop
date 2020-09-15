@@ -37,6 +37,8 @@ const productDescription = css`
 `;
 
 const productLink = css`
+  transition: color 0.15s ease-in;
+
   &:hover {
     color: var(--alert);
   }
