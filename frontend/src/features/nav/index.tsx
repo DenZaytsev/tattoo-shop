@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Link as GeistLink } from '@geist-ui/react';
+import { Modal, Link as GeistLink, useTheme } from '@geist-ui/react';
 import { css, cx } from 'linaria';
 import { useMedia } from 'use-media';
 import Link from 'next/link';
@@ -22,6 +22,24 @@ const navList = css`
   @media (min-width: ${desktopBpPx}) {
     padding-top: 90px;
   }
+
+  & > li {
+    &:before {
+      display: none;
+    }
+  }
+`;
+
+const navLink = css`
+  /* !important is to override default style of GeistUI */
+  width: 100% !important;
+  text-align: left;
+  font-size: 1.2rem;
+`;
+
+const navLinkActive = css`
+  /* !important is to override default style of GeistUI */
+  color: var(--nav-link-active-color) !important;
 `;
 
 interface NavItemProps {
@@ -30,10 +48,22 @@ interface NavItemProps {
 
 const NavItem: React.FC<NavItemProps> = ({ href, children }) => {
   const { pathname } = useRouter();
+  const isActive = pathname === href;
+  const {
+    palette: { alert },
+  } = useTheme();
 
   return (
     <Link href={href} passHref>
-      <GeistLink block>{children}</GeistLink>
+      <GeistLink
+        className={cx(navLink, isActive && navLinkActive)}
+        style={{
+          ['--nav-link-active-color' as any]: alert,
+        }}
+        block
+      >
+        {children}
+      </GeistLink>
     </Link>
   );
 };
