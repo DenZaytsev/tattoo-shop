@@ -35,8 +35,6 @@ const logoText = css`
 
 const appHeader = css`
   grid-area: header;
-  background-color: white !important;
-  color: black;
   padding: 16px;
 
   display: grid;
