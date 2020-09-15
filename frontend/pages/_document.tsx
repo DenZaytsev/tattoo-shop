@@ -1,5 +1,5 @@
 import React from 'react';
-import Document from 'next/document';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { CssBaseline } from '@geist-ui/react';
 
 export default class MyDocument extends Document {
@@ -16,5 +16,17 @@ export default class MyDocument extends Document {
         </>
       ),
     };
+  }
+
+  render() {
+    return (
+      <Html lang="ru">
+        <Head />
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
   }
 }
