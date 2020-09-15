@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, cx } from 'linaria';
 import Menu from '@geist-ui/react-icons/menu';
-import { ShoppingCart } from '@geist-ui/react-icons';
+import { ShoppingBag } from '@geist-ui/react-icons';
 import { Text } from '@geist-ui/react';
 
 import { toggleNav } from '../../domain/navigation';
@@ -65,7 +65,7 @@ export const Header = () => {
         aria-label="Корзина товаров"
         onClick={toggleCart}
       >
-        <ShoppingCart />
+        <ShoppingBag />
       </button>
     </header>
   );
