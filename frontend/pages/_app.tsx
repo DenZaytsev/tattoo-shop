@@ -1,9 +1,9 @@
 import React from 'react';
 import { AppProps } from 'next/app';
 import { css } from 'linaria';
-import { GeistProvider, CssBaseline } from '@geist-ui/react';
+import { CssBaseline } from '@geist-ui/react';
 
-import { customTheme } from '../src/theme';
+import { GeistProviderWithSwitch } from '../src/theme';
 import { Layout, ContentWrapper } from '../src/features/layout';
 import { AppLoaderIndicator } from '../src/features/app-loader-indicator';
 import { Header } from '../src/features/header';
@@ -29,7 +29,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   useLozad();
 
   return (
-    <GeistProvider theme={customTheme}>
+    <GeistProviderWithSwitch>
       <CssBaseline />
       <Layout>
         <AppLoaderIndicator />
@@ -42,7 +42,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         <CartBlock />
       </Layout>
       <NotificationsProvider />
-    </GeistProvider>
+    </GeistProviderWithSwitch>
   );
 };
 

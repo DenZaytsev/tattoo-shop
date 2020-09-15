@@ -2,8 +2,9 @@ import React from 'react';
 import { css, cx } from 'linaria';
 import Menu from '@geist-ui/react-icons/menu';
 import { ShoppingBag } from '@geist-ui/react-icons';
-import { Text } from '@geist-ui/react';
+import { Text, Toggle } from '@geist-ui/react';
 
+import { toggleThemeMode } from '../../theme';
 import { toggleNav } from '../../domain/navigation';
 import { toggleCart } from '../../domain/cart';
 
@@ -54,7 +55,7 @@ export const Header = () => {
       </button>
       <div className={logoText}>
         <Text h1 size="2rem">
-          Тату шоп
+          Тату шоп <Toggle size="large" onChange={toggleThemeMode} />
         </Text>
       </div>
       <button
