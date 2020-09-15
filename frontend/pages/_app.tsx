@@ -5,6 +5,7 @@ import { GeistProvider, CssBaseline } from '@geist-ui/react';
 
 import { customTheme } from '../src/theme';
 import { Layout, ContentWrapper } from '../src/features/layout';
+import { AppLoaderIndicator } from '../src/features/app-loader-indicator';
 import { Header } from '../src/features/header';
 import { Footer } from '../src/features/footer';
 import { NavBlock } from '../src/features/nav';
@@ -31,6 +32,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     <GeistProvider theme={customTheme}>
       <CssBaseline />
       <Layout>
+        <AppLoaderIndicator />
         <Header />
         <ContentWrapper>
           <Component {...pageProps} />

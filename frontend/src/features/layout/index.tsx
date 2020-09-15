@@ -4,6 +4,7 @@ import { css } from 'linaria';
 import { desktopBp } from '../../theme/breakpoints';
 
 const layout = css`
+  position: relative;
   display: grid;
   min-height: 100vh;
   width: 100vw;
