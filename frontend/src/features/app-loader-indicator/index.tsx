@@ -9,6 +9,7 @@ import { $isAppLoading } from '../../domain/app-loading';
 const appLoaderIndicator = css`
   position: fixed;
   top: 0;
+  z-index: 1002;
 `;
 
 export const AppLoaderIndicator = () => {
