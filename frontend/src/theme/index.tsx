@@ -10,8 +10,15 @@ import {
 
 import { customBreakpoints } from './breakpoints';
 
-const customTheme: Partial<GeistUIThemes> = {
+export type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends Record<string, any> ? DeepPartial<T[P]> : T[P];
+};
+
+const customTheme: DeepPartial<GeistUIThemes> = {
   breakpoints: customBreakpoints,
+  expressiveness: {
+    shadowMedium: '0 12px 30px rgba(0, 0, 0, 0.18)',
+  },
 };
 
 export const toggleThemeMode = createEvent();
