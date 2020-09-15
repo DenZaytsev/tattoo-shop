@@ -3,9 +3,9 @@ import { css } from 'linaria';
 import { Text } from '@geist-ui/react';
 
 const footer = css`
-  background-color: rgb(17, 17, 17);
+  background-color: var(--accents_2);
   grid-area: footer;
-  color: white;
+  color: var(--accents_3);
 
   display: grid;
   grid-template-columns: 1fr [content] 600px 1fr;
