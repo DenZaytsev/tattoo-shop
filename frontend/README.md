@@ -1,4 +1,5 @@
 Стэк фронтенда:
+
 - React (Next.js)
 - effector
 - @geist-ui
