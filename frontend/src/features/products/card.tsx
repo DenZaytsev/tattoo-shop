@@ -1,12 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
-import { Card, Text } from '@geist-ui/react';
+import { Card, Text, Tag } from '@geist-ui/react';
 import { css } from 'linaria';
 
 import { AspectRatioKeeper } from '../../../lib/aspect-ratio-keeper';
 import { LazyImage } from '../../../lib/lozad-react';
 import type { AnyProduct } from '../../domain/products/types';
 import { PriceTag } from './parts/price-tag';
+import { SizeTag } from './parts/size-tag';
 
 type ProductCardProps = AnyProduct;
 
@@ -61,6 +62,10 @@ const productLink = css`
   }
 `;
 
+const productSize = css`
+  margin-top: 8px;
+`;
+
 const productCardFooter = css`
   display: flex;
   flex-flow: row wrap;
@@ -98,6 +103,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <Text type="secondary" p small className={productDescription}>
             {description}
           </Text>
+          <SizeTag className={productSize} size={size} />
         </div>
       </Card.Content>
       <Card.Footer className={productCardFooter}>
