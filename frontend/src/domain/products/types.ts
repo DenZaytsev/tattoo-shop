@@ -16,7 +16,7 @@ export const ProductCategories = {
   TShirt: 'TShirt',
 } as const;
 
-export type TattooSketchProduct = {
+export type TattooSketch = {
   id: number;
   title: string;
   description?: string;
@@ -51,12 +51,12 @@ export type TShirtProduct = Partial<BaseProduct> & {
 
 export type StickerProduct = Partial<BaseProduct>;
 
-export type AnyProduct = TattooSketchProduct | BaseProduct | TShirtProduct;
+export type AnyProduct = Partial<BaseProduct> | TShirtProduct;
 
 export type CategoryToProduct = {
   [ProductCategories.TShirt]: TShirtProduct;
   [ProductCategories.Sticker]: StickerProduct;
-  [ProductCategories.TattooSketch]: TattooSketchProduct;
+  [ProductCategories.TattooSketch]: TattooSketch;
 };
 
 export type AllProducts = {

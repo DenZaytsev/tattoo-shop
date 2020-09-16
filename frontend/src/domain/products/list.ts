@@ -6,9 +6,10 @@ const mockProds = {
   TShirt: [
     {
       id: 1,
-      title: 'sdf',
-      description: 'sdf',
-      price: '0.02',
+      title: 'Футболка классная, белая',
+      description:
+        'Классная белая футболка из хлопка с рисунком на спине. Рисунок крутого кота - ручной работы, краска черная, краска красная.',
+      price: '2000.000',
       quantity: 3,
       slug: '1',
       image: null,

@@ -5,26 +5,21 @@ import { css } from 'linaria';
 
 import { AspectRatioKeeper } from '../../../lib/aspect-ratio-keeper';
 import { LazyImage } from '../../../lib/lozad-react';
-import type { AnyProduct } from '../../domain/products/types';
-import { PriceTag } from './parts/price-tag';
+import type { TattooSketch } from '../../domain/sketchs/types';
 
-type ProductCardProps = AnyProduct;
+type SketchCardProps = TattooSketch;
 
-const productCard = css`
+const sketchCard = css`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, auto));
   grid-auto-rows: auto;
   grid-gap: 16px;
 
-  & > *:first-child {
-    min-width: 250px;
-  }
-
   width: 100%;
   position: relative;
 `;
 
-const productImage = css`
+const sketchImage = css`
   object-fit: cover;
   object-position: center;
   width: 100%;
@@ -32,18 +27,16 @@ const productImage = css`
   border-radius: 5px;
 `;
 
-const productContent = css`
+const sketchContent = css`
   display: flex;
   flex-flow: column nowrap;
 `;
 
-const productDescription = css`
+const sketchDescription = css`
   max-width: 250px;
-  margin: 0;
-  line-height: 1.25;
 `;
 
-const productLink = css`
+const sketchLink = css`
   transition: color 0.15s ease-in;
 
   &:hover {
@@ -61,48 +54,36 @@ const productLink = css`
   }
 `;
 
-const productCardFooter = css`
-  display: flex;
-  flex-flow: row wrap;
-`;
-
 const cardPlaceHolder =
   'rgba(0, 0, 0, 0) linear-gradient(to right, rgb(201, 214, 255), rgb(226, 226, 226)) repeat scroll 0% 0%';
 
-export const ProductCard: React.FC<ProductCardProps> = ({
+export const TattooSketchCard: React.FC<SketchCardProps> = ({
   title,
   description,
-  price,
-  quantity,
-  size,
-  colour,
   image,
+  vacant,
   slug,
 }) => {
   return (
     <Card shadow>
-      <Card.Content className={productCard}>
+      <Card.Content className={sketchCard}>
         <AspectRatioKeeper aspectRatio={3 / 4}>
           <LazyImage
             src={image}
             placeholder={cardPlaceHolder}
-            className={productImage}
+            className={sketchImage}
           />
         </AspectRatioKeeper>
-        <div className={productContent}>
+        <div className={sketchContent}>
           <Text h3>
-            <Link href={`/product/${slug}`} passHref shallow>
-              <a className={productLink}>{title}</a>
+            <Link href={`/sketch/${slug}`} passHref shallow>
+              <a className={sketchLink}>{title}</a>
             </Link>
           </Text>
-          <Text type="secondary" p small className={productDescription}>
-            {description}
-          </Text>
+          <Text className={sketchDescription}>{description}</Text>
+          <Text>{vacant ? 'вакантно' : 'занят'}</Text>
         </div>
       </Card.Content>
-      <Card.Footer className={productCardFooter}>
-        <PriceTag value={price} />
-      </Card.Footer>
     </Card>
   );
 };
