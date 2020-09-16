@@ -5525,6 +5525,7 @@ __metadata:
     stylelint: ^13.3.1
     stylelint-config-recess-order: ^2.0.4
     stylelint-config-recommended: ^3.0.0
+    superstruct: ^0.10.12
     typescript: ^4.0.2
     use-media: ^1.4.0
     webpack: ^4.44.1
@@ -11340,6 +11341,13 @@ fsevents@~2.1.2:
   dependencies:
     postcss: ^7.0.2
   checksum: fd3c61168784e63bcd149291cce1668c437165688cc96a403e013d1f31e22fd10beff7e08c6cc33afa8b69fa2ed8db236a352ace92fe9e861396b69a73c2f7f4
+  languageName: node
+  linkType: hard
+
+"superstruct@npm:^0.10.12":
+  version: 0.10.12
+  resolution: "superstruct@npm:0.10.12"
+  checksum: 80240b1630e0eb349bbcf043275a1d7461631aba3f011df997e6170ab12187e71e483f03e5ab0c7c448b9aaa70bc9028b0d125b2398da68856d7e4745804df9e
   languageName: node
   linkType: hard
 

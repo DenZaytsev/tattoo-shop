@@ -24,6 +24,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "reakit": "^1.2.3",
+    "superstruct": "^0.10.12",
     "use-media": "^1.4.0",
     "yarn": "^1.22.5"
   },
