@@ -11,7 +11,7 @@ import { Footer } from '../src/features/footer';
 import { NavBlock } from '../src/features/nav';
 import { CartBlock } from '../src/features/cart';
 import { NotificationsProvider } from '../src/features/notifications';
-import { useLozad } from '../lib/lazy-image';
+import { useLozad } from '../lib/lozad-react';
 
 export const globals = css`
   :global() {

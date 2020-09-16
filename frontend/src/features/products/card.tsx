@@ -4,7 +4,7 @@ import { Card, Text } from '@geist-ui/react';
 import { css } from 'linaria';
 
 import { AspectRatioKeeper } from '../../../lib/aspect-ratio-keeper';
-import { LazyImage } from '../../../lib/lazy-image';
+import { LazyImage } from '../../../lib/lozad-react';
 import type { AnyProduct } from '../../domain/products/types';
 
 type ProductCardProps = AnyProduct;
