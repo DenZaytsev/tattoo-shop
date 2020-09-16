@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, cx } from 'linaria';
 import Menu from '@geist-ui/react-icons/menu';
-import { ShoppingBag } from '@geist-ui/react-icons';
+import { ShoppingBag, Sun } from '@geist-ui/react-icons';
 import { Text, Toggle } from '@geist-ui/react';
 import Link from 'next/link';
 
@@ -40,6 +40,10 @@ const logoLink = css`
   margin-right: 8px;
 `;
 
+const themeToggle = css`
+  margin-right: 8px;
+`;
+
 const appHeader = css`
   grid-area: header;
   padding: 16px;
@@ -64,7 +68,14 @@ export const Header = () => {
           <Link href="/" passHref>
             <a className={logoLink}>Тату шоп</a>
           </Link>
-          <Toggle size="large" onChange={toggleThemeMode} />
+          <span>
+            <Toggle
+              className={themeToggle}
+              size="large"
+              onChange={toggleThemeMode}
+            />
+            <Sun />
+          </span>
         </Text>
       </div>
       <button
