@@ -7,5 +7,5 @@ export const formatRuMoney = (price: number | string): string => {
     .replace(/\d(?=(\d{3})+\.)/g, '$& ')
     .replace('.', DELIM);
 
-  return `${RUBLE} ${priceStr}`;
+  return `${priceStr} ${RUBLE}`;
 };

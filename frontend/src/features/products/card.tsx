@@ -6,20 +6,16 @@ import { css } from 'linaria';
 import { AspectRatioKeeper } from '../../../lib/aspect-ratio-keeper';
 import { LazyImage } from '../../../lib/lozad-react';
 import type { AnyProduct } from '../../domain/products/types';
-import { PriceTag } from './parts/price-tag';
 import { SizeTag } from './parts/size-tag';
+import { AddToCart } from './parts/add-to-cart';
 
 type ProductCardProps = AnyProduct;
 
 const productCard = css`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, auto));
+  grid-template-columns: repeat(auto-fit, minmax(${250 - 8}px, auto));
   grid-auto-rows: auto;
   grid-gap: 16px;
-
-  & > *:first-child {
-    min-width: 250px;
-  }
 
   width: 100%;
   position: relative;
@@ -107,7 +103,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </div>
       </Card.Content>
       <Card.Footer className={productCardFooter}>
-        <PriceTag value={price} />
+        <AddToCart onClick={() => {}} price={price} />
       </Card.Footer>
     </Card>
   );
