@@ -1802,6 +1802,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/just-debounce-it@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@types/just-debounce-it@npm:1.1.0"
+  checksum: e1b5345861c2dcc3cd0271a0b5c494927fb42bd7004a0182f4bc72ec7f109b41d53a8b1b45db7e4316f0733d2c788e848d83cd270689692ae7514cdd60a19be2
+  languageName: node
+  linkType: hard
+
 "@types/minimist@npm:^1.2.0":
   version: 1.2.0
   resolution: "@types/minimist@npm:1.2.0"
@@ -4294,6 +4301,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"detect-node@npm:2.0.4":
+  version: 2.0.4
+  resolution: "detect-node@npm:2.0.4"
+  checksum: e7648a5a91dd5e91838d14f0e9631f2adf0117cc271ea86d8ce394a8fbe8fc7545755c8261faaf4b1e196795a10da99e5d5f1013163ba0f6260a57b0ba29cc60
+  languageName: node
+  linkType: hard
+
 "diffie-hellman@npm:^5.0.0":
   version: 5.0.3
   resolution: "diffie-hellman@npm:5.0.3"
@@ -4451,6 +4465,45 @@ __metadata:
     jsbn: ~0.1.0
     safer-buffer: ^2.1.0
   checksum: 5b4dd05f24b2b94c1bb882488dba2b878bb5b83182669aa71fbdf53c6941618180cb226c4eb9a3e2fa51ad11f87b5edb0a7d7289cdef468ba2e6024542f73f07
+  languageName: node
+  linkType: hard
+
+"effector-dom@npm:^0.0.11":
+  version: 0.0.11
+  resolution: "effector-dom@npm:0.0.11"
+  peerDependencies:
+    effector: ^20.11.5
+  checksum: 0f69e2b96eb9cc34482b352171f3ec7cb2588ab0e9b0241e27a94773f61fe4cb48c360817b533103553582632ca74d548b77800b2c070d89fb2e1086672a53eb
+  languageName: node
+  linkType: hard
+
+"effector-inspector@npm:^0.2.1":
+  version: 0.2.2
+  resolution: "effector-inspector@npm:0.2.2"
+  dependencies:
+    effector-dom: ^0.0.11
+  peerDependencies:
+    effector: ^20.11.5
+  checksum: bf04c9a312c5214c140efdf74a8e1b923960e5aaa5111587111009302ce9012a2a9a10bb9a3379ebc53eaf22b41c1fe7e9a53c39dc9d320007f5b3e2732b0cc4
+  languageName: node
+  linkType: hard
+
+"effector-logger@npm:^0.6.1":
+  version: 0.6.1
+  resolution: "effector-logger@npm:0.6.1"
+  dependencies:
+    "@types/just-debounce-it": ^1.1.0
+    detect-node: 2.0.4
+    effector-inspector: ^0.2.1
+    just-debounce-it: ^1.1.0
+    set-value: 3.0.1
+  peerDependencies:
+    effector: ^20.11.5
+    effector-inspector: ^0.2.1
+  dependenciesMeta:
+    effector-inspector:
+      optional: true
+  checksum: 51261b4cda4d711fbc8224ee397c9210d17d8406ff48321f2d133a69f59d42d5ba9b4c9bf51b03a0542e8da30efb4b1ff1611546f859926bc775e66fd72ec925
   languageName: node
   linkType: hard
 
@@ -5494,6 +5547,7 @@ __metadata:
     css-loader: ^4.2.2
     cz-conventional-changelog: ^3.1.0
     effector: latest
+    effector-logger: ^0.6.1
     effector-react: latest
     eslint: ^6.8.0
     eslint-config-airbnb-base: ^14.1.0
@@ -6977,6 +7031,13 @@ fsevents@~2.1.2:
     array-includes: ^3.1.1
     object.assign: ^4.1.0
   checksum: 36471d635b7e52aacaa8e926edcec2f6fdf5cfb4ccb945e87209b2bd0e4feac586293b465170b8287afbdff138ce4ff9cfc7ca2bd23900f6f3740423c29f49f5
+  languageName: node
+  linkType: hard
+
+"just-debounce-it@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "just-debounce-it@npm:1.1.0"
+  checksum: 070bb781640659fa926a9cb389d26cd599e44b8b3ac31b8f6247e2ba6227419f8115c4d29d24cd7d1137d30aa776524b9182c0e06e3e3dcc74f73ad1f29e9f4f
   languageName: node
   linkType: hard
 
@@ -10544,6 +10605,15 @@ fsevents@~2.1.2:
   version: 2.0.0
   resolution: "set-blocking@npm:2.0.0"
   checksum: 0ac2403b0c2d39bf452f6d5d17dfd3cb952b9113098e1231cc0614c436e2f465637e39d27cf3b93556f5c59795e9790fd7e98da784c5f9919edeba4295ffeb29
+  languageName: node
+  linkType: hard
+
+"set-value@npm:3.0.1":
+  version: 3.0.1
+  resolution: "set-value@npm:3.0.1"
+  dependencies:
+    is-plain-object: ^2.0.4
+  checksum: 7ee975bf59652d2bc0d6b16d7069a3eca51e7761b4c647a81e4dbaebb1a030927c3b1fa631e4ebd97691c0956a404d444bff0c0f0be24eac24b1edf88336992a
   languageName: node
   linkType: hard
 
