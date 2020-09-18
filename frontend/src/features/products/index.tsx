@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from 'linaria';
 
-import { $stickers, $tshirts, $isEmpty } from '../../domain/products/list';
+import { $stickers, $tshirts, $isEmpty } from '../../core/products/list';
 import { ProductList } from './list';
 import { ProductCard } from './card';
 

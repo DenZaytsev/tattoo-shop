@@ -5,7 +5,7 @@ import { css } from 'linaria';
 
 import { AspectRatioKeeper } from '../../../lib/aspect-ratio-keeper';
 import { LazyImage } from '../../../lib/lozad-react';
-import type { AnyProduct } from '../../domain/products/types';
+import type { AnyProduct } from '../../domain/products';
 import { SizeTag } from './parts/size-tag';
 import { AddToCart } from './parts/add-to-cart';
 

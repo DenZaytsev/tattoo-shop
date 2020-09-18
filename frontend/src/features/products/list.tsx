@@ -4,7 +4,7 @@ import { css } from 'linaria';
 import { useList } from 'effector-react';
 import type { Store } from 'effector';
 
-import type { AnyProduct } from '../../domain/products/types';
+import type { AnyProduct } from '../../domain/products';
 
 interface ProductListProps {
   productsStore: Store<any[]>;

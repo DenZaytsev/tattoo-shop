@@ -5,7 +5,7 @@ import { css } from 'linaria';
 
 import { AspectRatioKeeper } from '../../../lib/aspect-ratio-keeper';
 import { LazyImage } from '../../../lib/lozad-react';
-import type { TattooSketch } from '../../domain/sketchs/types';
+import type { TattooSketch } from '../../core/sketchs/types';
 
 type SketchCardProps = TattooSketch;
 

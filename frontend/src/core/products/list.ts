@@ -1,5 +1,5 @@
 import { root } from '../root';
-import type { AllProducts } from './types';
+import type { AllProducts } from '../../domain/products';
 
 export const $allProducts = root.createStore<AllProducts>({});
 export const $isEmpty = $allProducts.map((s) => !(s.Sticker || s.TShirt));
