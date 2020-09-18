@@ -1,10 +1,9 @@
 import React from 'react';
 import { css } from 'linaria';
 
-import { $tattoos, $stickers, $tshirts } from '../../domain/products/list';
+import { $stickers, $tshirts, $isEmpty } from '../../domain/products/list';
 import { ProductList } from './list';
 import { ProductCard } from './card';
-import { TattooSketchCard } from './tattoo-card';
 
 const productsBlock = css`
   display: flex;
@@ -27,11 +26,6 @@ export const Products: React.FC = () => {
         title="Футболки"
         productsStore={$tshirts}
         ListItem={ProductCard}
-      />
-      <ProductList
-        title="Тату-скетчи"
-        productsStore={$tattoos}
-        ListItem={TattooSketchCard}
       />
     </div>
   );
