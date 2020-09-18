@@ -1,5 +1,6 @@
 import React from 'react';
 import { css } from 'linaria';
+import { useStore } from 'effector-react';
 
 import { $stickers, $tshirts, $isEmpty } from '../../core/products/list';
 import { ProductList } from './list';
@@ -15,6 +16,12 @@ const productsBlock = css`
 `;
 
 export const Products: React.FC = () => {
+  const isNoProducts = useStore($isEmpty);
+
+  if (isNoProducts) {
+    return null;
+  }
+
   return (
     <div className={productsBlock}>
       <ProductList

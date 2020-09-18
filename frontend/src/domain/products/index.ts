@@ -1,3 +1,15 @@
+import {
+  Record,
+  Array,
+  Number,
+  String,
+  Undefined,
+  Tuple,
+  Static,
+} from 'runtypes';
+
+import type { ValueOf } from '../../../lib/type-utils';
+
 export const Sizes = {
   S: 'SMALL',
   M: 'MEDIUM',
@@ -5,10 +17,14 @@ export const Sizes = {
   XL: 'EXTRA LARGE',
 } as const;
 
+const SizesAsArray = Object.keys(Sizes);
+
 export const Colours = {
   B: 'BLACK',
   W: 'WHITE',
 } as const;
+
+const ColoursAsArray = Object.keys(Colours);
 
 export const ProductCategories = {
   TattooSketch: 'TattooSketch',
@@ -25,40 +41,64 @@ export type TattooSketch = {
   slug: string;
 };
 
-export type BaseProduct = {
+export type BaseProductType = {
   id: number;
   title: string;
   description?: string;
   price?: number;
   quantity: number;
-  category: string;
+  category: number;
   image?: string;
   slug: string;
 };
 
-type ValueOf<T> = T[keyof T];
-type Entries<T> = {
-  [K in keyof T]: [K, T[K]];
-}[keyof T][];
-
 export type Size = ValueOf<typeof Sizes>;
 export type Colour = ValueOf<typeof Colours>;
 
-export type TShirtProduct = Partial<BaseProduct> & {
+export type TShirtProduct = Partial<BaseProductType> & {
   size: Size;
   colour: Colour;
 };
 
-export type StickerProduct = Partial<BaseProduct>;
+export type StickerProduct = Partial<BaseProductType>;
 
-export type AnyProduct = Partial<BaseProduct> | TShirtProduct;
+export type AnyProduct = Partial<BaseProductType> | TShirtProduct;
 
 export type CategoryToProduct = {
   [ProductCategories.TShirt]: TShirtProduct;
   [ProductCategories.Sticker]: StickerProduct;
-  [ProductCategories.TattooSketch]: TattooSketch;
 };
 
-export type AllProducts = {
-  [key in keyof CategoryToProduct]?: Array<Pick<CategoryToProduct, key>>;
+const BaseProductStruct = {
+  id: Number,
+  title: String,
+  description: String.Or(Undefined),
+  price: Number.withConstraint(
+    (n) => n >= 0 || 'price is less than zero (absurd!)',
+  ),
+  quantity: Number.withConstraint(
+    (n) => n >= 0 || 'quantity must be more than zero',
+  ),
+  category: Number,
+  image: String.Or(Undefined),
+  slug: String,
 };
+
+export const BaseProduct = Record(BaseProductStruct);
+
+export const TShirt = Record({
+  ...BaseProductStruct,
+  size: String.withConstraint(
+    (str) => SizesAsArray.includes(str) || 'unknown size',
+  ),
+  colour: String.withConstraint(
+    (str) => ColoursAsArray.includes(str) || 'unknown colour',
+  ),
+});
+
+export const AllProducts = Record({
+  [ProductCategories.TShirt]: Array(TShirt).Or(Undefined),
+  [ProductCategories.Sticker]: Array(BaseProduct).Or(Undefined),
+});
+
+export type AllProductsType = Static<typeof AllProducts>;
