@@ -5522,6 +5522,7 @@ __metadata:
     react: 16.13.1
     react-dom: 16.13.1
     reakit: ^1.2.3
+    redaxios: ^0.3.0
     stylelint: ^13.3.1
     stylelint-config-recess-order: ^2.0.4
     stylelint-config-recommended: ^3.0.0
@@ -9854,6 +9855,13 @@ fsevents@~2.1.2:
     react: ^16.8.0
     react-dom: ^16.8.0
   checksum: 5cee7bd725e8f571be069b60cd21d072ed1ca417647ac41b9663138aeb4d0209aa85695260114aef70621c605550a22ea5c50a39e76ed683058c65a32cc77f3b
+  languageName: node
+  linkType: hard
+
+"redaxios@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "redaxios@npm:0.3.0"
+  checksum: c09036857e942361e20f34080dd08485dd044f69c85c7a8d72d634c97797707a551b4ff7e93ad1051a62931a18ea106c02673bf045815f46808fd48bbdf5e1f1
   languageName: node
   linkType: hard
 
