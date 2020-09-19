@@ -38,7 +38,7 @@ export class ShopApiService {
   }
 
   url(path: string): string {
-    return `${this.apiBase}/${path}`;
+    return `${this.apiBase}${path}`;
   }
 
   async getAllProducts() {
@@ -46,6 +46,8 @@ export class ShopApiService {
       url: this.url('products'),
       method: Method.GET,
     });
+
+    console.log('products', response);
 
     const allProducts = AllProducts.check(response);
 

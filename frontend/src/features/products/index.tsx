@@ -2,7 +2,12 @@ import React from 'react';
 import { css } from 'linaria';
 import { useStore } from 'effector-react';
 
-import { $stickers, $tshirts, $isEmpty } from '../../core/products/list';
+import {
+  $stickers,
+  $tshirts,
+  $isEmpty,
+  getAllProductsFx,
+} from '../../core/products/list';
 import { ProductList } from './list';
 import { ProductCard } from './card';
 
@@ -16,6 +21,10 @@ const productsBlock = css`
 `;
 
 export const Products: React.FC = () => {
+  React.useEffect(() => {
+    getAllProductsFx();
+  }, []);
+
   const isNoProducts = useStore($isEmpty);
 
   if (isNoProducts) {
