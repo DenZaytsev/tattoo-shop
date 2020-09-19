@@ -4,7 +4,7 @@ import { useStore } from 'effector-react';
 import { useTheme } from '@geist-ui/react';
 
 import { ProgressLoader } from '../../../lib/progress-loader';
-import { $isAppLoading } from '../../domain/app-loading';
+import { $isAppLoading } from '../../core/app-loading';
 
 const appLoaderIndicator = css`
   position: fixed;

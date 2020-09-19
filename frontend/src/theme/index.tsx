@@ -61,7 +61,9 @@ export const GeistProviderWithSwitch: React.FC = ({ children }) => {
 
   return (
     <GeistProvider theme={currentThemeOverrides}>
-      <div style={styleWithProps}>{children}</div>
+      <div id="geistProvider" style={styleWithProps}>
+        {children}
+      </div>
     </GeistProvider>
   );
 };

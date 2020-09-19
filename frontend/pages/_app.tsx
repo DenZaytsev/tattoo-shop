@@ -22,6 +22,10 @@ export const globals = css`
     *:after {
       box-sizing: border-box;
     }
+
+    a:hover {
+      color: var(--alert);
+    }
   }
 `;
 

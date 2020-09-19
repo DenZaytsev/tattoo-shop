@@ -1,17 +1,19 @@
 import React from 'react';
 import Link from 'next/link';
-import { Card, Text } from '@geist-ui/react';
+import { Card, Text, Tag } from '@geist-ui/react';
 import { css } from 'linaria';
 
 import { AspectRatioKeeper } from '../../../lib/aspect-ratio-keeper';
 import { LazyImage } from '../../../lib/lozad-react';
-import type { AnyProduct } from '../../domain/products/types';
+import type { AnyProduct } from '../../domain/products';
+import { SizeTag } from './parts/size-tag';
+import { AddToCart } from './parts/add-to-cart';
 
 type ProductCardProps = AnyProduct;
 
 const productCard = css`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, auto));
+  grid-template-columns: repeat(auto-fit, minmax(${250 - 8}px, auto));
   grid-auto-rows: auto;
   grid-gap: 16px;
 
@@ -34,6 +36,8 @@ const productContent = css`
 
 const productDescription = css`
   max-width: 250px;
+  margin: 0;
+  line-height: 1.25;
 `;
 
 const productLink = css`
@@ -54,14 +58,26 @@ const productLink = css`
   }
 `;
 
+const productSize = css`
+  margin-top: 8px;
+`;
+
+const productCardFooter = css`
+  display: flex;
+  flex-flow: row wrap;
+`;
+
 const cardPlaceHolder =
   'rgba(0, 0, 0, 0) linear-gradient(to right, rgb(201, 214, 255), rgb(226, 226, 226)) repeat scroll 0% 0%';
 
 export const ProductCard: React.FC<ProductCardProps> = ({
   title,
   description,
+  price,
+  quantity,
+  size,
+  colour,
   image,
-  vacant,
   slug,
 }) => {
   return (
@@ -80,10 +96,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               <a className={productLink}>{title}</a>
             </Link>
           </Text>
-          <Text className={productDescription}>{description}</Text>
-          <Text>{vacant ? 'вакантно' : 'занят'}</Text>
+          <Text type="secondary" p small className={productDescription}>
+            {description}
+          </Text>
+          <SizeTag className={productSize} size={size} />
         </div>
       </Card.Content>
+      <Card.Footer className={productCardFooter}>
+        <AddToCart onClick={() => {}} price={price} />
+      </Card.Footer>
     </Card>
   );
 };

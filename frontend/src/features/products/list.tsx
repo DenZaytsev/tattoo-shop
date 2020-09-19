@@ -4,12 +4,12 @@ import { css } from 'linaria';
 import { useList } from 'effector-react';
 import type { Store } from 'effector';
 
-import { ProductCard } from './card';
-import type { AnyProduct } from '../../domain/products/types';
+import type { AnyProduct } from '../../domain/products';
 
 interface ProductListProps {
   productsStore: Store<any[]>;
   title?: string;
+  ListItem: React.FC<AnyProduct>;
 }
 
 const productsList = css`
@@ -27,10 +27,11 @@ const productsList = css`
 export const ProductList: React.FC<ProductListProps> = ({
   productsStore,
   title,
+  ListItem,
 }) => {
   const list = useList(productsStore, (product) => (
     <li key={product.slug}>
-      <ProductCard {...product} />
+      <ListItem {...product} />
     </li>
   ));
 

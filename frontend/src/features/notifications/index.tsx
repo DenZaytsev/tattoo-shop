@@ -2,7 +2,7 @@ import React from 'react';
 import { useToasts } from '@geist-ui/react';
 import { useStore } from 'effector-react';
 
-import { $currentNotification } from '../../domain/notifications';
+import { $currentNotification } from '../../core/notifications';
 
 export const NotificationsProvider = () => {
   const notification = useStore($currentNotification);

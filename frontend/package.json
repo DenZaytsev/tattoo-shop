@@ -24,7 +24,8 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "reakit": "^1.2.3",
-    "superstruct": "^0.10.12",
+    "redaxios": "^0.3.0",
+    "runtypes": "^5.0.1",
     "use-media": "^1.4.0",
     "yarn": "^1.22.5"
   },
@@ -43,6 +44,7 @@
     "commitizen": "^4.0.4",
     "css-loader": "^4.2.2",
     "cz-conventional-changelog": "^3.1.0",
+    "effector-logger": "^0.6.1",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-prettier": "^6.10.1",

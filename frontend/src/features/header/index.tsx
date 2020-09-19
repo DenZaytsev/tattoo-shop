@@ -6,8 +6,8 @@ import { Text, Toggle } from '@geist-ui/react';
 import Link from 'next/link';
 
 import { toggleThemeMode } from '../../theme';
-import { toggleNav } from '../../domain/navigation';
-import { toggleCart } from '../../domain/cart';
+import { toggleNav } from '../../core/navigation';
+import { toggleCart } from '../../core/cart';
 
 const iconButton = css`
   background: none;

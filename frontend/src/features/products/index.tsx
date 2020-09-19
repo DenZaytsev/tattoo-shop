@@ -1,8 +1,10 @@
 import React from 'react';
 import { css } from 'linaria';
+import { useStore } from 'effector-react';
 
-import { $tattoos, $stickers, $tshirts } from '../../domain/products/list';
+import { $stickers, $tshirts, $isEmpty } from '../../core/products/list';
 import { ProductList } from './list';
+import { ProductCard } from './card';
 
 const productsBlock = css`
   display: flex;
@@ -14,11 +16,24 @@ const productsBlock = css`
 `;
 
 export const Products: React.FC = () => {
+  const isNoProducts = useStore($isEmpty);
+
+  if (isNoProducts) {
+    return null;
+  }
+
   return (
     <div className={productsBlock}>
-      <ProductList title="Тату-скетчи" productsStore={$tattoos} />
-      <ProductList title="Стикеры" productsStore={$stickers} />
-      <ProductList title="Футболки" productsStore={$tshirts} />
+      <ProductList
+        title="Стикеры"
+        productsStore={$stickers}
+        ListItem={ProductCard}
+      />
+      <ProductList
+        title="Футболки"
+        productsStore={$tshirts}
+        ListItem={ProductCard}
+      />
     </div>
   );
 };
