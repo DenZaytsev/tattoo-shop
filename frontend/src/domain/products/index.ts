@@ -1,7 +1,5 @@
 import { Record, Array, Number, String, Undefined, Static } from 'runtypes';
 
-import type { ValueOf } from '../../../lib/type-utils';
-
 export const Sizes = {
   S: 'SMALL',
   M: 'MEDIUM',
@@ -31,34 +29,6 @@ export type TattooSketch = {
   vacant?: boolean;
   image?: string;
   slug: string;
-};
-
-export type BaseProductType = {
-  id: number;
-  title: string;
-  description?: string;
-  price?: number;
-  quantity: number;
-  category: number;
-  image?: string;
-  slug: string;
-};
-
-export type Size = ValueOf<typeof Sizes>;
-export type Colour = ValueOf<typeof Colours>;
-
-export type TShirtProduct = Partial<BaseProductType> & {
-  size: Size;
-  colour: Colour;
-};
-
-export type StickerProduct = Partial<BaseProductType>;
-
-export type AnyProduct = Partial<BaseProductType> | TShirtProduct;
-
-export type CategoryToProduct = {
-  [ProductCategories.TShirt]: TShirtProduct;
-  [ProductCategories.Sticker]: StickerProduct;
 };
 
 const BaseProductStruct = {
@@ -94,3 +64,5 @@ export const AllProducts = Record({
 });
 
 export type AllProductsType = Static<typeof AllProducts>;
+
+export type AnyProduct = Partial<Static<typeof BaseProduct>>;
