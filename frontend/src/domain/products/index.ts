@@ -1,12 +1,4 @@
-import {
-  Record,
-  Array,
-  Number,
-  String,
-  Undefined,
-  Tuple,
-  Static,
-} from 'runtypes';
+import { Record, Array, Number, String, Undefined, Static } from 'runtypes';
 
 import type { ValueOf } from '../../../lib/type-utils';
 

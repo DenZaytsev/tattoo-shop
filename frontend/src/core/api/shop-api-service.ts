@@ -1,6 +1,6 @@
 import axios, { Options } from 'redaxios';
 
-import type { AllProducts } from '../../domain/products';
+import { AllProducts } from '../../domain/products';
 
 export interface AxiosResponse<T = any> {
   data: T;
@@ -42,10 +42,12 @@ export class ShopApiService {
   }
 
   async getAllProducts() {
-    const allProducts = await makeReq({
+    const response = await makeReq({
       url: this.url('products'),
       method: Method.GET,
     });
+
+    const allProducts = AllProducts.check(response);
 
     return allProducts;
   }
