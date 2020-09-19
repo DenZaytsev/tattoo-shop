@@ -9,6 +9,7 @@ docker-compose up -d
 ---
 ```bash
 docker-compose exec web python manage.py flush --no-input
+docker-compose exec web python manage.py makemigrations tattoo_shop
 docker-compose exec web python manage.py migrate
 ```
 
