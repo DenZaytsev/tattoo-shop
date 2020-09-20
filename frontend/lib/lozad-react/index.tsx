@@ -5,6 +5,7 @@ import { styled } from 'linaria/react';
 
 import { useIsomorphicLayoutEffect } from '../use-isomorphic-layout-effect';
 
+// eslint-disable-next-line no-empty-function
 let lz = { observe: () => {} };
 
 if (typeof window !== 'undefined') {
