@@ -1,5 +1,5 @@
 import React from 'react';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 
 const ProductPage: React.FC = () => {
@@ -9,14 +9,10 @@ const ProductPage: React.FC = () => {
 
   return (
     <>
-      <Head>
-        <title>Тату-шоп/product/{slug}</title>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <NextSeo
+        title="Продуктнейм (или скетч)"
+        description="Лучшая футболочка, просто топ"
+      />
       <div>product slug: {slug}</div>
     </>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import { css } from 'linaria';
 import { Text, Collapse } from '@geist-ui/react';
 import Link from 'next/link';
@@ -17,14 +17,10 @@ const aboutLayout = css`
 export default function About() {
   return (
     <div>
-      <Head>
-        <title>Тату-Шоп</title>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <NextSeo
+        title="О Тату-шопе"
+        description="В тату-шопе можно выбрать себе клевый скетч и сделать с ним тату! А еще можно заказать клевую кастомную футболку или стикер!"
+      />
       <div className={aboutLayout}>
         <Text h2>О тату-шопе</Text>
         <Link href="/" passHref>
