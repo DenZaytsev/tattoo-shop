@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
-import { Card, Text, Tag } from '@geist-ui/react';
+import { Card, Text } from '@geist-ui/react';
 import { css } from 'linaria';
 
+import { withStatic } from '../../core/api';
 import { AspectRatioKeeper } from '../../../lib/aspect-ratio-keeper';
 import { LazyImage } from '../../../lib/lozad-react';
 import type { AnyProduct } from '../../domain/products';
@@ -85,7 +86,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       <Card.Content className={productCard}>
         <AspectRatioKeeper aspectRatio={3 / 4}>
           <LazyImage
-            src={image}
+            src={withStatic(image)}
             placeholder={cardPlaceHolder}
             className={productImage}
           />
