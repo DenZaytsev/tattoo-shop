@@ -35,8 +35,8 @@ const BaseProductStruct = {
   id: Number,
   title: String,
   description: String.Or(Undefined),
-  price: Number.withConstraint(
-    (n) => n >= 0 || 'price is less than zero (absurd!)',
+  price: String.withConstraint(
+    (n) => parseFloat(n) >= 0 || 'price is less than zero (absurd!)',
   ),
   quantity: Number.withConstraint(
     (n) => n >= 0 || 'quantity must be more than zero',
@@ -59,8 +59,8 @@ export const TShirt = Record({
 });
 
 export const AllProducts = Record({
-  [ProductCategories.TShirt]: Array(TShirt).Or(Undefined),
-  [ProductCategories.Sticker]: Array(BaseProduct).Or(Undefined),
+  [ProductCategories.TShirt]: Array(TShirt),
+  [ProductCategories.Sticker]: Array(BaseProduct),
 });
 
 export type AllProductsType = Static<typeof AllProducts>;

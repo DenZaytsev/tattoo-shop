@@ -38,18 +38,17 @@ export class ShopApiService {
   }
 
   url(path: string): string {
-    return `${this.apiBase}${path}`;
+    return `${this.apiBase}${path}/`;
   }
 
   async getAllProducts() {
-    const response = await makeReq({
+    const { data } = await makeReq({
       url: this.url('products'),
       method: Method.GET,
+      responseType: 'json',
     });
 
-    console.log('products', response);
-
-    const allProducts = AllProducts.check(response);
+    const allProducts = AllProducts.check(data);
 
     return allProducts;
   }
