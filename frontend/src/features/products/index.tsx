@@ -22,7 +22,7 @@ const productsBlock = css`
 
 export const Products: React.FC = () => {
   React.useEffect(() => {
-    getAllProductsFx();
+    if (window) getAllProductsFx();
   }, []);
 
   const isNoProducts = useStore($isEmpty);

@@ -18,9 +18,10 @@ export const $allProducts = root.createStore<AllProductsType>({
 
 $allProducts.on(getAllProductsFx.doneData, (_, data) => data);
 
-getAllProductsFx.fail.watch(() =>
-  notify({ text: 'Что-то пошло не так', type: 'error' }),
-);
+getAllProductsFx.fail.watch((...args) => {
+  console.log('fail args', args);
+  notify({ text: 'Что-то пошло не так', type: 'error' });
+});
 
 export const $isEmpty = $allProducts.map((s) => !(s.Sticker || s.TShirt));
 export const $stickers = $allProducts.map((s) => s.Sticker);
