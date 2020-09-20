@@ -8,6 +8,7 @@ import { AspectRatioKeeper } from '../../../lib/aspect-ratio-keeper';
 import { LazyImage } from '../../../lib/lozad-react';
 import type { AnyProduct } from '../../domain/products';
 import { SizeTag } from './parts/size-tag';
+import { ColourTag } from './parts/colour-tag';
 import { AddToCart } from './parts/add-to-cart';
 
 type ProductCardProps = AnyProduct;
@@ -59,8 +60,10 @@ const productLink = css`
   }
 `;
 
-const productSize = css`
-  margin-top: 8px;
+const productProps = css`
+  display: flex;
+  gap: 8px;
+  padding-top: 8px;
 `;
 
 const productCardFooter = css`
@@ -100,7 +103,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <Text type="secondary" p small className={productDescription}>
             {description}
           </Text>
-          <SizeTag className={productSize} size={size} />
+          <div className={productProps}>
+            <SizeTag size={size} />
+            <ColourTag colour={colour} />
+          </div>
         </div>
       </Card.Content>
       <Card.Footer className={productCardFooter}>

@@ -10,8 +10,8 @@ export const Sizes = {
 const SizesAsArray = Object.keys(Sizes);
 
 export const Colours = {
-  B: 'BLACK',
-  W: 'WHITE',
+  B: 'Чёрный',
+  W: 'Белый',
 } as const;
 
 const ColoursAsArray = Object.keys(Colours);
