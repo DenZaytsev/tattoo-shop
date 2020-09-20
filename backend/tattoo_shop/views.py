@@ -1,5 +1,5 @@
 from .bussines_logic import CT_MODEL_MODEL_CLASS, vacant_sketches, get_sketch, all_category, all_product_dict, \
-    MODEL_CLASS_SERIALIZER
+    MODEL_CLASS_SERIALIZER, CATEGORY_ID_MODEL_CLASS
 from rest_framework.generics import get_object_or_404, ListAPIView, CreateAPIView, RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -108,7 +108,7 @@ class ProductDetailView(BaseView):
     """Возвращает детальную информацию о товаре"""
 
     def get(self, request, *args, **kwargs):
-        model = CT_MODEL_MODEL_CLASS.get(kwargs['ct_model'])
+        model = CATEGORY_ID_MODEL_CLASS.get(kwargs['category_id'])
         queryset = get_object_or_404(model, slug=kwargs['slug'])
         serializer = MODEL_CLASS_SERIALIZER[model.__name__]
         return Response(data=serializer(queryset).data, status=200)
@@ -119,7 +119,7 @@ class ProductsInCategoryListView(BaseView):
     http_method_names = ['get']
 
     def get(self, request, *args, **kwargs):
-        model = CT_MODEL_MODEL_CLASS.get(kwargs['ct_model'])
+        model = CATEGORY_ID_MODEL_CLASS.get(kwargs['category_id'])
         queryset = model.objects.all()
         serializer = MODEL_CLASS_SERIALIZER[model.__name__]
         return Response(data=serializer(queryset, many=True).data, status=200)

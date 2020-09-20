@@ -39,11 +39,16 @@ def all_product_dict() -> dict:
 
 
 CT_MODEL_MODEL_CLASS = {
-        't-shirts': TShirt,
-        'stickers': Sticker
-    }
+    't-shirts': TShirt,
+    'stickers': Sticker
+}
 
 MODEL_CLASS_SERIALIZER = {
     'TShirt': TShirtDetailSerializer,
     'Sticker': StickerDetailSerializer,
+}
+
+CATEGORY_ID_MODEL_CLASS = {
+    1: TShirt,
+    2: Sticker
 }
