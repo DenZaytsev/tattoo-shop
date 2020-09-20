@@ -5,26 +5,24 @@ import { styled } from 'linaria/react';
 
 import { useIsomorphicLayoutEffect } from '../use-isomorphic-layout-effect';
 
-const getLozad = () =>
-  lozad('.lozad', {
+let lz = { observe: () => {} };
+
+if (typeof window !== 'undefined') {
+  lz = lozad('.lozad', {
     rootMargin: '10px 10px',
     threshold: 0.1,
     enableAutoReload: true,
   });
+}
 
 export const useLozad = () => {
   const { pathname } = useRouter();
-  const lozadRef = React.useRef(null);
 
   useIsomorphicLayoutEffect(() => {
     if (window) {
-      if (!lozadRef.current) {
-        lozadRef.current = getLozad();
-      }
-
-      lozadRef.current.observe();
+      lz.observe();
     }
-  }, [lozadRef.current, pathname]);
+  }, [pathname]);
 };
 
 interface LazyImageProps {
@@ -53,7 +51,11 @@ export const LazyImage: React.FC<LazyImageProps> = ({
   className,
   style,
 }) => {
-  if (!src) {
+  React.useEffect(() => {
+    setTimeout(lz.observe, 0);
+  }, [src]);
+
+  if (typeof window === 'undefined' || !src) {
     return (
       <Placeholder
         placeholder={placeholder}
