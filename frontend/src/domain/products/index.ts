@@ -1,4 +1,12 @@
-import { Record, Array, Number, String, Undefined, Static } from 'runtypes';
+import {
+  Record,
+  Array,
+  Number,
+  String,
+  Undefined,
+  Static,
+  Null,
+} from 'runtypes';
 
 export const Sizes = {
   S: 'SMALL',
@@ -34,7 +42,7 @@ export type TattooSketch = {
 const BaseProductStruct = {
   id: Number,
   title: String,
-  description: String.Or(Undefined),
+  description: String.Or(Null),
   price: String.withConstraint(
     (n) => parseFloat(n) >= 0 || 'price is less than zero (absurd!)',
   ),
@@ -42,7 +50,7 @@ const BaseProductStruct = {
     (n) => n >= 0 || 'quantity must be more than zero',
   ),
   category: Number,
-  image: String.Or(Undefined),
+  image: String.Or(Null),
   slug: String,
 };
 
@@ -52,10 +60,14 @@ export const TShirt = Record({
   ...BaseProductStruct,
   size: String.withConstraint(
     (str) => SizesAsArray.includes(str) || 'unknown size',
-  ),
+  )
+    .Or(Undefined)
+    .Or(Null),
   colour: String.withConstraint(
     (str) => ColoursAsArray.includes(str) || 'unknown colour',
-  ),
+  )
+    .Or(Undefined)
+    .Or(Null),
 });
 
 export const AllProducts = Record({
