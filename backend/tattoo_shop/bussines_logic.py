@@ -1,6 +1,33 @@
+from django.contrib.contenttypes.models import ContentType
+from rest_framework.response import Response
+from django.http import Http404
 from .models import TattooSketch, Category, TShirt, Sticker, Product
 from .serializers import TShirtDetailSerializer, StickerDetailSerializer, TShirtListSerializer, StickerListSerializer
-from typing import Dict
+from typing import Dict, Any
+
+
+CT_MODEL_MODEL_CLASS = {
+    'tshirt': TShirt,
+    'sticker': Sticker
+}
+
+
+MODEL_CLASS_LIST_SERIALIZER = {
+    TShirt: TShirtListSerializer,
+    Sticker: StickerListSerializer,
+}
+
+
+MODEL_CLASS_DETAIL_SERIALIZER = {
+    TShirt: TShirtDetailSerializer,
+    Sticker: StickerDetailSerializer,
+}
+
+
+MODEL_CLASS_CT_MODEL = {
+    'TShirt': 'tshirt',
+    'Sticker': 'sticker',
+}
 
 
 def vacant_sketches():
@@ -30,15 +57,15 @@ def get_all_product_qyeryset() -> list:
 
 def all_product_data() -> list:
     """Возвтащает информацию по всем продуктам.
-
+        Пример:
             [
           {
-             categoryid: 1,
+             categoryId: 1,
              categoryTitle: "Футболки",
              content: [ {//продукт-футболка}, {...}, ...]
           },
           {
-             categoryid: 2,
+             categoryId: 2,
              categoryTitle: "Лампы блять",
             content: [ // список всех ламп]
           }
@@ -64,29 +91,8 @@ def all_product_data() -> list:
             'content': content
         }
         products.append(data)
+
     return products
-
-
-CT_MODEL_MODEL_CLASS = {
-    'tshirt': TShirt,
-    'sticker': Sticker
-}
-
-MODEL_CLASS_LIST_SERIALIZER = {
-    TShirt: TShirtListSerializer,
-    Sticker: StickerListSerializer,
-}
-
-MODEL_CLASS_DETAIL_SERIALIZER = {
-    TShirt: TShirtDetailSerializer,
-    Sticker: StickerDetailSerializer,
-}
-
-
-MODEL_CLASS_CT_MODEL = {
-    'TShirt': 'tshirt',
-    'Sticker': 'sticker',
-}
 
 
 def get_error_data(exception) -> Dict[str, str]:
@@ -95,3 +101,12 @@ def get_error_data(exception) -> Dict[str, str]:
         'errorClass': str(exception.__class__),
     }
     return data
+
+
+def get_model_or_404(category_title: str) -> Any:
+    """Возвращает модель или кидает ошибку 404."""
+    try:
+        model = ContentType.objects.get(model=category_title).model_class()
+    except ContentType.DoesNotExist:
+        raise Http404("Category does not exist")
+    return model

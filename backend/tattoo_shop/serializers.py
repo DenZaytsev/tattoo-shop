@@ -48,14 +48,14 @@ class TShirtListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TShirt
-        fields = ('title', 'price', 'slug', 'image')
+        fields = ('title', 'price', 'slug', 'image', 'description', 'quantity')
 
 
 class StickerListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Sticker
-        fields = ('title', 'price', 'slug', 'image')
+        fields = ('title', 'price', 'slug', 'image', 'description', 'quantity')
 
 
 class StickerDetailSerializer(serializers.ModelSerializer):

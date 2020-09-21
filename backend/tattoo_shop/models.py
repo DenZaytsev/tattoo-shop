@@ -91,7 +91,7 @@ class Customer(models.Model):
 
 
 class TShirt(Product):
-    """Модель футболки"""
+    """Модель футболок."""
     SIZE_CHOICES = [
         ('S', 'SMALL'),
         ('M', 'MEDIUM'),
@@ -121,6 +121,7 @@ class TShirt(Product):
 
 
 class Sticker(Product):
+    """Модель наклеек."""
     quantity = models.PositiveIntegerField()
 
     def __str__(self):
@@ -182,7 +183,7 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    """"""
+    """Модель вещей прикрепленных к заказу."""
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()

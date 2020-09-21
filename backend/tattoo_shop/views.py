@@ -1,5 +1,5 @@
 from .bussines_logic import CT_MODEL_MODEL_CLASS, vacant_sketches, get_sketch, all_category, \
-    MODEL_CLASS_LIST_SERIALIZER, all_product_data, get_error_data, MODEL_CLASS_DETAIL_SERIALIZER
+    MODEL_CLASS_LIST_SERIALIZER, all_product_data, get_error_data, MODEL_CLASS_DETAIL_SERIALIZER, get_model_or_404
 
 from rest_framework.generics import get_object_or_404, ListAPIView, CreateAPIView
 from rest_framework.views import APIView
@@ -68,7 +68,7 @@ class TattooSketchDetailView(BaseView):
     def get(self, request, slug):
         sketch = get_sketch(slug)
         serializer = TattooSketchDetailSerializer(sketch)
-        return Response(serializer.data)
+        return Response(data=serializer.data, status=200)
 
 
 class CustomerCreateView(BaseView, CreateAPIView):
@@ -86,10 +86,7 @@ class CategoryListView(BaseView, ListAPIView):
 class CreateOrderView(BaseView):
     """Запись закава в базу данных"""
     serializer_class = OrderDetailSerializer
-
-    def get(self, request):
-        cart = Cart(request)
-        return Response(cart.cart)
+    http_method_names = ['post']
 
     def post(self, request):
         cart = Cart(request)
@@ -111,12 +108,7 @@ class ProductDetailView(BaseView):
     """Возвращает детальную информацию о товаре"""
 
     def get(self, request, *args, **kwargs):
-        try:
-            model = ContentType.objects.get(model=kwargs['category_title']).model_class()
-        except ContentType.DoesNotExist as e:
-            data = get_error_data(e)
-            return Response(data=data, status=404)
-
+        model = get_model_or_404(kwargs['category_title'])
         queryset = get_object_or_404(model, slug=kwargs['product_slug'])
         serializer = MODEL_CLASS_DETAIL_SERIALIZER[model]
         return Response(data=serializer(queryset).data, status=200)
@@ -127,13 +119,7 @@ class ProductsInCategoryListView(BaseView):
     http_method_names = ['get']
 
     def get(self, request, *args, **kwargs):
-
-        try:
-            model = ContentType.objects.get(model=kwargs['category_title']).model_class()
-        except ContentType.DoesNotExist as e:
-            data = get_error_data(e)
-            return Response(data=data, status=404)
-
+        model = get_model_or_404(kwargs['category_title'])
         queryset = model.objects.all()
         serializer = MODEL_CLASS_LIST_SERIALIZER[model]
         return Response(data=serializer(queryset, many=True).data, status=200)
@@ -145,10 +131,10 @@ class CartDetailView(BaseView):
     def get(self, request):
         cart = Cart(request)
         data = {
-            'cart_contents': cart.cart,
-            'total_price': cart.get_total_price()
+            'cartContent': cart.cart,
+            'totalPrice': cart.get_total_price()
         }
-        return Response(data=data)
+        return Response(data=data, status=200)
 
 
 class AddToCartView(BaseView):
@@ -165,20 +151,21 @@ class AddToCartView(BaseView):
 
         if serializer.is_valid(raise_exception=True):
             clean_data = serializer.data
-            model = CT_MODEL_MODEL_CLASS.get(clean_data['category_title'])
-            if not model:
-                raise Http404("Category does not exist")
+
+            model = get_model_or_404(clean_data['category_title'])
             product = get_object_or_404(model, slug=clean_data['product_slug'])
+
             cart.add_item(product=product,
                           quantity=clean_data['quantity'],
                           update_quantity=clean_data['update'])
+
             data = {
-                'cart_contents': cart.cart,
-                'total_price': cart.get_total_price()
+                'cartContent': cart.cart,
+                'totalPrice': cart.get_total_price()
             }
             return Response(data=data, status=200)
 
-        return Response(status=404)
+        return Response(status=400)
 
 
 class RemoveCartView(BaseView):
@@ -186,21 +173,19 @@ class RemoveCartView(BaseView):
     serializer_class = CartRemoveSerializer
 
     def post(self, request):
-        cart = Cart(request)
 
+        cart = Cart(request)
         serializer = CartRemoveSerializer(data=request.POST)
 
         if serializer.is_valid(raise_exception=True):
+
             clean_data = serializer.data
-            model = CT_MODEL_MODEL_CLASS.get(clean_data['category_title'])
-            if not model:
-                raise Http404("Category does not exist")
+            model = get_model_or_404(clean_data['category_title'])
             product = get_object_or_404(model, slug=clean_data['product_slug'])
             cart.remove(product=product)
 
-            return Response({'status': 'ok', 'cart': cart.cart})
-
-        return Response({'status': 'ne_ok'})
+            return Response(status=200)
+        return Response(status=400)
 
 
 class ClearCartView(BaseView):
@@ -209,7 +194,6 @@ class ClearCartView(BaseView):
     def post(self, request):
         cart = Cart(request)
         cart.clear()
-
         return Response(status=200, data='Корзина очищена')
 
 
