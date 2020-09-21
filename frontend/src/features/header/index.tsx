@@ -1,11 +1,10 @@
 import React from 'react';
 import { css, cx } from 'linaria';
 import Menu from '@geist-ui/react-icons/menu';
-import { ShoppingBag, Sun } from '@geist-ui/react-icons';
-import { Text, Toggle } from '@geist-ui/react';
+import { ShoppingBag } from '@geist-ui/react-icons';
+import { Text } from '@geist-ui/react';
 import Link from 'next/link';
 
-import { toggleThemeMode } from '../../theme';
 import { toggleNav } from '../../core/navigation';
 import { toggleCart } from '../../core/cart';
 
@@ -31,17 +30,20 @@ const cartButton = css`
   justify-self: flex-end;
 `;
 
-const logoText = css`
+const logoWrapper = css`
   justify-self: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const logoLink = css`
   color: inherit;
-  margin-right: 8px;
 `;
 
-const themeToggle = css`
-  margin-right: 8px;
+const logo = css`
+  max-width: 100%;
 `;
 
 const appHeader = css`
@@ -63,20 +65,20 @@ export const Header = () => {
       >
         <Menu />
       </button>
-      <div className={logoText}>
-        <Text h1 size="2rem">
-          <Link href="/" passHref>
-            <a className={logoLink}>Тату шоп</a>
-          </Link>
-          <span>
-            <Toggle
-              className={themeToggle}
-              size="large"
-              onChange={toggleThemeMode}
-            />
-            <Sun />
-          </span>
-        </Text>
+      <div className={logoWrapper}>
+        <Link href="/" passHref>
+          <a className={logoLink}>
+            <picture>
+              <source srcSet="logo.avif" type="image/avif" />
+              <source srcSet="logo.webp" type="image/webp" />
+              <img
+                className={logo}
+                src="logo.png"
+                alt="Jeune Pokes - Поке-тату, футболки и стикеры"
+              />
+            </picture>
+          </a>
+        </Link>
       </div>
       <button
         type="button"
