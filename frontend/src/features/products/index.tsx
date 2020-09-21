@@ -3,8 +3,8 @@ import { css } from 'linaria';
 import { useStore } from 'effector-react';
 
 import {
-  $stickers,
-  $tshirts,
+  $stickersList,
+  $tshirtsList,
   $isEmpty,
   getAllProductsFx,
 } from '../../core/products/list';
@@ -35,12 +35,12 @@ export const Products: React.FC = () => {
     <div className={productsBlock}>
       <ProductList
         title="Стикеры"
-        productsStore={$stickers}
+        productsStore={$stickersList}
         ListItem={ProductCard}
       />
       <ProductList
         title="Футболки"
-        productsStore={$tshirts}
+        productsStore={$tshirtsList}
         ListItem={ProductCard}
       />
     </div>
