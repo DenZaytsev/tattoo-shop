@@ -18,16 +18,16 @@ export default function About() {
   return (
     <div>
       <NextSeo
-        title="О Тату-шопе"
-        description="В тату-шопе можно выбрать себе клевый скетч и сделать с ним тату! А еще можно заказать клевую кастомную футболку или стикер!"
+        title="О Jeune Pokes"
+        description="Jeune Pokes - поке тату, стикеы и футболки"
       />
       <div className={aboutLayout}>
-        <Text h2>О тату-шопе</Text>
+        <Text h2>О Jeune Pokes</Text>
         <Link href="/" passHref>
           <a>К товарам и тату-эскизам</a>
         </Link>
         <Collapse
-          title="Почему тату-шоп?"
+          title="Jeune Pokes?"
           subtitle="О том, почему мы такие классные"
         >
           <Text>Бла бла</Text>
