@@ -25,7 +25,7 @@ export const Footer = () => {
     <footer className={footer}>
       <div className={footerContent}>
         <Text h2 size="2rem">
-          Тату-шоп
+          Jeune Pokes - Тату, стикеры и футболки
         </Text>
       </div>
     </footer>
