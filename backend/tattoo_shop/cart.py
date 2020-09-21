@@ -98,3 +98,10 @@ class Cart:
     def __len__(self):
         """Возвращает количество передметов в корзине"""
         return sum(item['quantity'] for item in self)
+
+    def get_info(self) -> dict:
+        data = {
+            'cartContent': self.cart,
+            'totalPrice': self.get_total_price()
+        }
+        return data

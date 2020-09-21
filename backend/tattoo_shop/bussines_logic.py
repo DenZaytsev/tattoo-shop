@@ -97,7 +97,7 @@ def all_product_data() -> list:
 
 def get_error_data(exception) -> Dict[str, str]:
     data = {
-        'errorMassege': str(exception),
+        'errorMessage': str(exception),
         'errorClass': str(exception.__class__),
     }
     return data

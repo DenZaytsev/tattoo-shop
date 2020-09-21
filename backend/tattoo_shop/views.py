@@ -1,4 +1,4 @@
-from .bussines_logic import CT_MODEL_MODEL_CLASS, vacant_sketches, get_sketch, all_category, \
+from .bussines_logic import vacant_sketches, get_sketch, all_category, \
     MODEL_CLASS_LIST_SERIALIZER, all_product_data, get_error_data, MODEL_CLASS_DETAIL_SERIALIZER, get_model_or_404
 
 from rest_framework.generics import get_object_or_404, ListAPIView, CreateAPIView
@@ -130,10 +130,7 @@ class CartDetailView(BaseView):
 
     def get(self, request):
         cart = Cart(request)
-        data = {
-            'cartContent': cart.cart,
-            'totalPrice': cart.get_total_price()
-        }
+        data = cart.get_info()
         return Response(data=data, status=200)
 
 
@@ -159,10 +156,7 @@ class AddToCartView(BaseView):
                           quantity=clean_data['quantity'],
                           update_quantity=clean_data['update'])
 
-            data = {
-                'cartContent': cart.cart,
-                'totalPrice': cart.get_total_price()
-            }
+            data = cart.get_info()
             return Response(data=data, status=200)
 
         return Response(status=400)
