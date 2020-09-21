@@ -44,6 +44,20 @@ class TShirtDetailSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class TShirtListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TShirt
+        fields = ('title', 'price', 'slug', 'image')
+
+
+class StickerListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Sticker
+        fields = ('title', 'price', 'slug', 'image')
+
+
 class StickerDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sticker
@@ -55,10 +69,10 @@ class CartAddProductSerializer(serializers.Serializer):
 
     quantity = serializers.ChoiceField(required=False, choices=PRODUCT_QUANTITY_CHOICES)
     update = serializers.BooleanField(required=False, initial=False)
-    category = serializers.CharField(max_length=100, required=False)
-    slug = serializers.CharField(max_length=100, required=False)
+    category_title = serializers.CharField(max_length=100, required=False)
+    product_slug = serializers.CharField(max_length=100, required=False)
 
 
 class CartRemoveSerializer(serializers.Serializer):
-    ct_model = serializers.CharField(max_length=100, required=False)
-    slug = serializers.CharField(max_length=100, required=False)
+    category_title = serializers.CharField(max_length=100, required=False)
+    product_slug = serializers.CharField(max_length=100, required=False)

@@ -1,11 +1,14 @@
-from .bussines_logic import CT_MODEL_MODEL_CLASS, vacant_sketches, get_sketch, all_category, all_product_dict, \
-    MODEL_CLASS_SERIALIZER, CATEGORY_ID_MODEL_CLASS
-from rest_framework.generics import get_object_or_404, ListAPIView, CreateAPIView, RetrieveAPIView
+from .bussines_logic import CT_MODEL_MODEL_CLASS, vacant_sketches, get_sketch, all_category, \
+    MODEL_CLASS_LIST_SERIALIZER, all_product_data, get_error_data, MODEL_CLASS_DETAIL_SERIALIZER
+
+from rest_framework.generics import get_object_or_404, ListAPIView, CreateAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from django.http import Http404, JsonResponse
-from .models import TShirt, Sticker, OrderItem, ContentType
+from .models import OrderItem
+from django.contrib.contenttypes.models import ContentType
+
 from .cart import Cart
 from .tasks import order_created
 from .serializers import (
@@ -25,7 +28,7 @@ class BaseView(APIView):
         try:
             response = super().dispatch(request, *args, **kwargs)
         except Exception as e:
-            return self._response({'errorMassege': str(e)}, status=400)
+            return self._response(get_error_data(e), status=400)
 
         if isinstance(response, (dict, list)):
             return self._response(response)
@@ -108,9 +111,14 @@ class ProductDetailView(BaseView):
     """Возвращает детальную информацию о товаре"""
 
     def get(self, request, *args, **kwargs):
-        model = CATEGORY_ID_MODEL_CLASS.get(kwargs['category_id'])
-        queryset = get_object_or_404(model, slug=kwargs['slug'])
-        serializer = MODEL_CLASS_SERIALIZER[model.__name__]
+        try:
+            model = ContentType.objects.get(model=kwargs['category_title']).model_class()
+        except ContentType.DoesNotExist as e:
+            data = get_error_data(e)
+            return Response(data=data, status=404)
+
+        queryset = get_object_or_404(model, slug=kwargs['product_slug'])
+        serializer = MODEL_CLASS_DETAIL_SERIALIZER[model]
         return Response(data=serializer(queryset).data, status=200)
 
 
@@ -119,9 +127,15 @@ class ProductsInCategoryListView(BaseView):
     http_method_names = ['get']
 
     def get(self, request, *args, **kwargs):
-        model = CATEGORY_ID_MODEL_CLASS.get(kwargs['category_id'])
+
+        try:
+            model = ContentType.objects.get(model=kwargs['category_title']).model_class()
+        except ContentType.DoesNotExist as e:
+            data = get_error_data(e)
+            return Response(data=data, status=404)
+
         queryset = model.objects.all()
-        serializer = MODEL_CLASS_SERIALIZER[model.__name__]
+        serializer = MODEL_CLASS_LIST_SERIALIZER[model]
         return Response(data=serializer(queryset, many=True).data, status=200)
 
 
@@ -151,10 +165,10 @@ class AddToCartView(BaseView):
 
         if serializer.is_valid(raise_exception=True):
             clean_data = serializer.data
-            model = CT_MODEL_MODEL_CLASS.get(clean_data['category'])
+            model = CT_MODEL_MODEL_CLASS.get(clean_data['category_title'])
             if not model:
                 raise Http404("Category does not exist")
-            product = get_object_or_404(model, slug=clean_data['slug'])
+            product = get_object_or_404(model, slug=clean_data['product_slug'])
             cart.add_item(product=product,
                           quantity=clean_data['quantity'],
                           update_quantity=clean_data['update'])
@@ -167,9 +181,8 @@ class AddToCartView(BaseView):
         return Response(status=404)
 
 
-# переделать с контенттайп
 class RemoveCartView(BaseView):
-    """Удфляет товар из корзины"""
+    """Удаляет товар из корзины"""
     serializer_class = CartRemoveSerializer
 
     def post(self, request):
@@ -179,10 +192,10 @@ class RemoveCartView(BaseView):
 
         if serializer.is_valid(raise_exception=True):
             clean_data = serializer.data
-            model = CT_MODEL_MODEL_CLASS.get(clean_data['ct_model'])  # переделать с контенттайп
+            model = CT_MODEL_MODEL_CLASS.get(clean_data['category_title'])
             if not model:
                 raise Http404("Category does not exist")
-            product = get_object_or_404(model, slug=clean_data['slug'])
+            product = get_object_or_404(model, slug=clean_data['product_slug'])
             cart.remove(product=product)
 
             return Response({'status': 'ok', 'cart': cart.cart})
@@ -202,5 +215,5 @@ class ClearCartView(BaseView):
 
 class ProductListView(BaseView):
     def get(self, request):
-        products = all_product_dict()
+        products = all_product_data()
         return Response(data=products, status=200)

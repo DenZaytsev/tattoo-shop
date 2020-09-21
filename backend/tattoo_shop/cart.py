@@ -38,7 +38,7 @@ class Cart:
         if product_id not in self.cart[category]:
             self.cart[category][product_slug] = {
                 'id': product_id,
-                'quantity': 0,
+                'quantity': quantity,
                 'price': str(product.price),
                 'ct_model_id': ct_model_id,
             }
