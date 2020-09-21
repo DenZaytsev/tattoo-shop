@@ -29,7 +29,7 @@ def get_all_product_qyeryset() -> list:
 
 
 def all_product_data() -> list:
-    """Возвтащает информацию  всем продуктам.
+    """Возвтащает информацию по всем продуктам.
 
             [
           {
@@ -49,9 +49,14 @@ def all_product_data() -> list:
 
     for product_qyeryset in product_qyerysets:
         first_item = product_qyeryset.first()
-        model_name = product_qyeryset.model.__name__
-        category_id, category_title = first_item.category.id, model_name.lower()
-        content = MODEL_CLASS_LIST_SERIALIZER.get(model_name)(product_qyeryset, many=True).data
+
+        if first_item is None:
+            continue
+
+        model = product_qyeryset.model
+        serializer = MODEL_CLASS_LIST_SERIALIZER.get(model)
+        category_id, category_title = first_item.category.id, model.__name__.lower()
+        content = serializer(product_qyeryset, many=True).data
 
         data = {
             'categoryId': category_id,
