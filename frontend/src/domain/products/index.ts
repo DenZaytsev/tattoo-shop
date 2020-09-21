@@ -25,9 +25,8 @@ export const Colours = {
 const ColoursAsArray = Object.keys(Colours);
 
 export const ProductCategories = {
-  TattooSketch: 'TattooSketch',
-  Sticker: 'Sticker',
-  TShirt: 'TShirt',
+  Sticker: 'sticker',
+  TShirt: 'tshirt',
 } as const;
 
 export type TattooSketch = {
@@ -40,16 +39,14 @@ export type TattooSketch = {
 };
 
 const BaseProductStruct = {
-  id: Number,
   title: String,
   description: String.Or(Null),
   price: String.withConstraint(
     (n) => parseFloat(n) >= 0 || 'price is less than zero (absurd!)',
   ),
   quantity: Number.withConstraint(
-    (n) => n >= 0 || 'quantity must be more than zero',
-  ),
-  category: Number,
+    (n) => n >= 0 || 'quantity must be zero or more',
+  ).Or(Undefined),
   image: String.Or(Null),
   slug: String,
 };
@@ -70,10 +67,13 @@ export const TShirt = Record({
     .Or(Null),
 });
 
-export const AllProducts = Record({
-  [ProductCategories.TShirt]: Array(TShirt),
-  [ProductCategories.Sticker]: Array(BaseProduct),
+export const Category = Record({
+  categoryId: Number,
+  categoryTitle: String,
+  content: Array(BaseProduct),
 });
+
+export const AllProducts = Array(Category);
 
 export type AllProductsType = Static<typeof AllProducts>;
 

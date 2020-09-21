@@ -1,6 +1,7 @@
 import { shopApi } from '../api';
 import { root } from '../root';
 import { notify } from '../notifications';
+import { ProductCategories } from '../../domain/products';
 import type { AllProductsType } from '../../domain/products';
 
 export const getAllProductsFx = root.createEffect({
@@ -11,10 +12,7 @@ export const getAllProductsFx = root.createEffect({
   },
 });
 
-export const $allProducts = root.createStore<AllProductsType>({
-  TShirt: [],
-  Sticker: [],
-});
+export const $allProducts = root.createStore<AllProductsType>([]);
 
 $allProducts.on(getAllProductsFx.doneData, (_, data) => data);
 
@@ -23,6 +21,14 @@ getAllProductsFx.fail.watch((...args) => {
   notify({ text: 'Что-то пошло не так', type: 'error' });
 });
 
-export const $isEmpty = $allProducts.map((s) => !(s.Sticker || s.TShirt));
-export const $stickers = $allProducts.map((s) => s.Sticker);
-export const $tshirts = $allProducts.map((s) => s.TShirt);
+export const $isEmpty = $allProducts.map((s) => s.length === 0);
+
+export const $stickers = $allProducts.map((s) =>
+  s.find((el) => el.categoryTitle === ProductCategories.Sticker),
+);
+export const $stickersList = $stickers.map((stickers) => stickers.content);
+
+export const $tshirts = $allProducts.map((s) =>
+  s.find((el) => el.categoryTitle === ProductCategories.TShirt),
+);
+export const $tshirtsList = $tshirts.map((tshirts) => tshirts.content);
