@@ -12,7 +12,6 @@ export const EffectorSSR: React.FC<EffectorSSRProps> = ({
   serverValues,
   children,
 }) => {
-  console.log('in provider', serverValues);
   const scope = fork(root, { values: serverValues });
 
   return (
