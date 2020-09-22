@@ -9,6 +9,7 @@ import { useStore } from 'effector-react';
 import { $mobileNavVisible, closeNav } from '../../core/navigation';
 import { SideContainer } from '../side-container';
 import { desktopBpPx } from '../../theme/breakpoints';
+import { isBrowser } from '../../../lib/is-browser';
 
 const navContainer = css`
   grid-area: menu;
@@ -94,14 +95,19 @@ export const NavBlock: React.FC = () => {
   const isMobile = !useMedia({ minWidth: desktopBpPx });
   const isNavOpen = useStore($mobileNavVisible);
 
+  if (isBrowser() && isMobile) {
+    return (
+      <Modal open={isNavOpen && isMobile} onClose={closeNav}>
+        <Navigation />
+      </Modal>
+    );
+  }
+
   return (
     <>
       <SideContainer className={navContainer} open={true}>
         <Navigation />
       </SideContainer>
-      <Modal open={isNavOpen && isMobile} onClose={closeNav}>
-        <Navigation />
-      </Modal>
     </>
   );
 };
