@@ -12,6 +12,11 @@ import { desktopBpPx } from '../../theme/breakpoints';
 
 const navContainer = css`
   grid-area: menu;
+  display: none;
+
+  @media (min-width: ${desktopBpPx}) {
+    display: flex;
+  }
 `;
 
 const navList = css`
