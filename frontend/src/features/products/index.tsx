@@ -6,7 +6,6 @@ import {
   $stickersList,
   $tshirtsList,
   $isEmpty,
-  getAllProductsFx,
 } from '../../core/products/list';
 import { ProductList } from './list';
 import { ProductCard } from './card';
@@ -21,10 +20,6 @@ const productsBlock = css`
 `;
 
 export const Products: React.FC = () => {
-  React.useEffect(() => {
-    if (window) getAllProductsFx();
-  }, []);
-
   const isNoProducts = useStore($isEmpty);
 
   if (isNoProducts) {

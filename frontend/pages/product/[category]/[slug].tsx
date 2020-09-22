@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 const ProductPage: React.FC = () => {
   const {
-    query: { slug },
+    query: { slug, category },
   } = useRouter();
 
   return (
@@ -13,7 +13,9 @@ const ProductPage: React.FC = () => {
         title="Продуктнейм (или скетч)"
         description="Лучшая футболочка, просто топ"
       />
-      <div>product slug: {slug}</div>
+      <div>
+        product slug: {category} {slug}
+      </div>
     </>
   );
 };

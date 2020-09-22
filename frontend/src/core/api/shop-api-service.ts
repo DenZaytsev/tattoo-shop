@@ -1,4 +1,4 @@
-import axios, { Options } from 'redaxios';
+import axios from 'axios';
 
 import { AllProducts } from '../../domain/products';
 

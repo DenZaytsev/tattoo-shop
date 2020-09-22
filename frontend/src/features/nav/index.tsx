@@ -87,20 +87,16 @@ const Navigation: React.FC = () => {
 
 export const NavBlock: React.FC = () => {
   const isMobile = !useMedia({ minWidth: desktopBpPx });
-
   const isNavOpen = useStore($mobileNavVisible);
 
-  if (isMobile) {
-    return (
-      <Modal open={isNavOpen} onClose={closeNav}>
+  return (
+    <>
+      <SideContainer className={navContainer} open={true}>
+        <Navigation />
+      </SideContainer>
+      <Modal open={isNavOpen && isMobile} onClose={closeNav}>
         <Navigation />
       </Modal>
-    );
-  }
-
-  return (
-    <SideContainer className={navContainer} open={true}>
-      <Navigation />
-    </SideContainer>
+    </>
   );
 };

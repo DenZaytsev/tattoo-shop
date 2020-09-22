@@ -2,11 +2,11 @@ import React from 'react';
 import { css, cx } from 'linaria';
 import Menu from '@geist-ui/react-icons/menu';
 import { ShoppingBag } from '@geist-ui/react-icons';
-import { Text } from '@geist-ui/react';
 import Link from 'next/link';
 
 import { toggleNav } from '../../core/navigation';
 import { toggleCart } from '../../core/cart';
+import { desktopBpPx } from '../../theme/breakpoints';
 
 const iconButton = css`
   background: none;
@@ -24,6 +24,10 @@ const iconButton = css`
 
 const menuButton = css`
   justify-self: flex-start;
+
+  @media (min-width: ${desktopBpPx}) {
+    pointer-events: none;
+  }
 `;
 
 const cartButton = css`

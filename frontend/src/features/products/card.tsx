@@ -96,7 +96,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </AspectRatioKeeper>
         <div className={productContent}>
           <Text h3>
-            <Link href={`/product/${slug}`} passHref shallow>
+            <Link href={`/product/tshirt/${slug}`} passHref shallow>
               <a className={productLink}>{title}</a>
             </Link>
           </Text>

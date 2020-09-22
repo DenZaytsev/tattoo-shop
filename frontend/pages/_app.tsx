@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { css } from 'linaria';
 import { CssBaseline } from '@geist-ui/react';
 
+import { EffectorSSR } from '../src/ssr-provider';
 import { GeistProviderWithSwitch } from '../src/theme';
 import { Layout, ContentWrapper } from '../src/features/layout';
 import { AppLoaderIndicator } from '../src/features/app-loader-indicator';
@@ -34,40 +35,42 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   useLozad();
 
   return (
-    <GeistProviderWithSwitch>
-      <CssBaseline />
-      <Head>
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-      </Head>
-      <Layout>
-        <AppLoaderIndicator />
-        <Header />
-        <ContentWrapper>
-          <Component {...pageProps} />
-        </ContentWrapper>
-        <Footer />
-        <NavBlock />
-        <CartBlock />
-      </Layout>
-      <NotificationsProvider />
-    </GeistProviderWithSwitch>
+    <EffectorSSR serverValues={pageProps.values}>
+      <GeistProviderWithSwitch>
+        <CssBaseline />
+        <Head>
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+          />
+          <link rel="manifest" href="/site.webmanifest" />
+        </Head>
+        <Layout>
+          <AppLoaderIndicator />
+          <Header />
+          <ContentWrapper>
+            <Component {...pageProps} />
+          </ContentWrapper>
+          <Footer />
+          <NavBlock />
+          <CartBlock />
+        </Layout>
+        <NotificationsProvider />
+      </GeistProviderWithSwitch>
+    </EffectorSSR>
   );
 };
 
