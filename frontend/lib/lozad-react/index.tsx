@@ -1,6 +1,7 @@
 import React from 'react';
 import lozad from 'lozad';
 import { useRouter } from 'next/router';
+import { css } from 'linaria';
 import { styled } from 'linaria/react';
 
 import { useIsomorphicLayoutEffect } from '../use-isomorphic-layout-effect';
@@ -39,10 +40,21 @@ interface PlaceholderProps {
   className?: string;
 }
 
+const noJsFallback = css`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  object-fit: cover;
+`;
+
 export const Placeholder: React.FC<PlaceholderProps> = styled.div`
   background: ${({ placeholder }) => placeholder};
   width: 100%;
   height: 100%;
+  position: relative;
+  overflow: hidden;
 `;
 
 export const LazyImage: React.FC<LazyImageProps> = ({
@@ -58,11 +70,11 @@ export const LazyImage: React.FC<LazyImageProps> = ({
 
   if (typeof window === 'undefined' || !src) {
     return (
-      <Placeholder
-        placeholder={placeholder}
-        className={className}
-        style={style}
-      />
+      <Placeholder placeholder={placeholder} className={className}>
+        <noscript>
+          <img src={src} className={noJsFallback} alt={alt} />
+        </noscript>
+      </Placeholder>
     );
   }
 
