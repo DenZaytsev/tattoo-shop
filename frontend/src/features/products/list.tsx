@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from '@geist-ui/react';
 import { css } from 'linaria';
-import { useList } from 'effector-react';
+import { useList } from 'effector-react/ssr';
 import type { Store } from 'effector';
 
 import type { AnyProduct } from '../../domain/products';

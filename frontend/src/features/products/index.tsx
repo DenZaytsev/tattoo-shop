@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from 'linaria';
-import { useStore } from 'effector-react';
+import { useStore } from 'effector-react/ssr';
 
 import {
   $stickersList,
