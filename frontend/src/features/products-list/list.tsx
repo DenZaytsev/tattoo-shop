@@ -9,6 +9,7 @@ import type { AnyProduct } from '../../domain/products';
 interface ProductListProps {
   productsStore: Store<any[]>;
   title?: string;
+  category: string;
   ListItem: React.FC<AnyProduct>;
 }
 
@@ -28,10 +29,11 @@ export const ProductList: React.FC<ProductListProps> = ({
   productsStore,
   title,
   ListItem,
+  category,
 }) => {
   const list = useList(productsStore, (product) => (
-    <li key={product.slug}>
-      <ListItem {...product} />
+    <li>
+      <ListItem {...product} category={category} />
     </li>
   ));
 

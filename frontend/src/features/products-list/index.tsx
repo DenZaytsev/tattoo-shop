@@ -2,11 +2,8 @@ import React from 'react';
 import { css } from 'linaria';
 import { useStore } from 'effector-react/ssr';
 
-import {
-  $stickersList,
-  $tshirtsList,
-  $isEmpty,
-} from '../../core/products/list';
+import { ProductCategories } from '../../domain/products';
+import { $stickersList, $tshirtsList, $isEmpty } from '../../core/products';
 import { ProductList } from './list';
 import { ProductCard } from './card';
 
@@ -32,11 +29,13 @@ export const Products: React.FC = () => {
         title="Стикеры"
         productsStore={$stickersList}
         ListItem={ProductCard}
+        category={ProductCategories.Sticker}
       />
       <ProductList
         title="Футболки"
         productsStore={$tshirtsList}
         ListItem={ProductCard}
+        category={ProductCategories.TShirt}
       />
     </div>
   );
