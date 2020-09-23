@@ -73,11 +73,11 @@ export const Header = () => {
         <Link href="/" passHref>
           <a className={logoLink}>
             <picture>
-              <source srcSet="logo.avif" type="image/avif" />
-              <source srcSet="logo.webp" type="image/webp" />
+              <source srcSet="/logo.avif" type="image/avif" />
+              <source srcSet="/logo.webp" type="image/webp" />
               <img
                 className={logo}
-                src="logo.png"
+                src="/logo.png"
                 alt="Jeune Pokes - Поке-тату, футболки и стикеры"
               />
             </picture>
