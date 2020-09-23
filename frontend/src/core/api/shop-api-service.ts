@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { AllProducts } from '../../domain/products';
+import { AllProducts, BaseProduct } from '../../domain/products';
 
 export interface AxiosResponse<T = any> {
   data: T;
@@ -51,5 +51,17 @@ export class ShopApiService {
     const allProducts = AllProducts.check(data);
 
     return allProducts;
+  }
+
+  async getProduct({ category, slug }) {
+    const { data } = await makeReq({
+      url: this.url(`products/${category}/${slug}`),
+      method: Method.GET,
+      responseType: 'json',
+    });
+
+    const product = BaseProduct.check(data);
+
+    return product;
   }
 }
