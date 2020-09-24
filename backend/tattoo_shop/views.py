@@ -1,3 +1,5 @@
+from drf_yasg.utils import swagger_auto_schema
+
 from .bussines_logic import vacant_sketches, get_sketch, all_category, \
     MODEL_CLASS_LIST_SERIALIZER, all_product_data, get_error_data, MODEL_CLASS_DETAIL_SERIALIZER, get_model_or_404
 
@@ -5,7 +7,7 @@ from rest_framework.generics import get_object_or_404, ListAPIView, CreateAPIVie
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
-from django.http import Http404, JsonResponse
+from django.http import JsonResponse
 from .models import OrderItem
 from django.contrib.contenttypes.models import ContentType
 
@@ -24,6 +26,7 @@ from .serializers import (
 
 
 class BaseView(APIView):
+
     def dispatch(self, request, *args, **kwargs):
         try:
             response = super().dispatch(request, *args, **kwargs)
@@ -88,6 +91,9 @@ class CreateOrderView(BaseView):
     serializer_class = OrderDetailSerializer
     http_method_names = ['post']
 
+    @swagger_auto_schema(
+        request_body=serializer_class,
+    )
     def post(self, request):
         cart = Cart(request)
         serializer = OrderDetailSerializer(data=request.POST)
@@ -143,7 +149,6 @@ class AddToCartView(BaseView):
 
     def post(self, request):
         cart = Cart(request)
-
         serializer = CartAddProductSerializer(data=request.POST)
 
         if serializer.is_valid(raise_exception=True):
@@ -157,13 +162,14 @@ class AddToCartView(BaseView):
                           update_quantity=clean_data['update'])
 
             data = cart.get_info()
-            return Response(data=data, status=200)
 
+            return Response(data=data, status=200)
         return Response(status=400)
 
 
 class RemoveCartView(BaseView):
     """Удаляет товар из корзины"""
+
     serializer_class = CartRemoveSerializer
 
     def post(self, request):
@@ -183,7 +189,7 @@ class RemoveCartView(BaseView):
 
 
 class ClearCartView(BaseView):
-    """Очищает содержимое корзины"""
+    """Очищает содержимое корзины."""
 
     def post(self, request):
         cart = Cart(request)
@@ -192,6 +198,8 @@ class ClearCartView(BaseView):
 
 
 class ProductListView(BaseView):
+    """Возвращает все продукты из базы данных."""
+
     def get(self, request):
         products = all_product_data()
         return Response(data=products, status=200)

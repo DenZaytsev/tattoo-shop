@@ -1,5 +1,4 @@
 from django.contrib.contenttypes.models import ContentType
-from rest_framework.response import Response
 from django.http import Http404
 from .models import TattooSketch, Category, TShirt, Sticker, Product
 from .serializers import TShirtDetailSerializer, StickerDetailSerializer, TShirtListSerializer, StickerListSerializer
@@ -46,7 +45,7 @@ def all_category():
 
 
 def get_product_models() -> list:
-    """Возвращает список с классами продуктов.    """
+    """Возвращает список с классами продуктов."""
     return Product.__subclasses__()
 
 

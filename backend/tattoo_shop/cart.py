@@ -1,6 +1,6 @@
 from decimal import Decimal
 from django.conf import settings
-from typing import Union
+from typing import Union, Any
 from .models import TShirt, Sticker
 from django.contrib.contenttypes.models import ContentType
 from .bussines_logic import CT_MODEL_MODEL_CLASS
@@ -20,14 +20,16 @@ class Cart:
             cart = self.session[settings.CART_SESSION_ID] = dict()
         self.cart = cart
 
-    def add_item(self, product: Union[TShirt, Sticker], quantity: int = 1, update_quantity=False) -> None:
+    def add_item(self, product: Any, quantity: int = 1, update_quantity=False) -> None:
         """
            Добавить продукт в корзину или обновить его количество.
         """
-        ct_model_id, category = ContentType.objects.get_for_model(product).id, str(product.category)
-        product_id, product_slug = str(product.id), str(product.slug)
-        if category not in self.cart:
-            self.cart[category] = {
+        content_type = ContentType.objects.get_for_model(product)
+        ct_model_id, category_type = content_type.id, content_type.__name__.lower()
+        product_id, product_slug = product.id, product.slug
+
+        if category_type not in self.cart:
+            self.cart[category_type] = {
                 product_slug: {
                     'id': product_id,
                     'quantity': 0,
@@ -35,17 +37,19 @@ class Cart:
                     'ct_model_id': ct_model_id,
                 }
             }
-        if product_id not in self.cart[category]:
-            self.cart[category][product_slug] = {
+
+        if product_id not in self.cart[category_type]:
+            self.cart[category_type][product_slug] = {
                 'id': product_id,
                 'quantity': quantity,
                 'price': str(product.price),
                 'ct_model_id': ct_model_id,
             }
+
         if update_quantity:
-            self.cart[category][product_slug]['quantity'] = quantity
+            self.cart[category_type][product_slug]['quantity'] = quantity
         else:
-            self.cart[category][product_slug]['quantity'] += quantity
+            self.cart[category_type][product_slug]['quantity'] += quantity
         self.save()
 
     def save(self):
@@ -67,16 +71,16 @@ class Cart:
         self.session.modified = True
 
     def __iter__(self):
-        products_in_ct_model = self.cart.values()
-        for products in products_in_ct_model:
+        products_in_category_type = self.cart.values()
+        for products in products_in_category_type:
             for product in products.values():
                 yield product
 
-    def get_products_by_category(self, category: str):
+    def get_products_by_category_type(self, category_type: str):
         """возвращает из корзины кверисет с продуктами по заданной категории"""
         try:
-            model: Union[TShirt, Sticker] = CT_MODEL_MODEL_CLASS[category]
-            product_ids = self.cart[category].keys()
+            model: Any = CT_MODEL_MODEL_CLASS[category_type]
+            product_ids = self.cart[category_type].keys()
             products = model.objects.filter(id__in=product_ids)
 
         except KeyError:
@@ -85,8 +89,8 @@ class Cart:
 
     def get_all_product_in_cart(self):
         """возвращает список содержащий кверисеты со всеми продуктами из корзины"""
-        categories = self.cart.key()
-        return [self.get_products_by_category(category) for category in categories]
+        category_types = self.cart.key()
+        return [self.get_products_by_category_type(category_type) for category_type in category_types]
 
     def get_total_price(self):
         """Возвращает цену всех предметов в корзине"""
