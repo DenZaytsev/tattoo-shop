@@ -23,7 +23,7 @@ const productCard = css`
   position: relative;
 `;
 
-const productImage = css`
+export const productImage = css`
   object-fit: cover;
   object-position: center;
   width: 100%;
@@ -71,7 +71,7 @@ const productCardFooter = css`
   flex-flow: row wrap;
 `;
 
-const cardPlaceHolder =
+export const cardPlaceHolder =
   'rgba(0, 0, 0, 0) linear-gradient(to right, rgb(201, 214, 255), rgb(226, 226, 226)) repeat scroll 0% 0%';
 
 export const ProductCard: React.FC<ProductCardProps> = ({

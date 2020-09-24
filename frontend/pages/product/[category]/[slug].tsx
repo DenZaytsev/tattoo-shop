@@ -1,7 +1,9 @@
 import React from 'react';
+import type { NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 import { serialize, fork, allSettled } from 'effector/fork';
 import { useStore } from 'effector-react/ssr';
+import { useRouter } from 'next/router';
 
 import { ProductDetails } from '../../../src/features/product-details';
 import { root } from '../../../src/core/root';
@@ -19,14 +21,19 @@ export const getServerSideProps = async ({ query: { category, slug } }) => {
   };
 };
 
-const ProductPage: React.FC = () => {
-  const { title, description } = useStore($currentProductPage);
+const ProductPage: NextPage = () => {
+  const product = useStore($currentProductPage);
+  const {
+    query: { category },
+  } = useRouter();
+
+  const { title, description } = product || {};
 
   return (
     <>
       <NextSeo title={title} description={description} />
       <div>
-        <ProductDetails />
+        <ProductDetails {...product} category={category as string} />
       </div>
     </>
   );
