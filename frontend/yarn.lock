@@ -5599,6 +5599,7 @@ __metadata:
     stylelint: ^13.3.1
     stylelint-config-recess-order: ^2.0.4
     stylelint-config-recommended: ^3.0.0
+    stylelint-order: ^4.1.0
     typescript: ^4.0.2
     use-media: ^1.4.0
     webpack: ^4.44.1
@@ -11362,7 +11363,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"stylelint-order@npm:4.1.x":
+"stylelint-order@npm:4.1.x, stylelint-order@npm:^4.1.0":
   version: 4.1.0
   resolution: "stylelint-order@npm:4.1.0"
   dependencies:
