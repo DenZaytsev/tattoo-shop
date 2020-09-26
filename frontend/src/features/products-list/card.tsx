@@ -11,7 +11,7 @@ import { SizeTag } from './parts/size-tag';
 import { ColourTag } from './parts/colour-tag';
 import { AddToCart } from './parts/add-to-cart';
 
-type ProductCardProps = AnyProduct & { category: string; fullWidth: boolean };
+type ProductCardProps = AnyProduct & { fullWidth: boolean };
 
 const productCard = css`
   display: grid;
@@ -87,7 +87,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   colour,
   image,
   slug,
-  category,
+  categoryTitle,
   fullWidth,
 }) => {
   return (
@@ -104,7 +104,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </AspectRatioKeeper>
         <div className={productContent}>
           <Text h3>
-            <Link href={`/product/${category}/${slug}`} passHref shallow>
+            <Link href={`/product/${categoryTitle}/${slug}`} passHref shallow>
               <a className={productLink}>{title}</a>
             </Link>
           </Text>

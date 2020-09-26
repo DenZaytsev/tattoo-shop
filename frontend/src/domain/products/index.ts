@@ -49,6 +49,7 @@ const BaseProductStruct = {
   ).Or(Undefined),
   image: String.Or(Null),
   slug: String,
+  categoryTitle: String,
 };
 
 export const BaseProduct = Record(BaseProductStruct);

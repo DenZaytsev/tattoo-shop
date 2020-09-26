@@ -14,11 +14,11 @@ interface ProductListProps {
 }
 
 const productsList = css`
-  margin: 0;
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: 1fr;
   grid-gap: 16px;
+  margin: 0;
 
   & > li:before {
     content: '';
@@ -29,11 +29,10 @@ export const ProductList: React.FC<ProductListProps> = ({
   productsStore,
   title,
   ListItem,
-  category,
 }) => {
   const list = useList(productsStore, (product) => (
     <li>
-      <ListItem {...product} category={category} />
+      <ListItem {...product} />
     </li>
   ));
 

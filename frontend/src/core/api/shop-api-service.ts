@@ -60,7 +60,7 @@ export class ShopApiService {
       responseType: 'json',
     });
 
-    const product = BaseProduct.check(data);
+    const product = BaseProduct.check({ ...data, categoryTitle: category });
 
     return product;
   }

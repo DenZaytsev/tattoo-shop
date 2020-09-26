@@ -3,7 +3,6 @@ import type { NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 import { serialize, fork, allSettled } from 'effector/fork';
 import { useStore } from 'effector-react/ssr';
-import { useRouter } from 'next/router';
 
 import { ProductCard } from '../../../src/features/products-list/card';
 import { root } from '../../../src/core/root';
@@ -23,16 +22,12 @@ export const getServerSideProps = async ({ query: { category, slug } }) => {
 
 const ProductPage: NextPage = () => {
   const product = useStore($currentProductPage);
-  const {
-    query: { category },
-  } = useRouter();
-
-  const { title, description } = product || {};
+  const { title, description } = product;
 
   return (
     <>
       <NextSeo title={title} description={description} />
-      <ProductCard {...product} category={category as string} fullWidth />
+      <ProductCard {...product} fullWidth />
     </>
   );
 };

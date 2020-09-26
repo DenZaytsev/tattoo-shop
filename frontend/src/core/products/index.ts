@@ -16,17 +16,19 @@ export const $allProducts = root.createStore<AllProductsType>([]);
 
 $allProducts.on(getAllProductsFx.doneData, (_, data) => data);
 
-export const $isEmpty = $allProducts.map((s) => s.length === 0);
+export const $isEmpty = $allProducts.map((s) => s?.length === 0);
 
 export const $stickers = $allProducts.map((s) =>
   s.find((el) => el.categoryTitle === ProductCategories.Sticker),
 );
-export const $stickersList = $stickers.map((stickers) => stickers?.content);
+export const $stickersList = $stickers.map(
+  (stickers) => stickers?.content || [],
+);
 
 export const $tshirts = $allProducts.map((s) =>
   s.find((el) => el.categoryTitle === ProductCategories.TShirt),
 );
-export const $tshirtsList = $tshirts.map((tshirts) => tshirts?.content);
+export const $tshirtsList = $tshirts.map((tshirts) => tshirts?.content || []);
 
 export const getProductFx = root.createEffect({
   async handler({ category, slug }) {
