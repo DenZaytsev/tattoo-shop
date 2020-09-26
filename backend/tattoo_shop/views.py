@@ -92,7 +92,8 @@ class CreateOrderView(BaseView):
     http_method_names = ['post']
 
     @swagger_auto_schema(
-        request_body=serializer_class,
+        query_serializer=serializer_class,
+        responses={'200': 'Заказ создан', '400': 'Serializer_error'}
     )
     def post(self, request):
         cart = Cart(request)
@@ -108,6 +109,7 @@ class CreateOrderView(BaseView):
             cart.clear()
             order_created.delay(order.id)
             return Response(data='Заказ создан', status=200)
+        return Response(status=400, data=serializer.error_messages)
 
 
 class ProductDetailView(BaseView):
@@ -147,6 +149,10 @@ class AddToCartView(BaseView):
 
     serializer_class = CartAddProductSerializer
 
+    @swagger_auto_schema(
+        query_serializer=serializer_class,
+        responses={'200': 'ok', '400': 'Serializer_error'}
+    )
     def post(self, request):
         cart = Cart(request)
         serializer = CartAddProductSerializer(data=request.POST)
@@ -161,10 +167,8 @@ class AddToCartView(BaseView):
                           quantity=clean_data['quantity'],
                           update_quantity=clean_data['update'])
 
-            data = cart.get_info()
-
-            return Response(data=data, status=200)
-        return Response(status=400)
+            return Response(status=200)
+        return Response(status=400, data=serializer.error_messages)
 
 
 class RemoveCartView(BaseView):
@@ -172,25 +176,30 @@ class RemoveCartView(BaseView):
 
     serializer_class = CartRemoveSerializer
 
+    @swagger_auto_schema(
+        query_serializer=serializer_class,
+        responses={'200': 'ok', '400': 'Serializer_error'}
+    )
     def post(self, request):
-
         cart = Cart(request)
         serializer = CartRemoveSerializer(data=request.POST)
 
         if serializer.is_valid(raise_exception=True):
-
             clean_data = serializer.data
             model = get_model_or_404(clean_data['category_title'])
             product = get_object_or_404(model, slug=clean_data['product_slug'])
             cart.remove(product=product)
 
             return Response(status=200)
-        return Response(status=400)
+        return Response(status=400, data=serializer.error_messages)
 
 
 class ClearCartView(BaseView):
     """Очищает содержимое корзины."""
 
+    @swagger_auto_schema(
+        responses={'200': 'Корзина очищена'}
+    )
     def post(self, request):
         cart = Cart(request)
         cart.clear()

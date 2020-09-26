@@ -49,7 +49,8 @@ def get_product_models() -> list:
     return Product.__subclasses__()
 
 
-def get_all_product_qyeryset() -> list:
+def get_qyeryset_all_products() -> list:
+    """Возвращает список со всеми продуктами из базы."""
     product_models = get_product_models()
     return [model.objects.all() for model in product_models]
 
@@ -70,25 +71,31 @@ def all_product_data() -> list:
           }
         ]
     """
+    product_qts: list = get_qyeryset_all_products()
     products: list = []
-    product_qyerysets = get_all_product_qyeryset()
 
-    for product_qyeryset in product_qyerysets:
-        first_item = product_qyeryset.first()
+    for product_qt in product_qts:
+        first_item = product_qt.first()
 
         if first_item is None:
             continue
 
-        model = product_qyeryset.model
+        model = product_qt.model
         serializer = MODEL_CLASS_LIST_SERIALIZER.get(model)
         category_id, category_title = first_item.category.id, model.__name__.lower()
-        content = serializer(product_qyeryset, many=True).data
+        content = []
+
+        for product in product_qt:
+            product_data = serializer(product).data
+            product_data['categoryTitle'] = category_title
+            content.append(product_data)
 
         data = {
             'categoryId': category_id,
             'categoryTitle': category_title,
             'content': content
         }
+
         products.append(data)
 
     return products
