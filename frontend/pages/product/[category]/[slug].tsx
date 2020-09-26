@@ -5,7 +5,7 @@ import { serialize, fork, allSettled } from 'effector/fork';
 import { useStore } from 'effector-react/ssr';
 import { useRouter } from 'next/router';
 
-import { ProductDetails } from '../../../src/features/product-details';
+import { ProductCard } from '../../../src/features/products-list/card';
 import { root } from '../../../src/core/root';
 import { getProductFx, $currentProductPage } from '../../../src/core/products';
 
@@ -32,9 +32,7 @@ const ProductPage: NextPage = () => {
   return (
     <>
       <NextSeo title={title} description={description} />
-      <div>
-        <ProductDetails {...product} category={category as string} />
-      </div>
+      <ProductCard {...product} category={category as string} fullWidth />
     </>
   );
 };

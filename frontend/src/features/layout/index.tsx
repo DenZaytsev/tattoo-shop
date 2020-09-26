@@ -6,14 +6,14 @@ import { desktopBp } from '../../theme/breakpoints';
 const layout = css`
   position: relative;
   display: grid;
-  min-height: 100vh;
-  width: 100vw;
-
   grid-template:
     'header' minmax(auto, 90px)
     'content' 1fr
     'footer' minmax(120px, auto)
     / minmax(auto, 100vw);
+
+  width: 100vw;
+  min-height: 100vh;
 
   @media (min-width: ${desktopBp}px) {
     grid-template:
@@ -30,7 +30,7 @@ export const Layout: React.FC = ({ children }) => {
 
 const appContent = css`
   grid-area: content;
-  padding: 0 16px;
+  padding: 0 16px 32px;
 `;
 
 export const ContentWrapper: React.FC = ({ children }) => {
