@@ -56,21 +56,7 @@ def get_qyeryset_all_products() -> list:
 
 
 def all_product_data() -> list:
-    """Возвтащает информацию по всем продуктам.
-        Пример:
-            [
-          {
-             categoryId: 1,
-             categoryTitle: "Футболки",
-             content: [ {//продукт-футболка}, {...}, ...]
-          },
-          {
-             categoryId: 2,
-             categoryTitle: "Лампы блять",
-            content: [ // список всех ламп]
-          }
-        ]
-    """
+    """Возвтащает информацию по всем продуктам."""
     product_qts: list = get_qyeryset_all_products()
     products: list = []
 
@@ -81,7 +67,7 @@ def all_product_data() -> list:
             continue
 
         model = product_qt.model
-        serializer = MODEL_CLASS_LIST_SERIALIZER.get(model)
+        serializer = MODEL_CLASS_DETAIL_SERIALIZER.get(model)
         category_id, category_title = first_item.category.id, model.__name__.lower()
         content = []
 
@@ -97,7 +83,6 @@ def all_product_data() -> list:
         }
 
         products.append(data)
-
     return products
 
 
