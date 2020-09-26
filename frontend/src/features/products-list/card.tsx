@@ -14,13 +14,13 @@ import { AddToCart } from './parts/add-to-cart';
 type ProductCardProps = AnyProduct & { fullWidth: boolean };
 
 const productCard = css`
+  position: relative;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(${250 - 8}px, auto));
   grid-auto-rows: auto;
   grid-gap: 16px;
 
   width: 100%;
-  position: relative;
 `;
 
 const productCardFullWidth = css`
@@ -54,13 +54,14 @@ const productLink = css`
   }
 
   &::before {
-    content: ' ';
-    display: block;
     position: absolute;
     top: 0;
     right: 0;
-    left: 0;
     bottom: 0;
+    left: 0;
+
+    display: block;
+    content: ' ';
   }
 `;
 

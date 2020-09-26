@@ -10,13 +10,13 @@ import type { TattooSketch } from '../../core/sketchs/types';
 type SketchCardProps = TattooSketch;
 
 const sketchCard = css`
+  position: relative;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, auto));
   grid-auto-rows: auto;
   grid-gap: 16px;
 
   width: 100%;
-  position: relative;
 `;
 
 const sketchImage = css`
@@ -44,13 +44,14 @@ const sketchLink = css`
   }
 
   &::before {
-    content: ' ';
-    display: block;
     position: absolute;
     top: 0;
     right: 0;
-    left: 0;
     bottom: 0;
+    left: 0;
+
+    display: block;
+    content: ' ';
   }
 `;
 
