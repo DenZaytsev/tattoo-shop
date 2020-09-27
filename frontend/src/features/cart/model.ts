@@ -1,4 +1,4 @@
-import { root } from './root';
+import { root } from '../../core/root';
 
 export const toggleCart = root.createEvent();
 export const openCart = root.createEvent();

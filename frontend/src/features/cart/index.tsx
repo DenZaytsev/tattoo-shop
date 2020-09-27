@@ -4,7 +4,7 @@ import { css } from 'linaria';
 import { useMedia } from 'use-media';
 import { useStore } from 'effector-react';
 
-import { $cartVisible, closeCart } from '../../core/cart';
+import { $cartVisible, closeCart } from './model';
 import { SideContainer } from '../side-container';
 import { desktopBpPx } from '../../theme/breakpoints';
 

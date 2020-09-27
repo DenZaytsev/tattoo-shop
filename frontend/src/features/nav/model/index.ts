@@ -3,9 +3,9 @@ import { forward } from 'effector';
 import {
   routeChangeStart,
   routeChangeComplete,
-} from '../../../lib/next-router-effector';
-import { showLoader, hideLoader } from '../app-loading';
-import { root } from '../root';
+} from '../../../../lib/next-router-effector';
+import { showLoader, hideLoader } from '../../app-loader-indicator/model';
+import { root } from '../../../core/root';
 
 export const toggleNav = root.createEvent();
 export const openNav = root.createEvent();

@@ -4,8 +4,8 @@ import Menu from '@geist-ui/react-icons/menu';
 import { ShoppingBag } from '@geist-ui/react-icons';
 import Link from 'next/link';
 
-import { toggleNav } from '../../core/navigation';
-import { toggleCart } from '../../core/cart';
+import { toggleNav } from '../nav/model';
+import { toggleCart } from '../cart/model';
 import { desktopBpPx } from '../../theme/breakpoints';
 
 const iconButton = css`

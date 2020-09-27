@@ -1,6 +1,6 @@
 import { shopApi } from '../api';
 import { root } from '../root';
-import { notify } from '../notifications';
+import { notify } from '../../features/notifications/model';
 import { ProductCategories } from '../../domain/products';
 import type { AllProductsType, AnyProduct } from '../../domain/products';
 

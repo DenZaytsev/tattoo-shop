@@ -1,4 +1,4 @@
-import { root } from './root';
+import { root } from '../../core/root';
 
 export const showLoader = root.createEvent();
 export const hideLoader = root.createEvent();

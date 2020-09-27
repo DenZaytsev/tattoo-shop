@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useStore } from 'effector-react';
 
-import { $mobileNavVisible, closeNav } from '../../core/navigation';
+import { $mobileNavVisible, closeNav } from './model';
 import { SideContainer } from '../side-container';
 import { desktopBpPx } from '../../theme/breakpoints';
 import { isBrowser } from '../../../lib/is-browser';
