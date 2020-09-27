@@ -9,10 +9,10 @@ import { toggleCart } from '../../core/cart';
 import { desktopBpPx } from '../../theme/breakpoints';
 
 const iconButton = css`
+  padding: 0;
+  cursor: pointer;
   background: none;
   border: none;
-  cursor: pointer;
-  padding: 0;
   transition: 0.5s ease;
   transition-property: color, transform;
 
@@ -35,11 +35,10 @@ const cartButton = css`
 `;
 
 const logoWrapper = css`
-  justify-self: center;
-
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  justify-self: center;
 `;
 
 const logoLink = css`
@@ -51,11 +50,21 @@ const logo = css`
 `;
 
 const appHeader = css`
-  grid-area: header;
-  padding: 16px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 10;
+
+  @media (min-width: ${desktopBpPx}) {
+    position: static;
+  }
 
   display: grid;
+  grid-area: header;
   grid-template-columns: 15% 70% 15%;
+  padding: 16px;
+  background-color: #ffffff;
 `;
 
 export const Header = () => {
