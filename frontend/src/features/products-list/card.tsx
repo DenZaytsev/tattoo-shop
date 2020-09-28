@@ -3,10 +3,8 @@ import Link from 'next/link';
 import { Card, Text } from '@geist-ui/react';
 import { css, cx } from 'linaria';
 
-import { withStatic } from '../../core/api';
-import { AspectRatioKeeper } from '../../../lib/aspect-ratio-keeper';
-import { LazyImage } from '../../../lib/lozad-react';
 import type { AnyProduct } from '../../domain/products';
+import { ProductImage } from '../product-image';
 import { SizeTag } from './parts/size-tag';
 import { ColourTag } from './parts/colour-tag';
 import { AddToCart } from './parts/add-to-cart';
@@ -25,14 +23,6 @@ const productCard = css`
 
 const productCardFullWidth = css`
   grid-template-columns: 1fr;
-`;
-
-const productImage = css`
-  object-fit: cover;
-  object-position: center;
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
 `;
 
 const productContent = css`
@@ -76,9 +66,6 @@ const productCardFooter = css`
   flex-flow: row wrap;
 `;
 
-const cardPlaceHolder =
-  'rgba(0, 0, 0, 0) linear-gradient(to right, rgb(201, 214, 255), rgb(226, 226, 226)) repeat scroll 0% 0%';
-
 export const ProductCard: React.FC<ProductCardProps> = ({
   title,
   description,
@@ -96,13 +83,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       <Card.Content
         className={cx(productCard, fullWidth && productCardFullWidth)}
       >
-        <AspectRatioKeeper aspectRatio={3 / 4}>
-          <LazyImage
-            src={withStatic(image)}
-            placeholder={cardPlaceHolder}
-            className={productImage}
-          />
-        </AspectRatioKeeper>
+        <ProductImage src={image} />
         <div className={productContent}>
           <Text h3>
             <Link href={`/product/${categoryTitle}/${slug}`} passHref>
