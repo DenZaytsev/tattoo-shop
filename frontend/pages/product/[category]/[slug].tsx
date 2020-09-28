@@ -28,7 +28,7 @@ const ProductPage: NextPage = () => {
 
   return (
     <>
-      <NextSeo title={title} description={description} />
+      <NextSeo title={`${title} // Jeune Pokes`} description={description} />
       <Breadcrumbs size="large">
         <Link href="/" passHref>
           <Breadcrumbs.Item>Все товары</Breadcrumbs.Item>
