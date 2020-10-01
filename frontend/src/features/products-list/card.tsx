@@ -8,6 +8,7 @@ import { ProductImage } from '../product-image';
 import { SizeTag } from './parts/size-tag';
 import { ColourTag } from './parts/colour-tag';
 import { AddToCart } from './parts/add-to-cart';
+import { beautify } from '../../../lib/beautify-ru-text';
 
 type ProductCardProps = AnyProduct & { fullWidth: boolean };
 
@@ -91,7 +92,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             </Link>
           </Text>
           <Text type="secondary" p small className={productDescription}>
-            {description}
+            {beautify(description)}
           </Text>
           <div className={productProps}>
             <SizeTag size={size} />
