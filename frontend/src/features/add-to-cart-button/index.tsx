@@ -122,7 +122,6 @@ export const AddToCart: React.FC<AddToCartProps> = ({
   onClick = () => {},
   price,
 }) => {
-  const [isLoading, setLoading] = React.useState(false);
   const [count, setCount] = React.useState(0);
   const countBig = count > 0;
   const add = () => {
@@ -143,11 +142,7 @@ export const AddToCart: React.FC<AddToCartProps> = ({
       </button>
       <span className={priceTag}>{priceStr}</span>
       <button type="button" className={addIcon} onClick={add}>
-        {isLoading ? (
-          <Spinner size="medium" className={coloredSpin} />
-        ) : (
-          <Plus />
-        )}
+        <Plus />
       </button>
     </div>
   );
