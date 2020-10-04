@@ -9,7 +9,6 @@ import type { AnyProduct } from '../../domain/products';
 interface ProductListProps {
   productsStore: Store<any[]>;
   title?: string;
-  category: string;
   ListItem: React.FC<AnyProduct>;
 }
 
@@ -35,6 +34,12 @@ export const ProductList: React.FC<ProductListProps> = ({
       <ListItem {...product} />
     </li>
   ));
+
+  // @ts-expect-error
+  if (!list || list.length === 0) {
+    // list does have "length" prop despite TS error, looks like it's mistake in the useList types
+    return null;
+  }
 
   return (
     <div>
