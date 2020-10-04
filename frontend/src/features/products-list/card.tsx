@@ -5,9 +5,8 @@ import { css, cx } from 'linaria';
 
 import type { AnyProduct } from '../../domain/products';
 import { ProductImage } from '../product-image';
-import { SizeTag } from './parts/size-tag';
-import { ColourTag } from './parts/colour-tag';
-import { AddToCart } from './parts/add-to-cart';
+import { Tags } from '../product-tags';
+import { AddToCart } from '../add-to-cart-button';
 import { beautify } from '../../../lib/beautify-ru-text';
 
 type ProductCardProps = AnyProduct & { fullWidth: boolean };
@@ -29,6 +28,10 @@ const productCardFullWidth = css`
 const productContent = css`
   display: flex;
   flex-flow: column nowrap;
+
+  & > *:not(:last-child) {
+    margin-bottom: 8px;
+  }
 `;
 
 const productDescription = css`
@@ -54,12 +57,6 @@ const productLink = css`
     display: block;
     content: ' ';
   }
-`;
-
-const productProps = css`
-  display: flex;
-  gap: 8px;
-  padding-top: 8px;
 `;
 
 const productCardFooter = css`
@@ -94,10 +91,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <Text type="secondary" p small className={productDescription}>
             {beautify(description)}
           </Text>
-          <div className={productProps}>
-            <SizeTag size={size} />
-            <ColourTag colour={colour} />
-          </div>
+          <Tags size={size} colour={colour} />
         </div>
       </Card.Content>
       <Card.Footer className={productCardFooter}>

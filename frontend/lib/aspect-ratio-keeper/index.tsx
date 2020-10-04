@@ -8,27 +8,25 @@ interface AspectRatioKeeperProps {
 }
 
 const wrapperAspectRatio = css`
-  display: block;
   position: relative;
+  display: block;
   width: 100%;
 
   &::before {
-    content: ' ';
     display: block;
     width: 100%;
-    padding-top: var(--aspect-ratio);
+    padding-top: calc(100% / var(--aspect-ratio, 1));
+    content: ' ';
   }
 `;
 
 const innerAspectRatio = css`
   position: absolute;
   top: 0;
-  left: 0;
   right: 0;
   bottom: 0;
+  left: 0;
 `;
-
-const toPaddingTopHack = (ar: number): string => `${ar * 100}%`;
 
 export const AspectRatioKeeper: React.FC<AspectRatioKeeperProps> = ({
   aspectRatio = 1,
@@ -40,7 +38,7 @@ export const AspectRatioKeeper: React.FC<AspectRatioKeeperProps> = ({
     <div
       className={cx(wrapperAspectRatio, className)}
       style={{
-        ['--aspect-ratio' as any]: toPaddingTopHack(aspectRatio),
+        ['--aspect-ratio' as any]: aspectRatio,
         ...style,
       }}
     >

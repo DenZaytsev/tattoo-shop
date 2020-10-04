@@ -23,7 +23,7 @@ interface ProductImageProps {
 
 export const ProductImage: React.FC<ProductImageProps> = ({
   src,
-  aspectRatio = 3 / 4,
+  aspectRatio = 4 / 3,
 }) => {
   return (
     <AspectRatioKeeper aspectRatio={aspectRatio}>

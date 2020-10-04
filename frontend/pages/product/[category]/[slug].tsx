@@ -6,7 +6,7 @@ import { serialize, fork, allSettled } from 'effector/fork';
 import { useStore } from 'effector-react/ssr';
 import { Breadcrumbs } from '@geist-ui/react';
 
-import { ProductCard } from '../../../src/features/products-list/card';
+import { ProductData } from '../../../src/features/product-data';
 import { root } from '../../../src/core/root';
 import { getProductFx, $currentProductPage } from '../../../src/core/products';
 
@@ -35,7 +35,7 @@ const ProductPage: NextPage = () => {
         </Link>
         <Breadcrumbs.Item>{title}</Breadcrumbs.Item>
       </Breadcrumbs>
-      <ProductCard {...product} fullWidth />
+      <ProductData {...product} />
     </>
   );
 };

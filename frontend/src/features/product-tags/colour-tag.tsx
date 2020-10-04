@@ -2,7 +2,7 @@ import React from 'react';
 import { css, cx } from 'linaria';
 import { Tag } from '@geist-ui/react';
 
-import { Colours } from '../../../domain/products';
+import { Colours } from '../../domain/products';
 
 const colourTag = css`
   width: max-content;
