@@ -2,7 +2,7 @@ import React from 'react';
 import { NextSeo } from 'next-seo';
 import { serialize, fork, allSettled } from 'effector/fork';
 
-import { Products } from '../src/features/products-list';
+import { Products } from '../src/features/products';
 import { root } from '../src/core/root';
 import { getAllProductsFx } from '../src/core/products';
 
