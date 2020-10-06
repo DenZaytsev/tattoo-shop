@@ -1,6 +1,8 @@
 import { shopApi } from '../api';
 import { root } from '../root';
+import { pushFx } from '../../../lib/next-router-effector';
 import { notify } from '../../features/notifications/model';
+import { showLoader } from '../../features/app-loader-indicator/model';
 import { ProductCategories } from '../../domain/products';
 import type { AllProductsType, AnyProduct } from '../../domain/products';
 
@@ -45,4 +47,17 @@ $currentProductPage.on(getProductFx.doneData, (_, data) => data);
 getProductFx.fail.watch((...args) => {
   console.log('fail args', args);
   notify({ text: 'Что-то пошло не так', type: 'error' });
+});
+
+export const openProductPageFx = root.createEffect({
+  async handler({ category, slug }) {
+    showLoader();
+
+    await getProductFx({ category, slug });
+
+    await pushFx({
+      url: '/product/client-route',
+      as: `/product/${category}/${slug}`,
+    });
+  },
 });

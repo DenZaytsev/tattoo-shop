@@ -1,6 +1,4 @@
 import React from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 import { Card, Text } from '@geist-ui/react';
 import { css, cx } from 'linaria';
 
@@ -9,7 +7,7 @@ import { ProductImage } from '../product-image';
 import { Tags } from '../product-tags';
 import { AddToCart } from '../add-to-cart-button';
 import { beautify } from '../../../lib/beautify-ru-text';
-import { getProductFx } from '../../core/products';
+import { openProductPageFx } from '../../core/products';
 
 type ProductCardProps = AnyProduct & { fullWidth: boolean };
 
@@ -78,23 +76,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   categoryTitle,
   fullWidth,
 }) => {
-  const router = useRouter();
+  const openProductPage = React.useCallback(
+    (e) => {
+      e.preventDefault();
 
-  const test = (e) => {
-    e.preventDefault();
-
-    const unwatch = getProductFx.done.watch(() => {
-      router.push(
-        {
-          pathname: '/product/client-route',
-        },
-        `/product/${categoryTitle}/${slug}`,
-      );
-      unwatch();
-    });
-
-    getProductFx({ category: categoryTitle, slug });
-  };
+      openProductPageFx({ category: categoryTitle, slug });
+    },
+    [categoryTitle, slug],
+  );
 
   return (
     <Card shadow>
@@ -104,15 +93,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         <ProductImage src={image} />
         <div className={productContent}>
           <Text h3>
-            {/* <Link  passHref> */}
             <a
-              onClick={test}
+              onClick={openProductPage}
               className={productLink}
               href={`/product/${categoryTitle}/${slug}`}
             >
               {title}
             </a>
-            {/* </Link> */}
           </Text>
           <Text type="secondary" p small className={productDescription}>
             {beautify(description)}
