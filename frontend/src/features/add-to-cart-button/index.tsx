@@ -25,12 +25,12 @@ const addButton = css`
 
   transition: color 0.25s ease-in, background-color 0.25s ease-in;
 
-  & > * {
-    margin: 0;
+  & > *:not(:last-child) {
+    margin-right: 4px;
+  }
 
-    &:hover {
-      cursor: pointer;
-    }
+  & > *:hover {
+    cursor: pointer;
   }
 
   & > *:first-child {
@@ -109,12 +109,6 @@ const subIconActive = css`
     z-index: 2;
     display: inline-block;
     content: ' ';
-  }
-`;
-
-const coloredSpin = css`
-  & > * > span {
-    background-color: currentColor !important;
   }
 `;
 
