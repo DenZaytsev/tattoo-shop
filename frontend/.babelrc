@@ -1,4 +1,4 @@
 {
   "presets": ["next/babel", "linaria/babel"],
-  "plugins": ["effector/babel-plugin"]
+  "plugins": [["effector/babel-plugin", { "addLoc": true }]]
 }
