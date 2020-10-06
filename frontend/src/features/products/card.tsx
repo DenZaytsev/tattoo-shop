@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Card, Text } from '@geist-ui/react';
 import { css, cx } from 'linaria';
@@ -8,6 +9,7 @@ import { ProductImage } from '../product-image';
 import { Tags } from '../product-tags';
 import { AddToCart } from '../add-to-cart-button';
 import { beautify } from '../../../lib/beautify-ru-text';
+import { getProductFx } from '../../core/products';
 
 type ProductCardProps = AnyProduct & { fullWidth: boolean };
 
@@ -76,6 +78,24 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   categoryTitle,
   fullWidth,
 }) => {
+  const router = useRouter();
+
+  const test = (e) => {
+    e.preventDefault();
+
+    const unwatch = getProductFx.done.watch(() => {
+      router.push(
+        {
+          pathname: '/product/client-route',
+        },
+        `/product/${categoryTitle}/${slug}`,
+      );
+      unwatch();
+    });
+
+    getProductFx({ category: categoryTitle, slug });
+  };
+
   return (
     <Card shadow>
       <Card.Content
@@ -84,9 +104,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         <ProductImage src={image} />
         <div className={productContent}>
           <Text h3>
-            <Link href={`/product/${categoryTitle}/${slug}`} passHref>
-              <a className={productLink}>{title}</a>
-            </Link>
+            {/* <Link  passHref> */}
+            <a
+              onClick={test}
+              className={productLink}
+              href={`/product/${categoryTitle}/${slug}`}
+            >
+              {title}
+            </a>
+            {/* </Link> */}
           </Text>
           <Text type="secondary" p small className={productDescription}>
             {beautify(description)}
