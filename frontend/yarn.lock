@@ -1802,13 +1802,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/just-debounce-it@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@types/just-debounce-it@npm:1.1.0"
-  checksum: e1b5345861c2dcc3cd0271a0b5c494927fb42bd7004a0182f4bc72ec7f109b41d53a8b1b45db7e4316f0733d2c788e848d83cd270689692ae7514cdd60a19be2
-  languageName: node
-  linkType: hard
-
 "@types/minimist@npm:^1.2.0":
   version: 1.2.0
   resolution: "@types/minimist@npm:1.2.0"
@@ -4477,42 +4470,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"effector-dom@npm:^0.0.11":
-  version: 0.0.11
-  resolution: "effector-dom@npm:0.0.11"
+"effector-inspector@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "effector-inspector@npm:0.3.0"
+  dependencies:
+    foliage: ^0.102.1
+    forest: ^0.16.0
   peerDependencies:
-    effector: ^20.11.5
-  checksum: 0f69e2b96eb9cc34482b352171f3ec7cb2588ab0e9b0241e27a94773f61fe4cb48c360817b533103553582632ca74d548b77800b2c070d89fb2e1086672a53eb
+    effector: ^20.11.5 || ^21.0.0
+  checksum: a2bda009f813f92f72ed7fe0b9fd259b6a063e75220e1fe7d4c69695ecabed787981d77a0d1fbdb096e1b3dfe7cf8a59ad06c72b069d29c45a30bf4251cb1e6a
   languageName: node
   linkType: hard
 
-"effector-inspector@npm:^0.2.1":
-  version: 0.2.2
-  resolution: "effector-inspector@npm:0.2.2"
+"effector-logger@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "effector-logger@npm:0.8.0"
   dependencies:
-    effector-dom: ^0.0.11
-  peerDependencies:
-    effector: ^20.11.5
-  checksum: bf04c9a312c5214c140efdf74a8e1b923960e5aaa5111587111009302ce9012a2a9a10bb9a3379ebc53eaf22b41c1fe7e9a53c39dc9d320007f5b3e2732b0cc4
-  languageName: node
-  linkType: hard
-
-"effector-logger@npm:^0.6.1":
-  version: 0.6.1
-  resolution: "effector-logger@npm:0.6.1"
-  dependencies:
-    "@types/just-debounce-it": ^1.1.0
     detect-node: 2.0.4
-    effector-inspector: ^0.2.1
+    effector-inspector: ^0.3.0
     just-debounce-it: ^1.1.0
     set-value: 3.0.1
   peerDependencies:
-    effector: ^20.11.5
-    effector-inspector: ^0.2.1
-  dependenciesMeta:
-    effector-inspector:
-      optional: true
-  checksum: 51261b4cda4d711fbc8224ee397c9210d17d8406ff48321f2d133a69f59d42d5ba9b4c9bf51b03a0542e8da30efb4b1ff1611546f859926bc775e66fd72ec925
+    effector: ^20.11.5 || ^21.0.0
+  checksum: b8feb6defef8ceda2912ef6cebf0bd6312719136129ad59d129710cb8a3e04b7b1e8245554f0a52ed87c1d6548ef63158b9b536979f490eb3bdbcbcf73ff2de8
   languageName: node
   linkType: hard
 
@@ -5490,6 +5470,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"foliage@npm:^0.102.1":
+  version: 0.102.1
+  resolution: "foliage@npm:0.102.1"
+  dependencies:
+    stylis: ^4.0.0
+  peerDependencies:
+    effector: ^20.15.6
+    forest: ^0.16.0
+  checksum: df7b0dc98ba13ed2fd6c2f1dc290ac2796dc996ba1a8e0d58a3b3291b2eccc1601960f4a4b88b1920cf75efd98621195597966d25555eb69e898cfa28e10b088
+  languageName: node
+  linkType: hard
+
 "follow-redirects@npm:^1.10.0":
   version: 1.13.0
   resolution: "follow-redirects@npm:1.13.0"
@@ -5501,6 +5493,15 @@ __metadata:
   version: 1.0.2
   resolution: "for-in@npm:1.0.2"
   checksum: e8d7280a654216e9951103e407d1655c2dfa67178ad468cb0b35701df6b594809ccdc66671b3478660d0e6c4bca9d038b1f1fc032716a184c19d67319550c554
+  languageName: node
+  linkType: hard
+
+"forest@npm:^0.16.0":
+  version: 0.16.9
+  resolution: "forest@npm:0.16.9"
+  peerDependencies:
+    effector: ^20.17.2
+  checksum: 41ae41c9212d144d91fc046263d3316e46c767fc5d92a2cfcb165e554203f27416a4c3820ae0ec435b0f0d287ba636fb2712dc2e7d32950d70b79b61ce96b9e3
   languageName: node
   linkType: hard
 
@@ -5564,7 +5565,7 @@ __metadata:
     css-loader: ^4.2.2
     cz-conventional-changelog: ^3.1.0
     effector: latest
-    effector-logger: ^0.6.1
+    effector-logger: ^0.8.0
     effector-react: latest
     eslint: ^6.8.0
     eslint-config-airbnb-base: ^14.1.0
@@ -11447,6 +11448,13 @@ fsevents@~2.1.2:
   version: 3.5.4
   resolution: "stylis@npm:3.5.4"
   checksum: 356e2352b1800595c46f3969c6afdce82ab3e5d668bbb6733e68a4968fa2190208cccd74129b7456e80ade3d321beeaff7c2c69ab90288127221062f90dcff99
+  languageName: node
+  linkType: hard
+
+"stylis@npm:^4.0.0":
+  version: 4.0.3
+  resolution: "stylis@npm:4.0.3"
+  checksum: 0ca0313ad6b1273866e476d2f1c7e41789e54eb9b33e5c4d1d017a9db5bf58d6e862a5c12f5f949ece95f4530e87ddc3697f8afbffe09f17eb0e272160664aa7
   languageName: node
   linkType: hard
 
