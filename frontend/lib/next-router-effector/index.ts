@@ -1,4 +1,5 @@
 import singletonRouter from 'next/router';
+import type { NextRouter } from 'next/router';
 import { createDomain } from 'effector';
 
 export const routerDomain = createDomain('router');
@@ -16,9 +17,17 @@ export const beforeHistoryChange = routerDomain.createEvent<string>();
 export const hashChangeStart = routerDomain.createEvent<string>();
 export const hashChangeComplete = routerDomain.createEvent<string>();
 
+export const pushFx = routerDomain.createEffect();
+export const doThenPushFx = routerDomain.createEffect({
+  handler: async ({ fn, params, pushParams }) => {
+    await fn(params);
+    pushFx(pushParams);
+  },
+});
+
 const connectRouterToEffector = (nextRouter) => {
   nextRouter.ready(() => {
-    const { router } = nextRouter;
+    const { router }: { router: NextRouter } = nextRouter;
 
     // forward next.js router events to effector events
     router.events.on('routeChangeStart', routeChangeStart);
@@ -29,6 +38,10 @@ const connectRouterToEffector = (nextRouter) => {
     router.events.on('beforeHistoryChange', beforeHistoryChange);
     router.events.on('hashChangeStart', hashChangeStart);
     router.events.on('hashChangeComplete', hashChangeComplete);
+
+    pushFx.use(async ({ url, as, options }) => {
+      await router.push(url, as, options);
+    });
   });
 };
 
