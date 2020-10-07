@@ -5,6 +5,7 @@ import { useList } from 'effector-react/ssr';
 import type { Store } from 'effector';
 
 import type { AnyProduct } from '../../domain/products';
+import { contentMaxWidth } from '../../theme/breakpoints';
 
 interface ProductListProps {
   productsStore: Store<any[]>;
@@ -13,14 +14,34 @@ interface ProductListProps {
 }
 
 const productsList = css`
+  --list-grid-gap: 16px;
+  --grid-item-min-width: 0;
+  --grid-item-max-width: 276px;
   display: grid;
   grid-template-rows: auto;
-  grid-template-columns: 1fr;
-  grid-gap: 16px;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(var(--grid-item-min-width), var(--grid-item-max-width))
+  );
+  grid-auto-flow: dense;
+  grid-gap: var(--list-grid-gap);
+  max-width: 100%;
   margin: 0;
+
+  & > li {
+    display: contents;
+  }
 
   & > li:before {
     content: '';
+  }
+
+  @media (max-width: ${contentMaxWidth}px) {
+    --grid-item-max-width: calc(50% - 8px);
+  }
+
+  @media (max-width: 475px) {
+    --grid-item-max-width: 100%;
   }
 `;
 

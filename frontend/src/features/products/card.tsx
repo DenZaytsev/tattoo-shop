@@ -6,28 +6,29 @@ import type { AnyProduct } from '../../domain/products';
 import { ProductImage } from '../product-image';
 import { Tags } from '../product-tags';
 import { AddToCart } from '../add-to-cart-button';
-import { CardDescription } from './parts/card-description';
 import { openProductPageFx } from '../../core/products';
 import { desktopBpPx } from '../../theme/breakpoints';
 
 type ProductCardProps = AnyProduct & { fullWidth: boolean };
 
 const productCard = css`
+  display: flex;
+  flex-flow: column nowrap;
+`;
+
+const productCardContentLayout = css`
   position: relative;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(${250 - 8}px, auto));
+  flex-grow: 1;
+  grid-template-columns: 1fr;
   grid-auto-rows: auto;
   grid-gap: 16px;
 
   width: 100%;
 `;
 
-const productCardFullWidth = css`
-  grid-template-columns: 1fr;
-`;
-
 const productCardImage = css`
-  --aspect-ratio: 16 / 9;
+  --aspect-ratio: 4 / 3;
 
   @media (min-width: ${desktopBpPx}) {
     --aspect-ratio: 4 / 3;
@@ -40,10 +41,6 @@ const productContent = css`
 
   & > *:not(:last-child) {
     margin-bottom: 16px;
-
-    @media (min-width: ${desktopBpPx}) {
-      margin-bottom: 8px;
-    }
   }
 `;
 
@@ -81,7 +78,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   image,
   slug,
   categoryTitle,
-  fullWidth,
 }) => {
   const openProductPage = React.useCallback(
     (e) => {
@@ -93,10 +89,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   );
 
   return (
-    <Card shadow>
-      <Card.Content
-        className={cx(productCard, fullWidth && productCardFullWidth)}
-      >
+    <Card className={productCard} shadow>
+      <Card.Content className={productCardContentLayout}>
         <ProductImage className={productCardImage} src={image} />
         <div className={productContent}>
           <Text h3>
@@ -108,7 +102,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               {title}
             </a>
           </Text>
-          <CardDescription description={description} />
+          {/* <CardDescription description={description} /> */}
           <Tags size={size} colour={colour} />
         </div>
       </Card.Content>

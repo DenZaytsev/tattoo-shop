@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from 'linaria';
 
-import { desktopBp } from '../../theme/breakpoints';
+import { desktopBp, contentMaxWidth } from '../../theme/breakpoints';
 
 const layout = css`
   position: relative;
@@ -16,11 +16,12 @@ const layout = css`
   min-height: 100vh;
 
   @media (min-width: ${desktopBp}px) {
+    --desktop-main-max-width: ${contentMaxWidth}px;
     grid-template:
       'menu header  cart' minmax(auto, 90px)
       'menu content cart' 1fr
       'footer footer footer' minmax(120px, auto)
-      / 1fr minmax(auto, 600px) 1fr;
+      / 1fr minmax(auto, var(--desktop-main-max-width)) 1fr;
   }
 `;
 
@@ -31,6 +32,7 @@ export const Layout: React.FC = ({ children }) => {
 const appContent = css`
   grid-area: content;
   padding: 0 16px 32px;
+  --app-content-max-width: calc(var(--desktop-main-max-width) - 2 * 16px);
 `;
 
 export const ContentWrapper: React.FC = ({ children }) => {

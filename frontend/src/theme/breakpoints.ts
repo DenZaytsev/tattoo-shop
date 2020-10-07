@@ -2,6 +2,7 @@ import { GeistUIThemesBreakpoints } from '@geist-ui/react';
 
 export const desktopBp = 900;
 export const desktopBpPx = `${desktopBp}px`;
+export const contentMaxWidth = 600;
 
 export const customBreakpoints: GeistUIThemesBreakpoints = {
   xs: { min: '0', max: '650px' },
