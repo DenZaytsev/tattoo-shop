@@ -6,8 +6,9 @@ import type { AnyProduct } from '../../domain/products';
 import { ProductImage } from '../product-image';
 import { Tags } from '../product-tags';
 import { AddToCart } from '../add-to-cart-button';
-import { beautify } from '../../../lib/beautify-ru-text';
+import { CardDescription } from './parts/card-description';
 import { openProductPageFx } from '../../core/products';
+import { desktopBpPx } from '../../theme/breakpoints';
 
 type ProductCardProps = AnyProduct & { fullWidth: boolean };
 
@@ -25,19 +26,25 @@ const productCardFullWidth = css`
   grid-template-columns: 1fr;
 `;
 
+const productCardImage = css`
+  --aspect-ratio: 16 / 9;
+
+  @media (min-width: ${desktopBpPx}) {
+    --aspect-ratio: 4 / 3;
+  }
+`;
+
 const productContent = css`
   display: flex;
   flex-flow: column nowrap;
 
   & > *:not(:last-child) {
-    margin-bottom: 8px;
-  }
-`;
+    margin-bottom: 16px;
 
-const productDescription = css`
-  max-width: 250px;
-  margin: 0;
-  line-height: 1.25;
+    @media (min-width: ${desktopBpPx}) {
+      margin-bottom: 8px;
+    }
+  }
 `;
 
 const productLink = css`
@@ -90,7 +97,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       <Card.Content
         className={cx(productCard, fullWidth && productCardFullWidth)}
       >
-        <ProductImage src={image} />
+        <ProductImage className={productCardImage} src={image} />
         <div className={productContent}>
           <Text h3>
             <a
@@ -101,9 +108,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               {title}
             </a>
           </Text>
-          <Text type="secondary" p small className={productDescription}>
-            {beautify(description)}
-          </Text>
+          <CardDescription description={description} />
           <Tags size={size} colour={colour} />
         </div>
       </Card.Content>

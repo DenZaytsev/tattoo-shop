@@ -19,14 +19,16 @@ const cardPlaceHolder =
 interface ProductImageProps {
   src: string;
   aspectRatio?: number;
+  className?: string;
 }
 
 export const ProductImage: React.FC<ProductImageProps> = ({
   src,
-  aspectRatio = 4 / 3,
+  aspectRatio,
+  className,
 }) => {
   return (
-    <AspectRatioKeeper aspectRatio={aspectRatio}>
+    <AspectRatioKeeper className={className} aspectRatio={aspectRatio}>
       <LazyImage
         src={withStatic(src)}
         placeholder={cardPlaceHolder}
