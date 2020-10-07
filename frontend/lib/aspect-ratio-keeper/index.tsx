@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { css, cx } from 'linaria';
 
 interface AspectRatioKeeperProps {
@@ -15,7 +15,7 @@ const wrapperAspectRatio = css`
   &::before {
     display: block;
     width: 100%;
-    padding-top: calc(100% / var(--aspect-ratio, 1));
+    padding-top: calc(100% / calc(var(--aspect-ratio, 4 / 3)));
     content: ' ';
   }
 `;
@@ -29,19 +29,23 @@ const innerAspectRatio = css`
 `;
 
 export const AspectRatioKeeper: React.FC<AspectRatioKeeperProps> = ({
-  aspectRatio = 1,
+  aspectRatio,
   className,
   style,
   children,
 }) => {
+  const computedStyle = useMemo(() => {
+    const styleObj = {
+      ...style,
+    };
+
+    if (aspectRatio) styleObj['--aspect-ratio'] = aspectRatio;
+
+    return styleObj;
+  }, [aspectRatio, style]);
+
   return (
-    <div
-      className={cx(wrapperAspectRatio, className)}
-      style={{
-        ['--aspect-ratio' as any]: aspectRatio,
-        ...style,
-      }}
-    >
+    <div className={cx(wrapperAspectRatio, className)} style={computedStyle}>
       <div className={innerAspectRatio}>{children}</div>
     </div>
   );
