@@ -56,7 +56,7 @@ const addButtonActive = css`
 
 const priceTag = css`
   display: inline-block;
-  font-size: 1.65rem !important;
+  font-size: 1.45rem !important;
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0.35px;

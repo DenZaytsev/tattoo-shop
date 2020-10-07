@@ -15,6 +15,7 @@ import { NavBlock } from '../src/features/nav';
 import { CartBlock } from '../src/features/cart';
 import { NotificationsProvider } from '../src/features/notifications';
 import { useLozad } from '../lib/lozad-react';
+import { desktopBpPx } from '../src/theme/breakpoints';
 
 export const globals = css`
   :global() {
@@ -36,6 +37,15 @@ export const globals = css`
 
     *:focus.focus-visible {
       outline: var(--alert, blue) solid 2px;
+    }
+
+    :root,
+    html {
+      font-size: 14px;
+
+      @media (min-width: ${desktopBpPx}) {
+        font-size: 16px;
+      }
     }
   }
 `;
