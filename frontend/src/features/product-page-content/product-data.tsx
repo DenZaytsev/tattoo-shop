@@ -17,6 +17,11 @@ const productPageLayout = css`
   }
 `;
 
+const productDescription = css`
+  font-size: 1.1rem;
+  line-height: 1.25;
+`;
+
 type ProductPageProps = AnyProduct;
 
 export const ProductData: React.FC<ProductPageProps> = ({
@@ -31,7 +36,14 @@ export const ProductData: React.FC<ProductPageProps> = ({
     <div className={productPageLayout}>
       <Text h2>{title}</Text>
       {image && <ProductImage aspectRatio={16 / 9} src={image} />}
-      <Description title="О товаре" content={beautify(description)} />
+      <Description
+        title="О товаре"
+        content={
+          <Text className={productDescription} type="secondary">
+            {beautify(description)}
+          </Text>
+        }
+      />
       <Tags size={size} colour={colour} />
       <AddToCart price={price} />
     </div>

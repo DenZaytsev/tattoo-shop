@@ -7,7 +7,7 @@ import { desktopBpPx } from '../../theme/breakpoints';
 const footer = css`
   display: grid;
   grid-area: footer;
-  grid-template-columns: 1fr;
+  grid-template-columns: [content] 1fr;
   color: var(--accents_3);
   background-color: var(--accents_2);
 

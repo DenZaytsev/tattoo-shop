@@ -15,7 +15,7 @@ import { NavBlock } from '../src/features/nav';
 import { CartBlock } from '../src/features/cart';
 import { NotificationsProvider } from '../src/features/notifications';
 import { useLozad } from '../lib/lozad-react';
-import { desktopBpPx } from '../src/theme/breakpoints';
+import { contentMaxWidth } from '../src/theme/breakpoints';
 
 export const globals = css`
   :global() {
@@ -43,7 +43,7 @@ export const globals = css`
     html {
       font-size: 14px;
 
-      @media (min-width: ${desktopBpPx}) {
+      @media (min-width: ${contentMaxWidth}px) {
         font-size: 16px;
       }
     }

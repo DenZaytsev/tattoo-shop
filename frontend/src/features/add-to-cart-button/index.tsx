@@ -1,9 +1,9 @@
 import React from 'react';
-import { Spinner } from '@geist-ui/react';
 import { Plus, Minus } from '@geist-ui/react-icons';
 import { css, cx } from 'linaria';
 
 import { formatRuMoney } from '../../../lib/format-ru-money';
+import { desktopBpPx } from '../../theme/breakpoints';
 
 interface AddToCartProps {
   onClick?: React.MouseEventHandler;
@@ -17,7 +17,7 @@ const addButton = css`
   align-items: center;
   width: max-content;
   height: max-content;
-  padding: 4px 12px;
+  padding: 0.25rem 0.75rem;
   color: var(--success);
   background-color: var(--accents_2);
   border: none;
@@ -26,7 +26,7 @@ const addButton = css`
   transition: color 0.25s ease-in, background-color 0.25s ease-in;
 
   & > *:not(:last-child) {
-    margin-right: 4px;
+    margin-right: 0.25rem;
   }
 
   & > *:hover {
@@ -56,10 +56,14 @@ const addButtonActive = css`
 
 const priceTag = css`
   display: inline-block;
-  font-size: 1.45rem !important;
+  font-size: 1.5rem !important;
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0.35px;
+
+  @media (min-width: ${desktopBpPx}) {
+    font-size: 1.6rem !important;
+  }
 `;
 
 const addIcon = css`

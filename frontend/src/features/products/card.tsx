@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Text } from '@geist-ui/react';
-import { css, cx } from 'linaria';
+import { css } from 'linaria';
 
 import type { AnyProduct } from '../../domain/products';
 import { ProductImage } from '../product-image';
@@ -22,7 +22,7 @@ const productCardContentLayout = css`
   flex-grow: 1;
   grid-template-columns: 1fr;
   grid-auto-rows: auto;
-  grid-gap: 16px;
+  grid-gap: 1rem;
 
   width: 100%;
 `;
@@ -102,7 +102,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               {title}
             </a>
           </Text>
-          {/* <CardDescription description={description} /> */}
           <Tags size={size} colour={colour} />
         </div>
       </Card.Content>
