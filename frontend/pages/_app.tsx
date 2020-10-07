@@ -3,6 +3,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { css } from 'linaria';
 import { CssBaseline } from '@geist-ui/react';
+import 'focus-visible';
 
 import { EffectorSSR } from '../src/ssr-provider';
 import { GeistProviderWithSwitch } from '../src/theme';
@@ -27,6 +28,14 @@ export const globals = css`
 
     a:hover {
       color: var(--alert);
+    }
+
+    .js-focus-visible :focus:not(.focus-visible) {
+      outline: none;
+    }
+
+    *:focus.focus-visible {
+      outline: var(--alert, blue) solid 2px;
     }
   }
 `;
