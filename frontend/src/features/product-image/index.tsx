@@ -22,12 +22,14 @@ interface ProductImageProps {
   src: string;
   aspectRatio?: number;
   className?: string;
+  alt?: string;
 }
 
 export const ProductImage: React.FC<ProductImageProps> = ({
   src,
   aspectRatio,
   className,
+  alt,
 }) => {
   return (
     <AspectRatioKeeper className={className} aspectRatio={aspectRatio}>
@@ -35,6 +37,7 @@ export const ProductImage: React.FC<ProductImageProps> = ({
         src={withStatic(src)}
         placeholder={cardPlaceHolder}
         className={productImage}
+        alt={alt}
       />
     </AspectRatioKeeper>
   );
@@ -89,6 +92,7 @@ export const ProductImageWithFullSize: React.FC<ProductImageProps> = ({
   src,
   aspectRatio,
   className,
+  alt,
 }) => {
   const [open, setOpen] = React.useState(false);
   const openModal = React.useCallback(() => setOpen(true), []);
@@ -101,6 +105,7 @@ export const ProductImageWithFullSize: React.FC<ProductImageProps> = ({
           src={withStatic(src)}
           placeholder={cardPlaceHolder}
           className={productImage}
+          alt={alt}
         />
       </AspectRatioKeeper>
       <div className={overlayContainer}>

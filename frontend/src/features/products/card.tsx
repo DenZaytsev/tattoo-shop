@@ -82,7 +82,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <Card className={productCard} shadow>
       <Card.Content className={productCardContentLayout}>
-        <ProductImage className={productCardImage} src={image} />
+        <ProductImage
+          className={productCardImage}
+          src={image}
+          alt={description}
+        />
         <div className={productContent}>
           <Text h3>
             <a
