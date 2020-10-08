@@ -111,7 +111,7 @@ const subIconActive = css`
   &::before {
     position: absolute;
     top: 0;
-    right: 75%;
+    right: 55%;
     bottom: 0;
     left: 0;
     z-index: 2;
