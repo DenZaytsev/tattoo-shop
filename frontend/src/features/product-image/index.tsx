@@ -66,15 +66,15 @@ const overlayContainer = css`
 `;
 
 const fullSizeButton = css`
-  width: 50%;
-  height: 50%;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
   background: none;
   border: none;
 
   & > svg {
-    width: 100%;
-    height: 100%;
+    width: 50%;
+    height: 50%;
     color: white;
     cursor: pointer;
   }
@@ -104,7 +104,12 @@ export const ProductImageWithFullSize: React.FC<ProductImageProps> = ({
         />
       </AspectRatioKeeper>
       <div className={overlayContainer}>
-        <button type="button" className={fullSizeButton} onClick={openModal}>
+        <button
+          aria-label="Открыть изображение товара целиком"
+          type="button"
+          className={fullSizeButton}
+          onClick={openModal}
+        >
           <Maximize />
         </button>
         <Modal open={open} onClose={closeModal}>
