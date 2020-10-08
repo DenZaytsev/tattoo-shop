@@ -35,7 +35,9 @@ export const ProductData: React.FC<ProductPageProps> = ({
   return (
     <div className={productPageLayout}>
       <Text h2>{title}</Text>
-      {image && <ProductImageWithFullSize aspectRatio={16 / 9} src={image} />}
+      {image && (
+        <ProductImageWithFullSize aspectRatio={16 / 9} src={image} alt="" />
+      )}
       <Description
         title="О товаре"
         content={
