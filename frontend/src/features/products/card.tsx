@@ -45,6 +45,7 @@ const productContent = css`
 `;
 
 const productLink = css`
+  font-size: 1.25rem;
   transition: color 0.15s ease-in;
 
   &:hover {
@@ -61,11 +62,6 @@ const productLink = css`
     display: block;
     content: ' ';
   }
-`;
-
-const productCardFooter = css`
-  display: flex;
-  flex-flow: row wrap;
 `;
 
 export const ProductCard: React.FC<ProductCardProps> = ({
@@ -103,11 +99,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             </a>
           </Text>
           <Tags size={size} colour={colour} />
+          <AddToCart onClick={() => {}} price={price} />
         </div>
       </Card.Content>
-      <Card.Footer className={productCardFooter}>
-        <AddToCart onClick={() => {}} price={price} />
-      </Card.Footer>
     </Card>
   );
 };

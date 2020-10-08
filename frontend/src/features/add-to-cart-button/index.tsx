@@ -86,6 +86,10 @@ const addIcon = css`
     display: inline-block;
     content: ' ';
   }
+
+  & > svg {
+    transform: scale(1.25);
+  }
 `;
 
 const subIcon = css`
@@ -99,6 +103,10 @@ const subIcon = css`
   background: none;
   border: none;
   transition: width 0.5s ease;
+
+  & > svg {
+    transform: scale(1.25);
+  }
 `;
 
 const subIconActive = css`
