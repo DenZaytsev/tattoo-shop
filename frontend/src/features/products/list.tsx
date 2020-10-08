@@ -5,7 +5,7 @@ import { useList } from 'effector-react/ssr';
 import type { Store } from 'effector';
 
 import type { AnyProduct } from '../../domain/products';
-import { contentMaxWidth, desktopBpPx } from '../../theme/breakpoints';
+import { desktopBpPx } from '../../theme/breakpoints';
 
 interface ProductListProps {
   productsStore: Store<any[]>;

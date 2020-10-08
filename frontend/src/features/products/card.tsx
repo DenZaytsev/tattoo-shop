@@ -7,7 +7,6 @@ import { ProductImage } from '../product-image';
 import { Tags } from '../product-tags';
 import { AddToCart } from '../add-to-cart-button';
 import { openProductPageFx } from '../../core/products';
-import { desktopBpPx } from '../../theme/breakpoints';
 
 type ProductCardProps = AnyProduct & { fullWidth: boolean };
 
