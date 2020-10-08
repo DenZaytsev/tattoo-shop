@@ -63,7 +63,8 @@ const overlayContainer = css`
   transition: opacity, 0.3s ease;
 
   &:hover,
-  &:focus {
+  &:focus,
+  &:focus-within {
     opacity: 0.6;
   }
 `;
