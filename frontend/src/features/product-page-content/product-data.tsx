@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, Description } from '@geist-ui/react';
 import { css } from 'linaria';
 
-import { ProductImage } from '../product-image';
+import { ProductImageWithFullSize } from '../product-image';
 import { Tags } from '../product-tags';
 import { AddToCart } from '../add-to-cart-button';
 import { beautify } from '../../../lib/beautify-ru-text';
@@ -35,7 +35,7 @@ export const ProductData: React.FC<ProductPageProps> = ({
   return (
     <div className={productPageLayout}>
       <Text h2>{title}</Text>
-      {image && <ProductImage aspectRatio={16 / 9} src={image} />}
+      {image && <ProductImageWithFullSize aspectRatio={16 / 9} src={image} />}
       <Description
         title="О товаре"
         content={
