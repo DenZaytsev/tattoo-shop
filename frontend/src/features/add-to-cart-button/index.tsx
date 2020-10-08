@@ -56,14 +56,10 @@ const addButtonActive = css`
 
 const priceTag = css`
   display: inline-block;
-  font-size: 1.5rem !important;
+  font-size: 1.65rem !important;
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0.35px;
-
-  @media (min-width: ${desktopBpPx}) {
-    font-size: 1.6rem !important;
-  }
 `;
 
 const addIcon = css`
