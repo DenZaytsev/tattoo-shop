@@ -29,10 +29,6 @@ const productCardContentLayout = css`
 
 const productCardImage = css`
   --aspect-ratio: 4 / 3;
-
-  @media (min-width: ${desktopBpPx}) {
-    --aspect-ratio: 4 / 3;
-  }
 `;
 
 const productContent = css`
