@@ -3,7 +3,7 @@ import { css, cx } from 'linaria';
 
 const progLoader = css`
   width: 100%;
-  height: 4px;
+  height: var(--line-size, 4px);
   position: relative;
   overflow: hidden;
   z-index: 0;

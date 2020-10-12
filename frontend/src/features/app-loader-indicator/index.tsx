@@ -10,6 +10,7 @@ const appLoaderIndicator = css`
   position: fixed;
   top: 0;
   z-index: 1002;
+  --line-size: 0.25rem;
 `;
 
 export const AppLoaderIndicator = () => {
