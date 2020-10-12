@@ -38,12 +38,12 @@ export class ShopApiService {
   }
 
   url(path: string): string {
-    return `${this.apiBase}${path}/`;
+    return `${this.apiBase}${path}`;
   }
 
   async getAllProducts() {
     const { data } = await makeReq({
-      url: this.url('products'),
+      url: this.url('products/'),
       method: Method.GET,
       responseType: 'json',
     });
@@ -53,9 +53,9 @@ export class ShopApiService {
     return allProducts;
   }
 
-  async getProduct({ category, slug }) {
+  async getProduct({ category, slug }: ProductData) {
     const { data } = await makeReq({
-      url: this.url(`products/${category}/${slug}`),
+      url: this.url(`products/${category}/${slug}/`),
       method: Method.GET,
       responseType: 'json',
     });
@@ -64,4 +64,57 @@ export class ShopApiService {
 
     return product;
   }
+
+  async getCart() {
+    const { data } = await makeReq({
+      url: this.url('cart/'),
+      method: Method.GET,
+      responseType: 'json',
+    });
+
+    return data;
+  }
+
+  async clearCart() {
+    const { data } = await makeReq({
+      url: this.url('cart/clear-cart/'),
+      method: Method.POST,
+    });
+
+    return data;
+  }
+
+  async removeFromCart({ category, slug }: ProductData) {
+    const { data } = await makeReq({
+      url: this.url(
+        `cart/remove-to-cart/?category_title=${category}&product_slug=${slug}`,
+      ),
+      method: Method.POST,
+    });
+
+    return data;
+  }
+
+  async addToCart({ quantity, update, category, slug }: AddToCart) {
+    const { data } = await makeReq({
+      url: this.url(
+        `cart/add-to-cart/?quantity=${quantity}&update=${update}&category_title=${category}&product_slug=${slug}`,
+      ),
+      method: Method.POST,
+    });
+
+    return data;
+  }
+}
+
+interface AddToCart {
+  category: string;
+  update: boolean;
+  quantity: number;
+  slug: string;
+}
+
+interface ProductData {
+  category: string;
+  slug: string;
 }
