@@ -95,7 +95,7 @@ export class ShopApiService {
     return data;
   }
 
-  async addToCart({ quantity, update, category, slug }: AddToCart) {
+  async addToCart({ quantity = 1, update = true, category, slug }: AddToCart) {
     const { data } = await makeReq({
       url: this.url(
         `cart/add-to-cart/?quantity=${quantity}&update=${update}&category_title=${category}&product_slug=${slug}`,
@@ -109,8 +109,8 @@ export class ShopApiService {
 
 interface AddToCart {
   category: string;
-  update: boolean;
-  quantity: number;
+  update?: boolean;
+  quantity?: number;
   slug: string;
 }
 
