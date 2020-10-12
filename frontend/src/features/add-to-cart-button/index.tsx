@@ -3,11 +3,12 @@ import { Plus, Minus } from '@geist-ui/react-icons';
 import { css, cx } from 'linaria';
 
 import { formatRuMoney } from '../../../lib/format-ru-money';
-import { desktopBpPx } from '../../theme/breakpoints';
+import { addToCartFx } from '../cart/model';
 
 interface AddToCartProps {
-  onClick?: React.MouseEventHandler;
   price: number | string;
+  category: string;
+  slug: string;
 }
 
 const addButton = css`
@@ -121,8 +122,9 @@ const subIconActive = css`
 `;
 
 export const AddToCart: React.FC<AddToCartProps> = ({
-  onClick = () => {},
   price,
+  category,
+  slug,
 }) => {
   const [count, setCount] = React.useState(0);
   const countBig = count > 0;
@@ -132,6 +134,11 @@ export const AddToCart: React.FC<AddToCartProps> = ({
   const priceStr = !countBig
     ? `${formatRuMoney(price)}`
     : `${formatRuMoney(price)} x ${count}`;
+
+  const addToCart = React.useCallback(() => {
+    addToCartFx({ category, slug });
+    add();
+  }, [category, slug]);
 
   return (
     <div className={cx(addButton, countBig && addButtonActive)}>
@@ -144,7 +151,7 @@ export const AddToCart: React.FC<AddToCartProps> = ({
         <Minus />
       </button>
       <span className={priceTag}>{priceStr}</span>
-      <button type="button" className={addIcon} onClick={add}>
+      <button type="button" className={addIcon} onClick={addToCart}>
         <Plus />
       </button>
     </div>

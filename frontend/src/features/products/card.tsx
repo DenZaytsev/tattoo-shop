@@ -98,7 +98,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             </a>
           </Text>
           <Tags size={size} colour={colour} />
-          <AddToCart onClick={() => {}} price={price} />
+          <AddToCart category={categoryTitle} slug={slug} price={price} />
         </div>
       </Card.Content>
     </Card>
