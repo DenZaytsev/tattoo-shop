@@ -25,7 +25,7 @@ class Cart:
            Добавить продукт в корзину или обновить его количество.
         """
         content_type = ContentType.objects.get_for_model(product)
-        ct_model_id, category_type = content_type.id, content_type.__name__.lower()
+        ct_model_id, category_type = content_type.id, content_type.model_class().__name__.lower()
         product_id, product_slug = product.id, product.slug
 
         if category_type not in self.cart:

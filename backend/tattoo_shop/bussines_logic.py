@@ -1,9 +1,10 @@
+import traceback
+
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
 from .models import TattooSketch, Category, TShirt, Sticker, Product
 from .serializers import TShirtDetailSerializer, StickerDetailSerializer, TShirtListSerializer, StickerListSerializer
 from typing import Dict, Any
-
 
 CT_MODEL_MODEL_CLASS = {
     'tshirt': TShirt,
@@ -90,6 +91,7 @@ def get_error_data(exception) -> Dict[str, str]:
     data = {
         'errorMessage': str(exception),
         'errorClass': str(exception.__class__),
+        'errorTrace': str(traceback.extract_tb(exception.__traceback__))
     }
     return data
 
