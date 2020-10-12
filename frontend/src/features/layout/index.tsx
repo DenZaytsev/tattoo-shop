@@ -16,7 +16,7 @@ const layout = css`
   min-height: 100vh;
 
   @media (min-width: ${desktopBp}px) {
-    --desktop-main-max-width: ${contentMaxWidth}px;
+    --desktop-main-max-width: ${contentMaxWidth / 16}rem;
     grid-template:
       'menu header  cart' minmax(auto, 90px)
       'menu content cart' 1fr
@@ -31,8 +31,8 @@ export const Layout: React.FC = ({ children }) => {
 
 const appContent = css`
   grid-area: content;
-  padding: 0 16px 32px;
-  --app-content-max-width: calc(var(--desktop-main-max-width) - 2 * 16px);
+  padding: 0 1rem 2rem;
+  --app-content-max-width: calc(var(--desktop-main-max-width) - 2rem);
 `;
 
 export const ContentWrapper: React.FC = ({ children }) => {

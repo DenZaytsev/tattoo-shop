@@ -14,7 +14,7 @@ interface ProductListProps {
 }
 
 const productsList = css`
-  --list-grid-gap: 16px;
+  --list-grid-gap: 1rem;
   --grid-item-min-width: 0;
   --grid-item-max-width: 100%;
   display: grid;
@@ -37,11 +37,11 @@ const productsList = css`
   }
 
   @media (min-width: 475px) {
-    --grid-item-max-width: calc(50% - 8px);
+    --grid-item-max-width: calc(50% - 0.5rem);
   }
 
   @media (min-width: ${desktopBpPx}) {
-    --grid-item-max-width: 276px;
+    --grid-item-max-width: ${276 / 16}rem;
   }
 `;
 

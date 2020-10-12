@@ -23,7 +23,7 @@ const navContainer = css`
 const navList = css`
   display: flex;
   flex-flow: column nowrap;
-  max-width: 250px;
+  max-width: ${250 / 16}rem;
 
   @media (min-width: ${desktopBpPx}) {
     padding-top: 90px;
