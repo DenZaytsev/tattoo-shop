@@ -27,7 +27,15 @@ export const globals = css`
       box-sizing: border-box;
     }
 
+    a {
+      color: var(--success);
+    }
+
     a:hover {
+      color: var(--alert);
+    }
+
+    a:focus {
       color: var(--alert);
     }
 

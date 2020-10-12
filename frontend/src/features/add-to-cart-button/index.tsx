@@ -137,6 +137,7 @@ export const AddToCart: React.FC<AddToCartProps> = ({
     <div className={cx(addButton, countBig && addButtonActive)}>
       <button
         type="button"
+        disabled={!countBig}
         className={cx(subIcon, countBig && subIconActive)}
         onClick={() => setCount((s) => (s === 0 ? 0 : s - 1))}
       >
