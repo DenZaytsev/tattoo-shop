@@ -15,7 +15,6 @@
   "dependencies": {
     "@geist-ui/react": "^2.0.1",
     "@geist-ui/react-icons": "^1.0.0",
-    "add": "^2.0.6",
     "axios": "^0.20.0",
     "effector": "21.5.0",
     "effector-react": "21.0.6",
@@ -26,11 +25,8 @@
     "next-seo": "^4.7.3",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "reakit": "^1.2.3",
-    "redaxios": "^0.3.0",
     "runtypes": "^5.0.1",
-    "use-media": "^1.4.0",
-    "yarn": "^1.22.5"
+    "use-media": "^1.4.0"
   },
   "devDependencies": {
     "@babel/runtime": "^7.11.2",
