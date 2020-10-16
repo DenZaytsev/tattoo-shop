@@ -5,7 +5,7 @@ import { useStore } from 'effector-react/ssr';
 import { Breadcrumbs } from '@geist-ui/react';
 
 import { ProductData } from './product-data';
-import { $currentProductPage } from '../../core/products';
+import { $currentProductPage } from '../../core/products/page';
 
 export const ProductPageContent = () => {
   const product = useStore($currentProductPage);

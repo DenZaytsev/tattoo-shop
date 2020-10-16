@@ -6,7 +6,7 @@ import type { AnyProduct } from '../../domain/products';
 import { ProductImage } from '../product-image';
 import { Tags } from '../product-tags';
 import { AddToCart } from '../add-to-cart-button';
-import { openProductPageFx } from '../../core/products';
+import { openProductPageFx } from '../../core/products/page';
 
 type ProductCardProps = AnyProduct & { fullWidth: boolean };
 

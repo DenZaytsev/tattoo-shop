@@ -4,7 +4,7 @@ import { serialize, fork, allSettled } from 'effector/fork';
 
 import { ProductPageContent } from '../../../src/features/product-page-content';
 import { root } from '../../../src/core/root';
-import { getProductFx } from '../../../src/core/products';
+import { getProductFx } from '../../../src/core/products/page';
 
 // There is a client route in other file that doubles this server-route /product/[category]/[slug], because Next.js
 // does not shallow client side routing without server prerendering for pages with getServerSideProps

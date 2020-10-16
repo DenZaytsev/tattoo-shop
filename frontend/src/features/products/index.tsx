@@ -2,7 +2,11 @@ import React from 'react';
 import { css } from 'linaria';
 import { useStore } from 'effector-react/ssr';
 
-import { $stickersList, $tshirtsList, $isEmpty } from '../../core/products';
+import {
+  $stickersList,
+  $tshirtsList,
+  $isEmpty,
+} from '../../core/products/list';
 import { ProductList } from './list';
 import { ProductCard } from './card';
 

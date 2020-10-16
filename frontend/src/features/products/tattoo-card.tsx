@@ -5,9 +5,9 @@ import { css } from 'linaria';
 
 import { AspectRatioKeeper } from '../../../lib/aspect-ratio-keeper';
 import { LazyImage } from '../../../lib/lozad-react';
-import type { TattooSketch } from '../../core/sketchs/types';
+import type { SketchType } from '../../domain/products';
 
-type SketchCardProps = TattooSketch;
+type SketchCardProps = SketchType;
 
 const sketchCard = css`
   position: relative;
@@ -60,7 +60,6 @@ const cardPlaceHolder =
 
 export const TattooSketchCard: React.FC<SketchCardProps> = ({
   title,
-  description,
   image,
   vacant,
   slug,
@@ -81,7 +80,6 @@ export const TattooSketchCard: React.FC<SketchCardProps> = ({
               <a className={sketchLink}>{title}</a>
             </Link>
           </Text>
-          <Text className={sketchDescription}>{description}</Text>
           <Text>{vacant ? 'вакантно' : 'занят'}</Text>
         </div>
       </Card.Content>

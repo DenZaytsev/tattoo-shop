@@ -29,14 +29,15 @@ export const ProductCategories = {
   TShirt: 'tshirt',
 } as const;
 
-export type TattooSketch = {
-  id: number;
-  title: string;
-  description?: string;
-  vacant?: boolean;
-  image?: string;
-  slug: string;
+const BaseSketch = {
+  id: Number,
+  title: String,
+  image: String.Or(Null),
+  slug: String,
 };
+
+export const Sketch = Record(BaseSketch);
+export type SketchType = Static<typeof Sketch>;
 
 const BaseProductStruct = {
   title: String,

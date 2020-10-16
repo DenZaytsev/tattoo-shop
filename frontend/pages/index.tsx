@@ -4,7 +4,7 @@ import { serialize, fork, allSettled } from 'effector/fork';
 
 import { Products } from '../src/features/products';
 import { root } from '../src/core/root';
-import { getAllProductsFx } from '../src/core/products';
+import { getAllProductsFx } from '../src/core/products/list';
 
 export const getServerSideProps = async () => {
   const scope = fork(root);
