@@ -16,7 +16,7 @@ const aboutLayout = css`
 
 export default function About() {
   return (
-    <div>
+    <>
       <NextSeo
         title="О Jeune Pokes"
         description="Jeune Pokes - поке тату, стикеы и футболки"
@@ -59,6 +59,6 @@ export default function About() {
           </Text>
         </Collapse>
       </div>
-    </div>
+    </>
   );
 }

@@ -20,13 +20,13 @@ export const getServerSideProps = async () => {
 
 export default function Home() {
   return (
-    <div>
+    <>
       <NextSeo
         title="Jeune Pokes"
         description="Jeune Pokes - тут можно выбрать себе клевый скетч и сделать с ним тату! А еще можно заказать клевую кастомную футболку или стикер!"
       />
 
       <Products />
-    </div>
+    </>
   );
 }
