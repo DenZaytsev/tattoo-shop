@@ -65,6 +65,16 @@ export class ShopApiService {
     return product;
   }
 
+  async getVacantSketches() {
+    const { data } = await makeReq({
+      url: this.url('sketch/vacant/'),
+      method: Method.GET,
+      responseType: 'json',
+    });
+
+    return data;
+  }
+
   async getCart() {
     const { data } = await makeReq({
       url: this.url('cart/'),
