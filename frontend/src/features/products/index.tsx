@@ -9,6 +9,7 @@ import {
 } from '../../core/products/list';
 import { ProductList } from './list';
 import { ProductCard } from './card';
+import { NoDataBlock } from '../no-data-block';
 
 const productsBlock = css`
   display: flex;
@@ -43,7 +44,9 @@ export const Products: React.FC = () => {
   const isNoProducts = useStore($isEmpty);
 
   if (isNoProducts) {
-    return null;
+    const noProductsText = 'Ничего не нашлось((\nПопробуйте еще раз попозже!';
+
+    return <NoDataBlock message={noProductsText} />;
   }
 
   return (
