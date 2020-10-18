@@ -24,7 +24,7 @@ export const globals = css`
     *,
     *:before,
     *:after {
-      box-sizing: border-box;
+      box-sizing: border-box !important;
     }
 
     a {
