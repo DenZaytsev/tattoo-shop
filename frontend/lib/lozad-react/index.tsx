@@ -43,18 +43,18 @@ interface PlaceholderProps {
 const noJsFallback = css`
   position: absolute;
   top: 0;
+  right: 0;
   bottom: 0;
   left: 0;
-  right: 0;
   object-fit: cover;
 `;
 
 export const Placeholder: React.FC<PlaceholderProps> = styled.div`
-  background: ${({ placeholder }) => placeholder};
+  position: relative;
   width: 100%;
   height: 100%;
-  position: relative;
   overflow: hidden;
+  background: ${({ placeholder }) => placeholder};
 `;
 
 export const LazyImage: React.FC<LazyImageProps> = ({
