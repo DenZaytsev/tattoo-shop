@@ -97,6 +97,7 @@ export const NavBlock: React.FC = () => {
 
   if (isBrowser() && isMobile) {
     return (
+      // @ts-expect-error
       <Modal open={isNavOpen && isMobile} onClose={closeNav}>
         <Navigation />
       </Modal>

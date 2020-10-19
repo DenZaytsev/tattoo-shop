@@ -79,4 +79,4 @@ export const AllProducts = Array(Category);
 
 export type AllProductsType = Static<typeof AllProducts>;
 
-export type AnyProduct = Partial<Static<typeof BaseProduct>>;
+export type AnyProduct = Partial<Static<typeof BaseProduct & typeof TShirt>>;

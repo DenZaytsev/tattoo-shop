@@ -74,6 +74,7 @@ export const Header = () => {
         type="button"
         className={cx(iconButton, menuButton)}
         aria-label="Меню и категории"
+        // @ts-expect-error
         onClick={toggleNav}
       >
         <Menu />
@@ -97,6 +98,7 @@ export const Header = () => {
         type="button"
         className={cx(iconButton, cartButton)}
         aria-label="Корзина товаров"
+        // @ts-expect-error
         onClick={toggleCart}
       >
         <ShoppingBag />

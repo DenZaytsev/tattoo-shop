@@ -61,7 +61,6 @@ const cardPlaceHolder =
 export const TattooSketchCard: React.FC<SketchCardProps> = ({
   title,
   image,
-  vacant,
   slug,
 }) => {
   return (
@@ -80,7 +79,6 @@ export const TattooSketchCard: React.FC<SketchCardProps> = ({
               <a className={sketchLink}>{title}</a>
             </Link>
           </Text>
-          <Text>{vacant ? 'вакантно' : 'занят'}</Text>
         </div>
       </Card.Content>
     </Card>

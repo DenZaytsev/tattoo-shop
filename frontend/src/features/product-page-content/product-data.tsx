@@ -28,6 +28,8 @@ export const ProductData: React.FC<ProductPageProps> = ({
   title,
   image,
   description,
+  categoryTitle,
+  slug,
   size,
   colour,
   price,
@@ -47,7 +49,7 @@ export const ProductData: React.FC<ProductPageProps> = ({
         }
       />
       <Tags size={size} colour={colour} />
-      <AddToCart price={price} />
+      <AddToCart category={categoryTitle} slug={slug} price={price} />
     </div>
   );
 };

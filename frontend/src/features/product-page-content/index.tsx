@@ -9,7 +9,7 @@ import { $currentProductPage } from '../../core/products/page';
 
 export const ProductPageContent = () => {
   const product = useStore($currentProductPage);
-  const { title, description } = product;
+  const { title, description } = product || {};
 
   return (
     <>

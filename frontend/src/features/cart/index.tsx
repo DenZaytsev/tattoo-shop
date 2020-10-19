@@ -30,6 +30,7 @@ export const CartBlock: React.FC = () => {
 
   if (isMobile) {
     return (
+      // @ts-expect-error
       <Modal open={isMenuOpen} onClose={closeCart}>
         <Cart />
       </Modal>

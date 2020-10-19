@@ -1,6 +1,9 @@
 import axios from 'axios';
+import type { AxiosRequestConfig } from 'axios';
 
 import { AllProducts, BaseProduct } from '../../domain/products';
+
+type Options = AxiosRequestConfig;
 
 export interface AxiosResponse<T = any> {
   data: T;
