@@ -1,26 +1,24 @@
 const withCSS = require('@zeit/next-css');
+const withBundleAnalyzer = require('@next/bundle-analyzer');
+const withLinaria = require('./lib/next-linaria');
 const GoogleFontsPlugin = require('@beyonk/google-fonts-webpack-plugin');
 
-module.exports = withCSS({
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.tsx$/,
-      use: [
-        {
-          loader: 'linaria/loader',
-          options: {
-            sourceMap: process.env.NODE_ENV !== 'production',
-          },
-        },
-      ],
-    });
+let nextConfig = withLinaria(
+  withCSS({
+    webpack(config) {
+      // config.plugins.push(
+      //   new GoogleFontsPlugin({
+      //     fonts: [{ family: 'Roboto', variants: ['300', '400', '700'] }],
+      //   }),
+      // );
 
-    config.plugins.push(
-      new GoogleFontsPlugin({
-        fonts: [{ family: 'Roboto', variants: ['300', '400', '700'] }],
-      }),
-    );
+      return config;
+    },
+  }),
+);
 
-    return config;
-  },
-});
+if (process.env.ANALYZE === 'true') {
+  nextConfig = withBundleAnalyzer(nextConfig);
+}
+
+module.exports = nextConfig;
