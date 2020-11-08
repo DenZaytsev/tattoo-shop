@@ -1,7 +1,7 @@
 Запускаем контейнер:
 ---
 ```bash
-docker-compose up -d
+. ./start_docker.sh 
 ```
 
 
