@@ -1,18 +1,15 @@
+from django.contrib.contenttypes.models import ContentType
+from django.http import JsonResponse
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework.generics import get_object_or_404, ListAPIView, CreateAPIView
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .bussines_logic import vacant_sketches, get_sketch, all_category, \
     MODEL_CLASS_LIST_SERIALIZER, all_product_data, get_error_data, MODEL_CLASS_DETAIL_SERIALIZER, get_model_or_404
-
-from rest_framework.generics import get_object_or_404, ListAPIView, CreateAPIView
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.pagination import PageNumberPagination
-from django.http import JsonResponse
-from .models import OrderItem
-from django.contrib.contenttypes.models import ContentType
-
 from .cart import Cart
-from .tasks import order_created
+from .models import OrderItem
 from .serializers import (
     TattooSketchDetailSerializer,
     CustomerDetailSerializer,
@@ -107,7 +104,7 @@ class CreateOrderView(BaseView):
                                          price=item['price'],
                                          quantity=item['quantity'])
             cart.clear()
-            order_created.delay(order.id)
+
             return Response(data='Заказ создан', status=200)
         return Response(status=400, data=serializer.error_messages)
 

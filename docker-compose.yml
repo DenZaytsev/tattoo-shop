@@ -1,27 +1,64 @@
 version: '3.7'
 services:
   web:
-    build: ./backend
-    command: python3 manage.py runserver 0.0.0.0:8000
+    build:
+      context: ./docker/python
+    command: >
+      sh -c "python3 manage.py makemigrations tattoo_shop
+      && python3 manage.py migrate
+      && python3 manage.py runserver 0.0.0.0:8000"
+
     volumes:
-      - ./backend/
+      - ./backend:/app/
+    restart: always
     ports:
-      - 8000:8000
+      - 8001:8000
     env_file:
-      - ./.env.dev
+      - .env
     depends_on:
       - db
   db:
     image: postgres
-    command:
-      - postgres
-      - -c
-      - max_connections=300
+    container_name: db_tattoo
     ports:
-      - 5432:5432
+      - 5431:5432
     environment:
-      POSTGRES_DB: tattoo-db
-      POSTGRES_USER: dev
-      POSTGRES_PASSWORD: dev
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+
+  redis_service:
+    image: 'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD
+      - REDIS_PASSWORD
+    container_name: redis_tattoo
+    restart: always
+
+  worker:
+    build:
+      context: ./docker/python
+    container_name: worker_tattoo
+    env_file:
+      - .env
+    user: nobody
+    depends_on:
+      - redis_service
+    command: celery -A backend.celery worker -l DEBUG
+    volumes:
+      - ./backend:/app/
+
+  beat:
+    build:
+      context: ./docker/python
+    env_file:
+      - .env
+    container_name: beat_tattoo
+    depends_on:
+      - redis_service
+      - worker
+    command: celery -A backend.celery beat --schedule=/tmp/celerybeat-schedule --loglevel=INFO --pidfile=/tmp/celerybeat.pid
+    volumes:
+      - ./app:/app/
 volumes:
   postgres_data:
