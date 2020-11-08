@@ -1,9 +1,10 @@
 from decimal import Decimal
+from typing import Any
+
 from django.conf import settings
-from typing import Union, Any
-from .models import TShirt, Sticker
 from django.contrib.contenttypes.models import ContentType
-from .bussines_logic import CT_MODEL_MODEL_CLASS
+
+from tattoo_shop.bussines_logic import CT_MODEL_MODEL_CLASS
 
 
 class Cart:

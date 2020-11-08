@@ -1,14 +1,14 @@
 from django.contrib.contenttypes.models import ContentType
-from django.http import JsonResponse
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.generics import get_object_or_404, ListAPIView, CreateAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
+from cart.cart import Cart
+from core.baseview import BaseView
+from core.service import get_model_or_404
 from .bussines_logic import vacant_sketches, get_sketch, all_category, \
-    MODEL_CLASS_LIST_SERIALIZER, all_product_data, get_error_data, MODEL_CLASS_DETAIL_SERIALIZER, get_model_or_404
-from .cart import Cart
+    MODEL_CLASS_LIST_SERIALIZER, all_product_data, MODEL_CLASS_DETAIL_SERIALIZER
 from .models import OrderItem
 from .serializers import (
     TattooSketchDetailSerializer,
@@ -16,31 +16,7 @@ from .serializers import (
     SketchListSerializer,
     CategorySerializer,
     OrderDetailSerializer,
-    CartAddProductSerializer,
-    CartRemoveSerializer
-
 )
-
-
-class BaseView(APIView):
-
-    def dispatch(self, request, *args, **kwargs):
-        try:
-            response = super().dispatch(request, *args, **kwargs)
-        except Exception as e:
-            return self._response(get_error_data(e), status=400)
-
-        if isinstance(response, (dict, list)):
-            return self._response(response)
-        else:
-            return response
-
-    @staticmethod
-    def _response(data, *, status=200):
-        return JsonResponse(
-            data=data,
-            status=status,
-        )
 
 
 class TattooSketchCreateView(BaseView, CreateAPIView):
@@ -89,12 +65,12 @@ class CreateOrderView(BaseView):
     http_method_names = ['post']
 
     @swagger_auto_schema(
-        query_serializer=serializer_class,
+        request_body=serializer_class,
         responses={'200': 'Заказ создан', '400': 'Serializer_error'}
     )
     def post(self, request):
         cart = Cart(request)
-        serializer = OrderDetailSerializer(data=request.POST)
+        serializer = OrderDetailSerializer(data=request.data)
         if serializer.is_valid():
             order = serializer.save()
             for item in cart:
@@ -128,79 +104,6 @@ class ProductsInCategoryListView(BaseView):
         queryset = model.objects.all()
         serializer = MODEL_CLASS_LIST_SERIALIZER[model]
         return Response(data=serializer(queryset, many=True).data, status=200)
-
-
-class CartDetailView(BaseView):
-    """Показывает содержимое корзины."""
-
-    def get(self, request):
-        cart = Cart(request)
-        data = cart.get_info()
-        return Response(data=data, status=200)
-
-
-class AddToCartView(BaseView):
-    """Добавление товара в корзину информация о котором содержится в пост запросе.
-        Корзина хронится в сессии request.session['cart']
-    """
-
-    serializer_class = CartAddProductSerializer
-
-    @swagger_auto_schema(
-        query_serializer=serializer_class,
-        responses={'200': 'ok', '400': 'Serializer_error'}
-    )
-    def post(self, request):
-        cart = Cart(request)
-        serializer = CartAddProductSerializer(data=request.POST)
-
-        if serializer.is_valid(raise_exception=True):
-            clean_data = serializer.data
-
-            model = get_model_or_404(clean_data['category_title'])
-            product = get_object_or_404(model, slug=clean_data['product_slug'])
-
-            cart.add_item(product=product,
-                          quantity=clean_data['quantity'],
-                          update_quantity=clean_data['update'])
-
-            return Response(status=200)
-        return Response(status=400, data=serializer.error_messages)
-
-
-class RemoveCartView(BaseView):
-    """Удаляет товар из корзины"""
-
-    serializer_class = CartRemoveSerializer
-
-    @swagger_auto_schema(
-        query_serializer=serializer_class,
-        responses={'200': 'ok', '400': 'Serializer_error'}
-    )
-    def post(self, request):
-        cart = Cart(request)
-        serializer = CartRemoveSerializer(data=request.POST)
-
-        if serializer.is_valid(raise_exception=True):
-            clean_data = serializer.data
-            model = get_model_or_404(clean_data['category_title'])
-            product = get_object_or_404(model, slug=clean_data['product_slug'])
-            cart.remove(product=product)
-
-            return Response(status=200)
-        return Response(status=400, data=serializer.error_messages)
-
-
-class ClearCartView(BaseView):
-    """Очищает содержимое корзины."""
-
-    @swagger_auto_schema(
-        responses={'200': 'Корзина очищена'}
-    )
-    def post(self, request):
-        cart = Cart(request)
-        cart.clear()
-        return Response(status=200, data='Корзина очищена')
 
 
 class ProductListView(BaseView):

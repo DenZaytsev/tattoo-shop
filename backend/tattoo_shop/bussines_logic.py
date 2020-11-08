@@ -1,10 +1,11 @@
 import traceback
+from typing import Dict, Any
 
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
+
 from .models import TattooSketch, Category, TShirt, Sticker, Product
 from .serializers import TShirtDetailSerializer, StickerDetailSerializer, TShirtListSerializer, StickerListSerializer
-from typing import Dict, Any
 
 CT_MODEL_MODEL_CLASS = {
     'tshirt': TShirt,
@@ -86,20 +87,3 @@ def all_product_data() -> list:
         products.append(data)
     return products
 
-
-def get_error_data(exception) -> Dict[str, str]:
-    data = {
-        'errorMessage': str(exception),
-        'errorClass': str(exception.__class__),
-        'errorTrace': str(traceback.extract_tb(exception.__traceback__))
-    }
-    return data
-
-
-def get_model_or_404(category_title: str) -> Any:
-    """Возвращает модель или кидает ошибку 404."""
-    try:
-        model = ContentType.objects.get(model=category_title).model_class()
-    except ContentType.DoesNotExist:
-        raise Http404("Category does not exist")
-    return model

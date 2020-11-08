@@ -9,7 +9,7 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('api/v1/tattoo_shop/', include('tattoo_shop.urls')),
-
+    path('api/v1/tattoo_shop/cart/', include('cart.urls')),
 ]
 
 urlpatterns += doc_urls

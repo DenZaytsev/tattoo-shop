@@ -30,6 +30,7 @@ INSTALLED_APPS = [
 
     'tattoo_school',
     'tattoo_shop',
+    'cart',
 ]
 
 REST_FRAMEWORK = {
